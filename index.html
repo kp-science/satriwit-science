@@ -5,14 +5,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา — ข่าวประชาสัมพันธ์ โครงการ และวารสาร">
-<meta property="og:title" content="สตรีวิทยาศาสตร์ · กลุ่มสาระวิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา">
+<meta property="og:title" content="สตรีวิทยาศาสตร์ SW SciTech · กลุ่มสาระวิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา">
 <meta property="og:description" content="ข่าวประชาสัมพันธ์ โครงการ และวารสารของกลุ่มสาระวิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา">
 <meta property="og:image" content="https://kp-science.github.io/satriwit-science/og.jpg">
 <meta property="og:url" content="https://kp-science.github.io/satriwit-science/">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='700'%3ES%3C/text%3E%3C/svg%3E">
 
-<title>สตรีวิทยาศาสตร์ · กลุ่มสาระวิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา</title>
+<title>สตรีวิทยาศาสตร์ SW SciTech · กลุ่มสาระวิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700;800&family=Prompt:wght@400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -584,6 +584,12 @@
   .cat svg{vertical-align:-1px}
   .admin-link{font-size:12px;opacity:.6;text-decoration:none}
   .admin-link:hover{opacity:1;text-decoration:underline}
+
+  /* ===== ชื่อภาษาอังกฤษ SW SciTech ===== */
+  .mast-en{font:600 clamp(13px,1.7vw,22px)/1 var(--label);letter-spacing:.55em;margin:-.2em 0 .9em;padding-left:.55em;background:var(--g-cool);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;animation:rise .9s var(--ease) .9s forwards}
+  .sticky b .en{font:600 12px var(--label);letter-spacing:.2em;color:var(--muted);margin-left:6px}
+  .foot-en{display:block;font:600 14px var(--label);letter-spacing:.45em;color:#9aa0a8;margin:-4px 0 10px}
+  @media (max-width:680px){.sticky b .en{display:none}.mast-en{letter-spacing:.4em}}
 </style>
 </head>
 <body>
@@ -591,7 +597,7 @@
 <!-- แถบนำทางลอย (โผล่เมื่อเลื่อนลง) -->
 <div class="sticky" id="sticky">
   <div class="wrap">
-    <b id="stickyMast">สตรีวิทยาศาสตร์</b>
+    <b><span id="stickyMast">สตรีวิทยาศาสตร์</span> <small class="en" id="stickyEn">SW SciTech</small></b>
     <nav>
       <a href="#teachers">สำหรับครู</a>
       <a href="#board">ประชาสัมพันธ์</a>
@@ -611,7 +617,7 @@
   </div>
 
   <!-- 1. แบนเนอร์ -->
-  <div class="mast"><h1 id="mast" aria-label="สตรีวิทยาศาสตร์"></h1></div>
+  <div class="mast"><h1 id="mast" aria-label="สตรีวิทยาศาสตร์"></h1><div class="mast-en" id="mastEn">SW SciTech</div></div>
   <div class="mast-row">
     <span class="sub">กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี · โรงเรียนสตรีวิทยา</span>
     <nav>
@@ -726,7 +732,7 @@
 
 <footer>
   <div class="wrap">
-    <div><b id="footMast">สตรีวิทยาศาสตร์</b><p>กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา</p></div>
+    <div><b id="footMast">สตรีวิทยาศาสตร์</b><span class="foot-en" id="footEn">SW SciTech</span><p>กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา</p></div>
     <div class="foot-r"><a class="fbbtn fb hide" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2.5V2.1L14.1 2C10.6 2 10 4.6 10 6.3v2.2H7.5V12H10v10h4V12h3l.5-3.5z"/></svg> ติดตามเพจกลุ่มสาระ</a><p><a href="#top">กลับด้านบน ↑</a></p><p><a class="admin-link hide" id="adminLink" target="_blank" rel="noopener">สำหรับผู้ดูแล</a></p></div>
   </div>
 </footer>
@@ -1022,6 +1028,10 @@ function renderBanner() {
   $('mast').setAttribute('aria-label', mast);
   $('mast').innerHTML = graphemes(mast).map((g, i) => `<span class="g" style="--i:${i}">${esc(g)}</span>`).join('');
   $('stickyMast').textContent = $('footMast').textContent = mast;
+  const en = s.mastheadEn != null && s.mastheadEn !== '' ? s.mastheadEn : 'SW SciTech';
+  $('mastEn').textContent = $('stickyEn').textContent = $('footEn').textContent = en;
+  ['mastEn', 'stickyEn', 'footEn'].forEach(id => $(id).classList.toggle('hide', !en));
+  document.title = `${mast}${en ? ' ' + en : ''} · กลุ่มสาระวิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา`;
   $('issue').textContent = s.issue || '';
   $('headline').innerHTML = richHeadline(s.headline || '');
   $('deck').textContent = s.deck || '';
@@ -1367,6 +1377,7 @@ function editBanner() {
     values: Object.assign({}, state.settings, { ticker: state.settings.ticker !== 'off' }),
     fields: [
       { name: 'masthead', label: 'ชื่อหัวนิตยสาร', required: true },
+      { name: 'mastheadEn', label: 'ชื่อภาษาอังกฤษ', def: 'SW SciTech', placeholder: 'SW SciTech' },
       { name: 'issue', label: 'ข้อความมุมซ้ายบน', placeholder: 'ปีการศึกษา 2569 · ภาคเรียนที่ 2' },
       { name: 'headline', label: 'หัวเรื่องจากปก', type: 'textarea', full: true, hint: 'ขึ้นบรรทัดใหม่ได้ · ใส่ *ดอกจัน* ครอบคำที่ต้องการเน้นสี' },
       { name: 'deck', label: 'ข้อความใต้หัวเรื่อง', type: 'textarea', full: true },
