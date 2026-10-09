@@ -755,7 +755,6 @@
 <script>window.PUBLIC_API = 'https://script.google.com/macros/s/AKfycbyrqfQLt_V9rwiTS70ka8baRuUa6HsUCjqF3TvZHimhCMuesOSXGrTKdrGnkUyJ2fWjzA/exec'; window.ADMIN_URL = 'https://script.google.com/a/macros/satriwit.ac.th/s/AKfycbzF2RA9Ptfpvwy8dVTVa-JzhcyYzA-JZnYeiG-x2Hcbge9dLEN2Kuj3sWdgB8sP-eeaFA/exec';</script>
 <script>
 // ห่อทั้งหมดไว้ในฟังก์ชัน กันชื่อตัวแปรชนกับสคริปต์ของ Apps Script
-window.__started = true;
 (function () {
 /* ===================== ค่าคงที่ ===================== */
 const TYPES = [
@@ -1602,12 +1601,9 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
 
 /* ===================== เริ่มต้น ===================== */
 api('apiInit').then(r => {
-  window.__loaded = true;
   Object.assign(state, { posts: r.posts, links: r.links, works: r.works || [], settings: r.settings, canEdit: r.canEdit, email: r.email, today: r.today });
   renderAll();
 }).catch(err => {
-  window.__loaded = true;
-  if (window.__showErr) window.__showErr('โหลดข้อมูลไม่ได้: ' + (err && (err.stack || err.message) || err));
   $('pr').innerHTML = `<div class="empty">โหลดข้อมูลไม่ได้: ${esc(err.message || err)}</div>`;
 });
 })();
