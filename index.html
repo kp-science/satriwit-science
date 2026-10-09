@@ -660,6 +660,36 @@
   .kgrid.wide .kc.t-inno{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr}
   .kgrid.wide .kc.t-inno .kc-cv{aspect-ratio:auto;min-height:100%;border-bottom:0;border-right:1px solid var(--ink)}
   .kdot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--b));flex:none;display:inline-block}
+  /* ---------- ประกาศถึงนักเรียน (บอร์ดรายการ) ---------- */
+  .nt-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;font:500 14px var(--label)}
+  .nt-bar button{border:1px solid var(--rule);background:#fff;padding:5px 14px;border-radius:99px;cursor:pointer;font:inherit}
+  .nt-bar button:hover{border-color:var(--ink)}
+  .nt-bar button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .nt-bar button i{font-style:normal;font-size:12px;opacity:.6;margin-left:4px}
+  .nt-list{border-top:2px solid var(--ink)}
+  .nt{display:grid;grid-template-columns:76px 1fr auto;gap:18px;align-items:start;padding:16px 4px 16px 0;border-bottom:1px solid var(--rule);position:relative}
+  .nt.urgent{background:linear-gradient(90deg,rgba(180,35,24,.06),transparent 60%)}
+  .nt.urgent::before{content:"";position:absolute;left:-12px;top:0;bottom:0;width:4px;background:var(--alert)}
+  .nt-d{text-align:center;border:1px solid var(--ink);background:#fff;line-height:1.1;padding:6px 0 7px}
+  .nt-d b{display:block;font:800 30px/1.05 var(--serif)}
+  .nt-d small{font:500 12px var(--label);color:var(--ink-2)}
+  .nt-b{min-width:0}
+  .nt-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font:600 12px var(--label);margin-bottom:4px}
+  .nt-tags span{padding:2px 8px;background:var(--paper-2);color:var(--ink-2)}
+  .nt-tags .lv{background:var(--ink);color:#fff}
+  .nt-tags .ug{background:var(--alert);color:#fff}
+  .nt-tags .nw{background:var(--g-cool);color:#fff}
+  .nt h3{font:700 20px/1.45 var(--serif);margin:0}
+  .nt p{margin:4px 0 0;color:var(--ink-2);font-size:15.5px;white-space:pre-line}
+  .nt-r{display:flex;flex-direction:column;align-items:flex-end;gap:8px;font:400 13px var(--label);color:var(--muted);text-align:right;white-space:nowrap}
+  .nt-more{margin-top:18px}
+  #notices.nt-empty{display:none}
+  @media (max-width:680px){
+    .nt{grid-template-columns:58px 1fr;gap:12px}
+    .nt-d b{font-size:24px}
+    .nt-r{grid-column:2;flex-direction:row;align-items:center;justify-content:space-between;text-align:left}
+    .nt h3{font-size:18px}
+  }
   /* หัวข้อคลังความรู้บนหน้าแรก */
   .kn-types{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
   .kn-ty{display:flex;gap:14px;align-items:center;padding:16px 18px;border:1px solid var(--ink);background:var(--card);text-decoration:none;position:relative;overflow:hidden;isolation:isolate;transition:color .4s}
@@ -688,6 +718,7 @@
     <b class="st-brand"><img src="https://kp-science.github.io/satriwit-science/img/sw-mark-64.png" alt="SW" class="st-mark"><span id="stickyMast">สตรีวิทยาศาสตร์</span> <small class="en" id="stickyEn">SW SciTech</small></b>
     <nav>
       <a href="#teachers">สำหรับครู</a>
+      <a href="#notices">ประกาศ</a>
       <a href="#board">ประชาสัมพันธ์</a>
       <a href="#knowledge">คลังความรู้</a>
       <a href="#archive">รายการทั้งหมด</a>
@@ -711,6 +742,7 @@
     <span class="sub">กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี · โรงเรียนสตรีวิทยา</span>
     <nav>
       <a href="#teachers">สำหรับครู</a>
+      <a href="#notices">ประกาศ</a>
       <a href="#board">ประชาสัมพันธ์</a>
       <a href="#knowledge">คลังความรู้</a>
       <a href="#archive">รายการทั้งหมด</a>
@@ -755,11 +787,25 @@
   </div>
 </section>
 
+<!-- 2. ประกาศถึงนักเรียน -->
+<section id="notices">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="num">02</span>
+      <div><h2>ประกาศถึงนักเรียน</h2><p>งดเรียน เปลี่ยนห้อง ส่งงาน นัดสอบ — เลือกชั้นของตัวเองเพื่อดูเฉพาะที่เกี่ยวข้อง</p></div>
+      <span class="act" id="ntAct"></span>
+    </div>
+    <div class="nt-bar" id="ntBar"></div>
+    <div class="nt-list" id="ntList"></div>
+    <button type="button" class="btn sm nt-more hide" id="ntMore">ดูประกาศทั้งหมด</button>
+  </div>
+</section>
+
 <!-- 3. กรอบประชาสัมพันธ์ -->
 <section id="board">
   <div class="wrap">
     <div class="sec-h rv">
-      <span class="num">02</span>
+      <span class="num">03</span>
       <div><h2>ประชาสัมพันธ์</h2><p>เรื่องที่กำลังประกาศอยู่ตอนนี้</p></div>
       <span class="act" id="boardAct"></span>
     </div>
@@ -776,7 +822,7 @@
 <section id="knowledge">
   <div class="wrap">
     <div class="sec-h rv">
-      <span class="num">03</span>
+      <span class="num">04</span>
       <div><h2>คลังความรู้</h2><p>บทความ ใบความรู้ นวัตกรรม และคอร์สออนไลน์จากครูของเรา — เรียนได้ทุกที่ ฟรี</p></div>
       <span class="act" id="knAct"></span>
     </div>
@@ -790,7 +836,7 @@
 <section id="archive">
   <div class="wrap">
     <div class="sec-h rv">
-      <span class="num">04</span>
+      <span class="num">05</span>
       <div><h2>รายการประชาสัมพันธ์ทั้งหมด</h2><p>ค้นหาและย้อนดูประกาศที่ผ่านมา</p></div>
       <span class="act"></span>
     </div>
@@ -814,7 +860,7 @@
 <section id="projects">
   <div class="wrap">
     <div class="sec-h rv">
-      <span class="num">05</span>
+      <span class="num">06</span>
       <div><h2>โครงการ</h2><p>โครงการและกิจกรรมเด่นของกลุ่มสาระ</p></div>
       <span class="act" id="projAct"></span>
     </div>
@@ -826,7 +872,7 @@
 <section id="journals">
   <div class="wrap">
     <div class="sec-h rv">
-      <span class="num">06</span>
+      <span class="num">07</span>
       <div><h2>วารสาร</h2><p>วารสารและผลงานตีพิมพ์ของกลุ่มสาระ</p></div>
       <span class="act" id="jourAct"></span>
     </div>
@@ -1665,6 +1711,42 @@ function editWork(w, cat) {
   });
 }
 
+/* ===================== 02 ประกาศถึงนักเรียน ===================== */
+const NT_PAGE = 8;
+const nt = { level: '', all: false };
+try { nt.level = localStorage.getItem('sw_nt_level') || ''; } catch (e) { /* ข้าม */ }
+function renderNotices() {
+  const L = (state.notices || []).filter(n => visible(n) && n.from <= state.today && n.until >= state.today);
+  $('notices').classList.toggle('nt-empty', !L.length && !admin());
+  const lv = ['ม.1', 'ม.2', 'ม.3', 'ม.4', 'ม.5', 'ม.6'];
+  const cnt = l => L.filter(n => levelMatch(l, n.level) && n.level !== 'ครู').length;
+  $('ntBar').innerHTML = `<button type="button" data-ntl="" class="${nt.level ? '' : 'on'}">ทุกชั้น<i>${L.length}</i></button>`
+    + lv.map(l => `<button type="button" data-ntl="${l}" class="${nt.level === l ? 'on' : ''}">${l}<i>${cnt(l)}</i></button>`).join('');
+  const list = L.filter(n => levelMatch(nt.level, n.level))
+    .sort((a, b) => (b.urgent === 'TRUE') - (a.urgent === 'TRUE') || b.from.localeCompare(a.from) || Number(b.created) - Number(a.created));
+  const shown = nt.all ? list : list.slice(0, NT_PAGE);
+  $('ntList').innerHTML = shown.map(n => {
+    const d = parseD(n.from), isNew = daysBetween(n.from, state.today) <= 1, url = safeUrl(n.url);
+    return `<article class="nt${n.urgent === 'TRUE' ? ' urgent' : ''}${isHidden(n) ? ' is-hidden' : ''}">
+      <div class="nt-d"><b>${d.getDate()}</b><small>${d.toLocaleDateString('th-TH', { month: 'short' })}</small></div>
+      <div class="nt-b">
+        <div class="nt-tags">${n.urgent === 'TRUE' ? '<span class="ug">ด่วน</span>' : ''}${isNew ? '<span class="nw">ใหม่</span>' : ''}<span class="lv">${esc(n.room || n.level)}</span><span>${esc(n.cat)}</span>${hiddenTag(n)}</div>
+        <h3>${esc(n.title)}</h3>${n.text ? `<p>${esc(n.text)}</p>` : ''}
+      </div>
+      <div class="nt-r"><span>${esc(n.author || '')}${n.until ? `<br>ถึง ${fmtD(n.until)}` : ''}</span>${url ? `<a class="btn sm" href="${esc(url)}" target="_blank" rel="noopener">เปิดลิงก์ ${ICON.arrow}</a>` : ''}</div>
+    </article>`;
+  }).join('') || `<div class="empty">${nt.level ? 'ไม่มีประกาศสำหรับ ' + esc(nt.level) + ' ตอนนี้' : 'ยังไม่มีประกาศ'}</div>`;
+  $('ntMore').classList.toggle('hide', nt.all || list.length <= NT_PAGE);
+  $('ntMore').textContent = `ดูประกาศทั้งหมด (${list.length})`;
+}
+$('ntBar').addEventListener('click', e => {
+  const b = e.target.closest('[data-ntl]'); if (!b) return;
+  nt.level = b.dataset.ntl; nt.all = false;
+  try { localStorage.setItem('sw_nt_level', nt.level); } catch (err) { /* ข้าม */ }
+  renderNotices();
+});
+$('ntMore').addEventListener('click', () => { nt.all = true; renderNotices(); });
+
 /* ===================== 03 คลังความรู้ (ตัวอย่างล่าสุด → หน้าคลังความรู้เต็ม) ===================== */
 const K_TYPES = [
   { name: 'ความรู้', key: 'read', go: 'อ่านต่อ', desc: 'บทความอ่านสั้น' },
@@ -1726,7 +1808,7 @@ function renderKnowledge() {
 }
 
 /* ===================== ซ่อน/แสดงทั้งหัวข้อ ===================== */
-const SECTION_IDS = ['teachers', 'board', 'knowledge', 'archive', 'projects', 'journals'];
+const SECTION_IDS = ['teachers', 'notices', 'board', 'knowledge', 'archive', 'projects', 'journals'];
 // ถ้ายังไม่เคยตั้งค่า หัวข้อ 03 (archive) จะซ่อนไว้เป็นค่าเริ่มต้น
 const hiddenSections = () => String(state.settings.hideSections != null ? state.settings.hideSections : 'archive').split(',').map(x => x.trim()).filter(Boolean);
 function renderSections() {
@@ -1742,6 +1824,7 @@ function renderSections() {
   });
   // คลังความรู้ยังว่าง → ซ่อนลิงก์ในเมนูด้วย
   if (!(state.knowledge || []).length && !admin()) document.querySelectorAll('a[href="#knowledge"]').forEach(a => a.classList.add('hide'));
+  if ($('notices').classList.contains('nt-empty')) document.querySelectorAll('a[href="#notices"]').forEach(a => a.classList.add('hide'));
 }
 document.addEventListener('click', async e => {
   const b = e.target.closest('.sec-eye'); if (!b) return;
@@ -1775,7 +1858,7 @@ function renderAll() {
   if (state.f.status === 'soon' && !admin()) state.f.status = 'all';
   $('projAct').innerHTML = admin() ? '<button class="btn sm solid" data-add-work="โครงการ">+ เพิ่มโครงการ</button>' : '';
   $('jourAct').innerHTML = admin() ? '<button class="btn sm solid" data-add-work="วารสาร">+ เพิ่มวารสาร</button>' : '';
-  renderBanner(); renderTeachers(); renderPosts(); renderKnowledge(); renderWorks(); renderSections();
+  renderBanner(); renderTeachers(); renderNotices(); renderPosts(); renderKnowledge(); renderWorks(); renderSections();
   if (window.ADMIN_URL && !state.canEdit) { $('adminLink').href = window.ADMIN_URL; $('adminLink').classList.remove('hide'); }
 }
 
@@ -1822,7 +1905,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
 const DATA_KEY = 'swst_data_v1';
 let shown = '';
 function apply(r) {
-  Object.assign(state, { posts: r.posts, links: r.links, works: r.works || [], knowledge: r.knowledge || [], settings: r.settings, canEdit: r.canEdit, email: r.email, today: r.today });
+  Object.assign(state, { posts: r.posts, links: r.links, works: r.works || [], knowledge: r.knowledge || [], notices: r.notices || [], settings: r.settings, canEdit: r.canEdit, email: r.email, today: r.today });
   renderAll();
 }
 if (window.PUBLIC_API) {
