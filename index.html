@@ -691,7 +691,7 @@
     .nt h3{font-size:18px}
   }
   /* หัวข้อคลังความรู้บนหน้าแรก */
-  .kn-types{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
+  .kn-types{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
   .kn-ty{display:flex;gap:14px;align-items:center;padding:16px 18px;border:1px solid var(--ink);background:var(--card);text-decoration:none;position:relative;overflow:hidden;isolation:isolate;transition:color .4s}
   .kn-ty::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .5s cubic-bezier(.7,0,.2,1);z-index:-1}
   .kn-ty:hover{color:#fff}.kn-ty:hover::before{transform:none}
@@ -706,7 +706,7 @@
   .kn-foot p{margin:0;color:var(--ink-2);font-size:15px}
   #knowledge.kn-empty{display:none}
   #knowledge .kc-art svg{width:84px;height:84px}
-  @media (max-width:980px){.kn-types{grid-template-columns:1fr 1fr}}
+  @media (max-width:760px){.kn-types{grid-template-columns:1fr}}
   @media (max-width:520px){.kn-ty{padding:12px}.kn-ty .ic{width:38px;height:38px}.kn-ty .n{font-size:26px}}
 </style>
 </head>
@@ -823,7 +823,7 @@
   <div class="wrap">
     <div class="sec-h rv">
       <span class="num">04</span>
-      <div><h2>คลังความรู้</h2><p>บทความ ใบความรู้ นวัตกรรม และคอร์สออนไลน์จากครูของเรา — เรียนได้ทุกที่ ฟรี</p></div>
+      <div><h2>คลังความรู้</h2><p>บทความ ใบความรู้ และนวัตกรรมจากครูของเรา — เรียนได้ทุกที่ ฟรี</p></div>
       <span class="act" id="knAct"></span>
     </div>
     <div class="kn-types" id="knTypes"></div>
@@ -1752,7 +1752,6 @@ const K_TYPES = [
   { name: 'ความรู้', key: 'read', go: 'อ่านต่อ', desc: 'บทความอ่านสั้น' },
   { name: 'ใบความรู้', key: 'sheet', go: 'เปิดใบความรู้', desc: 'PDF อ่าน/ดาวน์โหลด' },
   { name: 'นวัตกรรม', key: 'inno', go: 'ดูนวัตกรรม', desc: 'สื่อ · วิธีสอน · ซิมูเลชัน' },
-  { name: 'คอร์สออนไลน์', key: 'course', go: 'เข้าเรียน', desc: 'เรียนเป็นบท ตามจังหวะตัวเอง' },
 ];
 // สีของแต่ละสาขา (ตรงกับภาพปก 5 สาขาของหน้าแรก)
 const SUBJ = {
@@ -1784,7 +1783,7 @@ function card(k, i) {
   const cover = k.image ? `<img data-img="${esc(k.image)}" alt="">`
     : t.key === 'sheet' ? `<div class="paper"><b>${esc(k.title)}</b><i></i><i></i><i></i><i></i><i></i><i></i></div>`
     : `<div class="kc-art"><em>${esc(en)}</em>${K_ICON[t.key].replace('width="20" height="20"', '')}</div>`;
-  const meta = [k.author, k.type === 'คอร์สออนไลน์' && k.lessons ? k.lessons + ' บทเรียน' : '', k.date ? fmtDate(k.date) : ''].filter(Boolean).map(esc).join(' · ');
+  const meta = [k.author, k.date ? fmtDate(k.date) : ''].filter(Boolean).map(esc).join(' · ');
   return `<a class="kc t-${t.key} rv" style="--a:${a};--b:${b};--d:${Math.min(i || 0, 6) * .06}s" href="${knBase()}#/k/${encodeURIComponent(k.id)}">
     <div class="kc-cv">${cover}<span class="kc-type">${K_ICON[t.key]}${esc(k.type)}</span>${k.level && k.level !== 'ทุกระดับ' ? `<span class="kc-lv">${esc(k.level)}</span>` : ''}</div>
     <div class="kc-bd">
