@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<base target="_top">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา — ข่าวประชาสัมพันธ์ โครงการ และวารสาร">
+<meta property="og:title" content="สตรีวิทยาศาสตร์ · กลุ่มสาระวิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา">
+<meta property="og:description" content="ข่าวประชาสัมพันธ์ โครงการ และวารสารของกลุ่มสาระวิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา">
+<meta property="og:image" content="https://kp-science.github.io/satriwit-science/og.jpg">
+<meta property="og:url" content="https://kp-science.github.io/satriwit-science/">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='700'%3ES%3C/text%3E%3C/svg%3E">
+
+<title>สตรีวิทยาศาสตร์ · กลุ่มสาระวิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700;800&family=Prompt:wght@400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ffffff; --paper-2:#f0f1f3; --card:#ffffff;
+    --ink:#1f2328; --ink-2:#4b5159; --muted:#8a9099; --rule:#d9dce1;
+    --teal:#3d434b; --teal-2:#5b6470; --amber:#b8bdc4; --red:#5b6470; --alert:#b42318;
+    --silver:linear-gradient(100deg,#5a5f67 0%,#b3b8bf 22%,#757b83 40%,#d9dce0 55%,#858b93 72%,#50555c 100%);
+    --serif:'Noto Serif Thai',Georgia,serif; --label:'Prompt',system-ui,sans-serif;
+    --ease:cubic-bezier(.2,.8,.2,1); --ease-io:cubic-bezier(.7,0,.2,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Sarabun',system-ui,sans-serif;font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  button{font:inherit;color:inherit}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  .hide{display:none!important}
+  .is-hidden,.rv.in.is-hidden{opacity:.5}
+  .is-hidden:hover,.rv.in.is-hidden:hover{opacity:.85}
+  .hid-tag{align-self:flex-start;display:inline-block;font:600 11px var(--label);letter-spacing:.06em;background:#1f2328;color:#fff;padding:2px 8px;margin-left:8px;vertical-align:middle}
+  .lk .hid-tag{position:absolute;left:22px;top:-1px;margin:0}
+  ::selection{background:var(--amber);color:var(--ink)}
+
+  /* ---------- หัวนิตยสาร ---------- */
+  .topline{display:flex;justify-content:space-between;align-items:center;gap:12px;font:500 13px var(--label);letter-spacing:.06em;padding:12px 0;border-bottom:1px solid var(--ink);color:var(--ink-2)}
+  .topline .tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+  .mast{text-align:center;padding:10px 0 0}
+  .mast h1{font-family:var(--serif);font-weight:800;font-size:clamp(44px,10.5vw,150px);line-height:1.2;letter-spacing:-.02em;margin:0;padding-top:.05em}
+  .mast h1 .g{display:inline-block;opacity:0;transform:translateY(40%);animation:rise .9s var(--ease) forwards;animation-delay:calc(var(--i) * 55ms + 80ms)}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .mast-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid var(--ink);border-bottom:4px double var(--ink);padding:10px 0;font:500 14px var(--label)}
+  .mast-row nav{display:flex;gap:22px}
+  .mast-row nav a,.sticky nav a{text-decoration:none;position:relative}
+  .mast-row nav a::after,.sticky nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:var(--red);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+  .mast-row nav a:hover::after,.sticky nav a:hover::after{transform:scaleX(1);transform-origin:left}
+
+  .sticky{position:fixed;top:0;left:0;right:0;z-index:40;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ink);transform:translateY(-100%);transition:transform .4s var(--ease)}
+  .sticky.show{transform:none}
+  .sticky .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+  .sticky b{font:800 24px var(--serif)}
+  .sticky nav{display:flex;gap:20px;font:500 14px var(--label)}
+  .progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--red);transform-origin:0 50%;transform:scaleX(0)}
+
+  /* ---------- เรื่องจากปก ---------- */
+  .cover{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;padding:48px 0 40px;align-items:center}
+  .kicker{font:600 13px var(--label);letter-spacing:.14em;color:var(--red);display:flex;align-items:center;gap:12px}
+  .kicker::before{content:"";width:36px;height:2px;background:currentColor}
+  .headline{font-family:var(--serif);font-weight:800;font-size:clamp(40px,5.6vw,80px);line-height:1.18;margin:16px 0 22px;white-space:pre-line;letter-spacing:-.01em}
+  .headline em{font-style:normal;color:var(--teal-2);background:linear-gradient(transparent 64%,rgba(184,189,196,.55) 64%) no-repeat;}
+  @keyframes mark{to{background-size:100% 100%}}
+  .deck{font-size:clamp(17px,1.5vw,20px);color:var(--ink-2);max-width:540px;margin:0 0 28px}
+  .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;font:500 15px var(--label);padding:12px 22px;border:1.5px solid var(--ink);background:transparent;text-decoration:none;cursor:pointer;position:relative;overflow:hidden;transition:color .35s;border-radius:0;z-index:0}
+  .btn::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .4s var(--ease-io);z-index:-1}
+  .btn:hover{color:var(--paper)}
+  .btn:hover::before{transform:none}
+  .btn.solid{background:var(--ink);color:var(--paper)}
+  .btn.solid::before{background:var(--red)}
+  .btn.sm{padding:6px 12px;font-size:13px;border-width:1px}
+  .btn:disabled{opacity:.6;cursor:wait}
+
+  .fig{margin:0;position:relative}
+  .frame{position:relative;aspect-ratio:4/4.6;overflow:hidden;clip-path:polygon(9% 0,100% 0,100% 100%,0 100%);background:var(--teal)}
+  .frame::after{content:"";position:absolute;inset:0;background:var(--paper);transform-origin:100% 50%;animation:curtain 1.3s var(--ease-io) .45s forwards}
+  @keyframes curtain{to{transform:scaleX(0)}}
+  .frame img,.frame svg{position:absolute;left:0;top:-6%;width:100%;height:112%;object-fit:cover;display:block;will-change:transform}
+  .frame img{opacity:0;transition:opacity .5s}
+  .frame img.ok{opacity:1}
+  .fig figcaption{display:flex;gap:10px;font:400 13px var(--label);color:var(--ink-2);margin-top:10px;padding-left:9%}
+  .fig figcaption b{color:var(--red);font-weight:600}
+  .vlabel{position:absolute;right:-30px;top:0;writing-mode:vertical-rl;font:600 12px var(--label);letter-spacing:.3em;color:var(--muted)}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .stat{padding:18px 22px 22px;border-right:1px solid var(--rule)}
+  .stat:last-child{border-right:0}
+  .stat small{font:500 12px var(--label);color:var(--muted);letter-spacing:.1em}
+  .stat b{display:block;font:800 clamp(40px,5vw,66px)/1.15 var(--serif);margin-top:4px}
+  .stat span{color:var(--ink-2);font-size:15px}
+
+  .ticker{display:flex;align-items:stretch;background:var(--ink);color:var(--paper);margin-top:28px;overflow:hidden}
+  .ticker .lab{flex:none;background:var(--amber);color:var(--ink);font:600 13px var(--label);letter-spacing:.08em;padding:10px 16px;display:flex;align-items:center;gap:8px;z-index:1}
+  .ticker .lab i{width:8px;height:8px;border-radius:50%;background:var(--red);animation:blink 1.2s infinite}
+  @keyframes blink{50%{opacity:.2}}
+  .ticker .run{flex:1;overflow:hidden;display:flex;align-items:center;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+  .ticker .track{display:flex;width:max-content;animation:marq var(--dur,40s) linear infinite}
+  .ticker:hover .track{animation-play-state:paused}
+  .ticker .track a{white-space:nowrap;padding:0 28px;font-size:15px;text-decoration:none;cursor:pointer}
+  .ticker .track a::after{content:"✦";color:var(--amber);margin-left:56px}
+  @keyframes marq{to{transform:translateX(-50%)}}
+
+  /* ---------- หัวข้อแต่ละส่วน ---------- */
+  section{padding:72px 0 24px;scroll-margin-top:56px}
+  .sec-h{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:end;border-top:4px double var(--ink);padding-top:18px;margin-bottom:30px}
+  .sec-h .num{font:800 clamp(56px,8vw,112px)/.95 var(--serif);color:transparent;-webkit-text-stroke:1.4px var(--ink)}
+  .sec-h h2{font:800 clamp(28px,3.6vw,46px)/1.2 var(--serif);margin:0}
+  .sec-h p{margin:4px 0 0;color:var(--ink-2)}
+
+  /* ---------- 02 สำหรับครู ---------- */
+  .tabs{display:flex;gap:30px;border-bottom:1px solid var(--rule);margin-bottom:24px;overflow-x:auto}
+  .tab{background:none;border:0;cursor:pointer;font:600 16px var(--label);padding:10px 0;position:relative;color:var(--muted);white-space:nowrap;transition:color .25s}
+  .tab sup{font-size:11px;margin-left:3px;color:var(--red)}
+  .tab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--ink);transform:scaleX(0);transition:transform .35s var(--ease)}
+  .tab:hover,.tab.on{color:var(--ink)}
+  .tab.on::after{transform:scaleX(1)}
+  .links{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+  .lk{position:relative;display:flex;flex-direction:column;gap:6px;padding:20px 22px 22px;border:1px solid var(--ink);background:var(--card);text-decoration:none;overflow:hidden;min-height:170px;isolation:isolate;transition:color .4s;text-align:left}
+  .lk::before{content:"";position:absolute;inset:0;background:var(--teal);transform:translateY(101%);transition:transform .5s var(--ease-io);z-index:-1}
+  a.lk:hover{color:var(--paper)}
+  a.lk:hover::before{transform:none}
+  .lk .i{font:500 12px var(--label);letter-spacing:.12em;color:var(--muted);transition:color .4s}
+  a.lk:hover .i{color:var(--amber)}
+  .lk h3{font:700 22px/1.35 var(--serif);margin:0}
+  .lk p{margin:0;font-size:15px;opacity:.78}
+  .lk .arr{margin-top:auto;font:500 14px var(--label);display:flex;align-items:center;gap:8px}
+  .lk .arr svg{transition:transform .35s var(--ease)}
+  a.lk:hover .arr svg{transform:translate(4px,-4px)}
+  .lk:has(.edit) h3{padding-right:36px}
+  .lk.nolink{background:transparent;border-style:dashed}
+  .lk.add{border-style:dashed;background:transparent;align-items:center;justify-content:center;cursor:pointer;color:var(--ink-2);font:500 15px var(--label)}
+  .lk.add:hover{background:var(--card)}
+  .empty{color:var(--muted);padding:28px;text-align:center;border:1px dashed var(--rule);grid-column:1/-1}
+
+  /* ---------- 03 ประชาสัมพันธ์ ---------- */
+  .pr{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}
+  .pc{grid-column:span 4;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--ink);border-top:6px solid var(--c);cursor:pointer;position:relative;transition:opacity .9s var(--ease),transform .45s var(--ease),box-shadow .45s var(--ease)}
+  .pc.in:hover{transform:translateY(-6px);box-shadow:8px 8px 0 var(--ink)}
+  .pc.lead{grid-column:span 8;grid-row:span 2}
+  .pc .img{aspect-ratio:16/10;overflow:hidden;background:var(--paper-2);border-bottom:1px solid var(--ink);position:relative}
+  .pc.lead .img{aspect-ratio:auto;flex:1;min-height:280px}
+  .pc .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s,transform 1s var(--ease)}
+  .pc .img img.ok{opacity:1}
+  .pc:hover .img img{transform:scale(1.05)}
+  .art{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--c);
+    background:radial-gradient(circle at 18% 22%,var(--c) 0 2.5px,transparent 3.5px) 0 0/46px 46px,var(--paper-2)}
+  .art::before{content:"";position:absolute;width:70%;aspect-ratio:1;border-radius:50%;border:1.5px solid var(--c);opacity:.35;transition:transform 1.2s var(--ease)}
+  .art::after{content:"";position:absolute;width:46%;aspect-ratio:1;border-radius:50%;border:1.5px dashed var(--c);opacity:.35;transition:transform 1.2s var(--ease)}
+  .pc:hover .art::before{transform:scale(1.12)}
+  .pc:hover .art::after{transform:rotate(90deg)}
+  .art span{position:relative;font:800 clamp(30px,3.6vw,50px)/1.15 var(--serif);text-align:center;white-space:pre-line;transform:rotate(-4deg);background:var(--paper-2);padding:0 .2em}
+  .pc.lead .art span{font-size:clamp(46px,6vw,90px)}
+  .pc .body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px}
+  .pc.lead .body{padding:22px 26px 26px}
+  .cat{font:600 12px var(--label);letter-spacing:.1em;color:var(--c);display:inline-flex;align-items:center;gap:7px}
+  .cat::before{content:"";width:8px;height:8px;background:var(--c);border-radius:50%}
+  .pc h3{font:700 20px/1.45 var(--serif);margin:0}
+  .pc.lead h3{font-size:clamp(24px,2.6vw,34px)}
+  .pc p{margin:0;color:var(--ink-2);font-size:15px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line}
+  .pc .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:10px;border-top:1px solid var(--rule);font:500 13px var(--label);color:var(--muted)}
+  .pc .body{flex:1}
+  .due{color:var(--red);font-weight:600}
+  .due.hot{background:var(--red);color:#fff;padding:2px 8px}
+  .lvl{border:1px solid var(--rule);padding:1px 8px;color:var(--ink-2)}
+  .t-congrats{--c:#8a8f97}.t-apply{--c:#2b3036}.t-exam{--c:#56677c}.t-event{--c:#6f747c}.t-other{--c:#a5aab1}
+  .edit{position:absolute;top:8px;right:8px;display:flex;gap:6px;z-index:2}
+  .edit button{width:32px;height:32px;display:grid;place-items:center;background:var(--card);border:1px solid var(--ink);cursor:pointer;color:var(--ink)}
+  .edit button:hover{background:var(--ink);color:var(--paper)}
+
+  /* ---------- 04 รายการทั้งหมด ---------- */
+  .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-bottom:6px}
+  .filters input,.filters select{font:400 15px 'Sarabun';padding:8px 12px;border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:0;min-height:40px}
+  .filters input:focus,.filters select:focus{outline:2px solid var(--amber);outline-offset:-1px}
+  .filters .q{flex:1 1 220px;position:relative}
+  .filters .q input{width:100%;padding-left:36px}
+  .filters .q svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted)}
+  .seg{display:flex;border:1px solid var(--ink)}
+  .seg button{border:0;background:transparent;padding:8px 14px;font:500 14px var(--label);cursor:pointer}
+  .seg button+button{border-left:1px solid var(--ink)}
+  .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .count{font:500 13px var(--label);color:var(--muted);padding:10px 0}
+  .row{display:grid;grid-template-columns:96px 170px minmax(0,1fr) 80px 104px;gap:18px;align-items:center;padding:15px 12px;border-bottom:1px solid var(--rule);cursor:pointer;position:relative;transition:background .25s,padding .3s var(--ease)}
+  .row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c);transform:scaleY(0);transition:transform .3s var(--ease)}
+  .row:hover,.row:focus-visible{background:var(--card);padding-left:20px;outline:none}
+  .row:hover::before,.row:focus-visible::before{transform:scaleY(1)}
+  .row .d{font:500 14px var(--label);color:var(--ink-2)}
+  .row .t{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .row .l{font:400 13px var(--label);color:var(--muted)}
+  .st{font:500 12px var(--label);text-align:right}
+  .st.live{color:var(--teal-2)}
+  .st.live::before{content:"● "}
+  .st.past{color:var(--muted)}
+  .st.soon{color:var(--amber)}
+  .more{display:flex;margin:22px auto 0}
+
+  /* ---------- ท้ายเว็บ ---------- */
+  footer{margin-top:80px;background:var(--ink);color:var(--paper);padding:48px 0 36px}
+  footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:end}
+  footer b{font:800 clamp(36px,6vw,72px)/1.2 var(--serif);display:inline-block}
+  footer p{margin:0;opacity:.7;font-size:14px}
+
+  /* ---------- หน้าต่าง ---------- */
+  dialog{border:1px solid var(--ink);border-radius:0;padding:0;background:var(--paper);color:var(--ink);width:min(980px,calc(100vw - 24px));max-height:calc(100vh - 32px);box-shadow:12px 12px 0 #c9cdd3}
+  dialog::backdrop{background:rgba(31,35,40,.5)}
+  dialog[open]{animation:pop .35s var(--ease)}
+  @keyframes pop{from{opacity:0;transform:translateY(16px)}}
+  .dlg-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--ink);position:sticky;top:0;background:var(--paper);z-index:2}
+  .dlg-head h3{margin:0;font:700 20px var(--serif)}
+  .x{border:0;background:none;font-size:28px;line-height:1;cursor:pointer;padding:0 4px}
+  .detail{display:grid;grid-template-columns:1fr 1fr}
+  .detail.noimg{grid-template-columns:1fr}
+  .detail .pic{background:var(--paper-2);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--ink);min-height:320px}
+  .detail .pic img{max-width:100%;max-height:72vh;display:block}
+  .detail .info{padding:26px 28px 30px;display:flex;flex-direction:column;gap:12px}
+  .detail h2{font:800 clamp(24px,3vw,34px)/1.4 var(--serif);margin:0}
+  .detail .meta{display:flex;flex-wrap:wrap;gap:8px 16px;font:500 14px var(--label);color:var(--ink-2);align-items:center}
+  .detail .txt{white-space:pre-line;margin:0}
+  .detail .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .formdlg{width:min(660px,calc(100vw - 24px))}
+  .form{padding:18px 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .form .full{grid-column:1/-1}
+  .form label{display:flex;flex-direction:column;gap:5px;font:500 14px var(--label)}
+  .form label small{font:400 13px 'Sarabun';color:var(--muted)}
+  .form input,.form select,.form textarea{font:400 16px 'Sarabun';padding:10px 12px;border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:0}
+  .form input:focus,.form select:focus,.form textarea:focus{outline:2px solid var(--amber);outline-offset:-1px;border-color:var(--ink)}
+  .form textarea{min-height:120px;resize:vertical}
+  .form .check{flex-direction:row;align-items:center;gap:8px}
+  .imgbox{display:flex;gap:12px;align-items:center;flex-wrap:wrap;border:1px dashed var(--rule);padding:12px;background:var(--card)}
+  .imgbox img{width:150px;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--rule)}
+  .err{color:var(--red);font:500 14px var(--label);padding:0 20px}
+  .err:empty{display:none}
+  .dlg-foot{display:flex;justify-content:space-between;gap:10px;padding:14px 20px;border-top:1px solid var(--ink);position:sticky;bottom:0;background:var(--paper)}
+  .dlg-foot div{display:flex;gap:10px;margin-left:auto}
+  .btn.danger{border-color:var(--red);color:var(--red)}
+  .btn.danger::before{background:var(--red)}
+  .btn.danger:hover{color:#fff}
+  .admin-pill{font:600 12px var(--label);background:var(--teal);color:var(--paper);padding:4px 10px;letter-spacing:.06em}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);background:var(--ink);color:var(--paper);padding:10px 18px;font:500 15px var(--label);transition:.3s var(--ease);z-index:60;opacity:0;max-width:calc(100vw - 32px)}
+  .toast.show{transform:translate(-50%,0);opacity:1}
+  .toast.err{background:var(--red)}
+
+  /* ---------- เผยเมื่อเลื่อนถึง ---------- */
+  .rv{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+  .rv.in{opacity:1;transform:none}
+  .pc.rv.in{transition-delay:0s}
+  .intro{opacity:0;transform:translateY(22px);animation:rise .9s var(--ease) forwards;animation-delay:var(--d,0s)}
+
+
+  /* ---------- โทนขาว เทา เงิน ---------- */
+  .mast h1 .g{background:var(--silver);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:rise .9s var(--ease) forwards,shine 7s linear 1.6s infinite}
+  @keyframes shine{from{background-position:0% 0}to{background-position:300% 0}}
+  .mast h1{filter:drop-shadow(0 1px 0 #fff) drop-shadow(0 2px 2px rgba(31,35,40,.18))}
+  .mast-row,.sec-h{border-color:var(--ink)}
+  .stat b,.sec-h h2{color:var(--ink)}
+  .sec-h .num{-webkit-text-stroke:1.4px #9aa0a8}
+  .ticker{background:#2b3036}
+  .ticker .lab{background:var(--silver);background-size:200% 100%;color:var(--ink)}
+  .ticker .lab i{background:var(--alert)}
+  .ticker .track a::after{color:#b8bdc4}
+  .btn.solid::before{background:#5b6470}
+  .lk::before{background:#2b3036}
+  a.lk:hover .i{color:#c9cdd3}
+  .admin-pill{background:#5b6470}
+  .due{color:var(--alert)}
+  .due.hot{background:var(--alert)}
+  .pc{border-top-width:5px}
+  .pc .img,.art{background-color:var(--paper-2)}
+  .art span{background:var(--paper-2)}
+  body{background:linear-gradient(#fff,#fff) ,var(--paper)}
+  footer{background:#1f2328}
+  footer b{background:var(--silver);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 9s linear infinite}
+  ::selection{background:#c9cdd3}
+
+  .mast-row nav a.fb{display:inline-flex;align-items:center;gap:6px;color:#1877f2}
+  .foot-r{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+  .fbbtn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:1px solid rgba(255,255,255,.35);text-decoration:none;font:500 15px var(--label);transition:background .3s}
+  .fbbtn:hover{background:#1877f2;border-color:#1877f2}
+  @media (max-width:680px){.foot-r{align-items:flex-start}}
+
+  /* ---------- สไลด์ภาพปก 5 สาขา ---------- */
+  .slides{position:absolute;inset:0}
+  .slide{position:absolute;inset:0;transform:translateX(100%);transition:transform 1.1s var(--ease-io)}
+  .slide.on{transform:none;z-index:1}
+  .slide.out{transform:translateX(-100%)}
+  .slide img{opacity:1}
+  .cap{position:absolute;left:15%;bottom:7%;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.25);z-index:2}
+  .cap small{display:block;font:600 12px var(--label);letter-spacing:.22em;opacity:.85}
+  .cap b{display:block;font:800 clamp(36px,4.4vw,60px)/1.2 var(--serif)}
+  .slide .cap>*{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .slide.on .cap>*{opacity:1;transform:none;transition-delay:.55s}
+  .slide.on .cap small{transition-delay:.45s}
+  .bars{position:absolute;top:4%;left:15%;right:5%;display:flex;gap:6px;z-index:3}
+  .bars button{flex:1;height:18px;padding:7px 0;border:0;background:none;cursor:pointer}
+  .bars button i{display:block;height:3px;background:rgba(255,255,255,.35);position:relative;overflow:hidden}
+  .bars button i::after{content:"";position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
+  .bars button.done i::after{transform:scaleX(1)}
+  .bars button.on i::after{animation:fillbar var(--slide,4800ms) linear forwards}
+  .frame:hover .bars button.on i::after{animation-play-state:paused}
+  @keyframes fillbar{to{transform:scaleX(1)}}
+
+  /* ---------- สีไล่เฉดกลมกลืน ---------- */
+  :root{
+    --g-cool:linear-gradient(90deg,#4f46e5,#0891b2 45%,#10b981);
+    --g-warm:linear-gradient(90deg,#7c3aed,#db2777 50%,#f97316);
+    --g-all:linear-gradient(90deg,#4f46e5,#0891b2,#10b981,#eab308,#f97316,#db2777,#7c3aed,#4f46e5);
+  }
+  body{background:
+    radial-gradient(55% 45% at 100% 0%,rgba(99,102,241,.10),transparent 70%),
+    radial-gradient(45% 40% at 0% 35%,rgba(16,185,129,.08),transparent 70%),
+    radial-gradient(50% 40% at 100% 75%,rgba(249,115,22,.07),transparent 70%),#fff;background-attachment:fixed}
+  .gt{background:var(--g-cool);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .mast-row{position:relative}
+  .mast-row::after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:3px;background:var(--g-all);background-size:200% 100%;animation:flow 10s linear infinite}
+  @keyframes flow{to{background-position:200% 0}}
+  .kicker{background:var(--g-warm);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .kicker::before{background:var(--g-warm)}
+  .headline em{background:var(--g-cool);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 6s linear infinite}
+  .progress{background:var(--g-all)}
+  .sec-h .num{-webkit-text-stroke:0;background:var(--g-cool);-webkit-background-clip:text;background-clip:text;color:transparent}
+  #board .sec-h .num{background:var(--g-warm);-webkit-background-clip:text;background-clip:text}
+  #archive .sec-h .num{background:linear-gradient(90deg,#0891b2,#10b981,#eab308);-webkit-background-clip:text;background-clip:text}
+  .tab::after{background:var(--g-cool)}
+  .tab sup{color:#db2777}
+  .btn.solid::before{background:var(--g-cool)}
+  .lk::before{background:linear-gradient(135deg,#312e81,#0e7490 60%,#047857)}
+  a.lk:hover .i{color:#a5f3fc}
+  .seg button[aria-pressed="true"]{background:var(--g-cool);color:#fff}
+  .ticker .lab{background:var(--g-warm);color:#fff}
+  .ticker .lab i{background:#fff}
+  .admin-pill{background:var(--g-cool)}
+  .filters input:focus,.filters select:focus,.form input:focus,.form select:focus,.form textarea:focus{outline-color:#22d3ee}
+  footer{position:relative}
+  footer::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--g-all);background-size:200% 100%;animation:flow 12s linear infinite}
+
+  /* สีตามประเภทประกาศ: --c สีหลัก, --g ไล่เฉด */
+  .t-congrats{--c:#d97706;--g:linear-gradient(135deg,#f59e0b,#ec4899)}
+  .t-apply{--c:#0e7490;--g:linear-gradient(135deg,#0891b2,#10b981)}
+  .t-exam{--c:#4f46e5;--g:linear-gradient(135deg,#6366f1,#a855f7)}
+  .t-event{--c:#ea580c;--g:linear-gradient(135deg,#f97316,#ef4444)}
+  .t-other{--c:#64748b;--g:linear-gradient(135deg,#64748b,#94a3b8)}
+  .pc{border-top:1px solid var(--ink)}
+  .pc::before{content:"";position:absolute;left:-1px;right:-1px;top:-1px;height:6px;background:var(--g);z-index:1}
+  .art{background:radial-gradient(circle at 18% 22%,color-mix(in srgb,var(--c) 55%,transparent) 0 2.5px,transparent 3.5px) 0 0/46px 46px,
+    radial-gradient(80% 80% at 80% 90%,color-mix(in srgb,var(--c) 22%,transparent),transparent 70%),#f7f8fa}
+  .art span{background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .art::before,.art::after{border-color:var(--c)}
+  .row::before{background:var(--g)}
+  .pc.in:hover{box-shadow:8px 8px 0 color-mix(in srgb,var(--c) 35%,#d9dce1)}
+
+  @media (max-width:980px){
+    .cover{grid-template-columns:1fr;gap:36px}
+    .vlabel{display:none}
+    .pc{grid-column:span 6}
+    .pc.lead{grid-column:span 12;grid-row:auto}
+    .pc.lead .img{aspect-ratio:16/10;flex:none;min-height:0}
+    .row{grid-template-columns:90px 150px minmax(0,1fr) 96px}
+    .row .l{display:none}
+  }
+  @media (max-width:680px){
+    .wrap{padding:0 16px}
+    body{font-size:16px}
+    .topline .iss{display:none}
+    .mast-row{justify-content:center}
+    .mast-row .sub{display:none}
+    .sticky nav{display:none}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .stat:nth-child(2){border-right:0}
+    .stat:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+    .sec-h{grid-template-columns:auto 1fr;gap:14px}
+    .sec-h .act{grid-column:1/-1}
+    .pc{grid-column:span 12}
+    .row{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 6px}
+    .row .d{grid-column:1;grid-row:1;font-size:12px}
+    .row .c{grid-column:2;grid-row:1;text-align:right}
+    .row .t{grid-column:1/-1;grid-row:2;white-space:normal}
+    .row .st{display:none}
+    .row:hover{padding-left:12px}
+    .detail{grid-template-columns:1fr}
+    .detail .pic{border-right:0;border-bottom:1px solid var(--ink);min-height:0}
+    .form{grid-template-columns:1fr}
+    .ticker .lab span{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001s!important;animation-delay:0s!important;transition:none!important}
+    .rv{opacity:1;transform:none}
+  }
+
+  /* ===== ภาพปก 3 มิติ พื้นโปร่ง วางข้างข้อความ ===== */
+  .cover{grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:40px;padding:40px 0 36px}
+  .fig{justify-self:end;width:100%;max-width:400px}
+  .vlabel{display:none}
+  .frame{aspect-ratio:1/1.12;clip-path:none;background:none;overflow:hidden}
+  .frame::after{display:none}
+  .frame svg,.frame img{position:absolute;left:0;top:0;width:100%;height:84%;object-fit:contain}
+  .frame img{object-fit:cover;border-radius:16px}
+  .slide{opacity:0;transform:translateX(36px) scale(.96);transition:opacity .8s var(--ease),transform 1s var(--ease)}
+  .slide.on{opacity:1;transform:none}
+  .slide.out{opacity:0;transform:translateX(-36px) scale(.96)}
+  .cap{left:0;right:0;bottom:26px;text-align:center;color:var(--ink);text-shadow:none}
+  .cap small{color:var(--muted);opacity:1;letter-spacing:.2em}
+  .cap b{font-size:clamp(26px,2.8vw,38px);background:var(--sg);-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .1em}
+  .bars{top:auto;bottom:4px;left:22%;right:22%}
+  .bars button i{background:#e3e6ea}
+  .bars button i::after{background:var(--g-cool)}
+  .fig figcaption{justify-content:center;padding-left:0}
+
+  @media (max-width:980px){
+    .cover{grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:28px}
+    .headline{font-size:clamp(34px,5.4vw,56px)}
+  }
+  /* ===== มือถือ ===== */
+  @media (max-width:680px){
+    .topline{font-size:12px;letter-spacing:.02em}
+    .topline .tools .btn{padding:5px 9px}
+    .mast{padding-top:6px}
+    .mast-row{padding:8px 0;gap:10px}
+    .mast-row nav{gap:14px;flex-wrap:wrap;justify-content:center;font-size:14px}
+    .cover{grid-template-columns:1fr;gap:12px;padding:26px 0 20px}
+    .fig{justify-self:center;max-width:280px;order:-1}
+    .headline{font-size:clamp(32px,9.5vw,42px);margin:12px 0 14px}
+    .deck{font-size:16px;margin-bottom:22px}
+    .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .btns .btn{justify-content:center;padding:12px 10px}
+    .btns .btn.fb{grid-column:1/-1}
+    section{padding:52px 0 16px}
+    .sec-h{margin-bottom:20px;padding-top:14px}
+    .sec-h .num{font-size:52px}
+    .sec-h h2{font-size:26px}
+    .sec-h p{font-size:15px}
+    .tabs{gap:22px}
+    .lk{min-height:0}
+    .pc .body{padding:16px}
+    .pc h3{font-size:19px}
+    .filters .q{flex-basis:100%}
+    .filters select{flex:1 1 calc(50% - 5px);min-width:0}
+    .seg{flex:1 1 100%}
+    .seg button{flex:1;padding:9px 6px}
+    dialog{width:100vw;max-width:100vw;max-height:100dvh;height:auto;margin:auto 0 0;box-shadow:none;border-left:0;border-right:0;border-bottom:0}
+    .detail .info{padding:20px 18px 26px}
+    .detail .pic img{max-height:50vh}
+    .dlg-foot{flex-wrap:wrap}
+    footer{margin-top:56px;padding:36px 0 28px}
+  }
+
+  /* ===== ประกาศเลื่อนแนวนอน ===== */
+  .pr{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 4px 22px;margin:-10px -4px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .pr::-webkit-scrollbar{display:none}
+  .pc,.pc.lead{flex:0 0 calc((100% - 44px)/3);scroll-snap-align:start;grid-column:auto;grid-row:auto}
+  .pc.lead{flex-basis:calc((100% - 44px)/3*2 + 22px)}
+  .pc .img,.pc.lead .img{aspect-ratio:auto;flex:none;height:210px;min-height:0}
+  .pc.lead h3{font-size:clamp(22px,2.2vw,28px)}
+  .pr .empty{flex:1}
+  .pr-ctrl{display:flex;align-items:center;gap:10px;margin-top:4px}
+  .dots{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+  .dots button{width:20px;height:4px;border:0;padding:0;background:#d9dce1;cursor:pointer;transition:width .35s var(--ease),background .35s}
+  .dots button.on{width:44px;background:var(--g-cool)}
+  .arrow{width:46px;height:46px;display:grid;place-items:center;border:1.5px solid var(--ink);background:#fff;cursor:pointer;position:relative;overflow:hidden;isolation:isolate;transition:color .3s}
+  .arrow::before{content:"";position:absolute;inset:0;background:var(--g-cool);transform:scaleX(0);transition:transform .35s var(--ease-io);z-index:-1}
+  .arrow:hover{color:#fff}
+  .arrow:hover::before{transform:none}
+  #prPrev::before{transform-origin:right}
+  #prNext::before{transform-origin:left}
+  @media (max-width:980px){
+    .pc,.pc.lead{flex-basis:calc((100% - 22px)/2)}
+  }
+  @media (max-width:680px){
+    .pr{gap:14px}
+    .pc,.pc.lead{flex-basis:84%}
+    .pc .img,.pc.lead .img{height:170px}
+    .arrow{width:42px;height:42px}
+  }
+
+  /* ===== 04 โครงการ ===== */
+  .proj{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 30px}
+  .pj{position:relative;display:flex;flex-direction:column;border-top:2px solid var(--ink);padding-top:16px}
+  .pj .ph{aspect-ratio:16/9;overflow:hidden;position:relative;background:var(--paper-2);margin-bottom:16px}
+  .pj .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s,transform 1.2s var(--ease)}
+  .pj .ph img.ok{opacity:1}
+  .pj:hover .ph img,.pj:hover .pj-art span{transform:scale(1.05)}
+  .pj-art{position:absolute;inset:0;display:flex;align-items:flex-end;padding:22px;overflow:hidden}
+  .pj-art::before{content:"";position:absolute;width:70%;aspect-ratio:1;right:-15%;top:-30%;border-radius:50%;border:2px solid rgba(255,255,255,.35)}
+  .pj-art::after{content:"";position:absolute;width:40%;aspect-ratio:1;right:10%;top:5%;border-radius:50%;background:rgba(255,255,255,.12)}
+  .pj-art span{position:relative;color:#fff;font:800 clamp(26px,3vw,40px)/1.2 var(--serif);transition:transform 1.2s var(--ease);transform-origin:left bottom}
+  .pj-body{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+  .pj-no{font:800 40px/1 var(--serif);background:var(--g-cool);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .pj h3{font:800 clamp(22px,2.4vw,30px)/1.35 var(--serif);margin:0}
+  .pj-tag{font:600 12px var(--label);letter-spacing:.08em;color:var(--teal-2);background:#eef2ff;padding:3px 10px}
+  .pj p{margin:0;color:var(--ink-2)}
+  .pj .btn{margin-top:6px}
+  .pj.feat{grid-column:1/-1;display:grid;grid-template-columns:1.2fr 1fr;gap:0 32px;align-items:center}
+  .pj.feat .ph{margin:0;aspect-ratio:16/10}
+  .pj.feat h3{font-size:clamp(28px,3.4vw,44px)}
+
+  /* ===== 05 วารสาร (ชั้นหนังสือ) ===== */
+  .shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:40px 34px;padding-bottom:10px}
+  .jr{position:relative;display:flex;flex-direction:column;gap:16px}
+  .jr>a{text-decoration:none}
+  .bk{perspective:1000px;padding:0 10px 0 4px}
+  .bk-cover{position:relative;aspect-ratio:707/1000;transform-origin:left center;transform:rotateY(-6deg);transition:transform .7s var(--ease),box-shadow .7s var(--ease);
+    box-shadow:2px 2px 0 #e5e7eb,4px 4px 0 #d1d5db,6px 6px 0 #e5e7eb,14px 18px 30px rgba(31,35,40,.22);border-radius:2px 6px 6px 2px;overflow:hidden;background:var(--paper-2)}
+  .bk-cover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;z-index:2;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(255,255,255,.25) 45%,rgba(0,0,0,.08))}
+  .bk-cover::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%);transform:translateX(-100%);transition:transform 1s var(--ease)}
+  .jr:hover .bk-cover{transform:rotateY(-18deg) translateX(-4px);box-shadow:2px 2px 0 #e5e7eb,4px 4px 0 #d1d5db,6px 6px 0 #e5e7eb,26px 26px 40px rgba(31,35,40,.3)}
+  .jr:hover .bk-cover::after{transform:translateX(100%)}
+  .bk-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+  .bk-cover img.ok{opacity:1}
+  .bk-art{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:24px 20px 26px 28px;color:#fff}
+  .bk-art small{font:600 11px var(--label);letter-spacing:.25em;opacity:.85}
+  .bk-art b{font:800 34px/1.2 var(--serif)}
+  .bk-art i{font:500 12px var(--label);font-style:normal;opacity:.9}
+  .jr-body{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+  .jr h3{font:800 24px/1.3 var(--serif);margin:0}
+  .jr p{margin:0;color:var(--ink-2);font-size:15px}
+  .jr-link{font:600 14px var(--label);text-decoration:none;display:inline-flex;gap:6px;align-items:center;background:var(--g-cool);-webkit-background-clip:text;background-clip:text;color:transparent;border-bottom:2px solid #c7d2fe;padding-bottom:2px}
+  .jr-link svg{color:#0891b2}
+  .jr-soon{font:500 13px var(--label);color:var(--muted)}
+  .jr .edit,.pj .edit{z-index:5}
+  @media (max-width:980px){
+    .pj.feat{grid-template-columns:1fr}
+    .pj.feat .ph{margin-bottom:16px}
+  }
+  @media (max-width:680px){
+    .proj{grid-template-columns:1fr;gap:28px}
+    .shelf{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 18px}
+    .jr h3{font-size:19px}
+    .jr p{display:none}
+    .bk-art b{font-size:24px}
+    .pj-no{font-size:32px}
+  }
+
+  /* ===== แท็บครู: กดแล้วจึงกางรายการ ===== */
+  .tab{display:inline-flex;align-items:center;gap:6px}
+  .tab .chev{transition:transform .35s var(--ease);opacity:.7}
+  .tab.on .chev{transform:rotate(180deg)}
+  .tabs{margin-bottom:0}
+  .tab-hint{margin:14px 0 0;color:var(--muted);font:400 14px var(--label)}
+  .links-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease),opacity .4s;opacity:0}
+  .links-wrap.open{grid-template-rows:1fr;opacity:1}
+  .links-in{overflow:hidden;min-height:0}
+  .links-wrap .links{padding-top:24px}
+
+  /* ===== หัวข้อ 03: ปุ่มกางรายการ ===== */
+  .open-bar{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border:1.5px solid var(--ink);background:#fff;cursor:pointer;font:600 16px var(--label);text-align:left;position:relative;overflow:hidden;isolation:isolate;transition:color .35s}
+  .open-bar b{font-weight:500;color:var(--muted);transition:color .35s}
+  .open-bar::before{content:"";position:absolute;inset:0;background:var(--g-cool);transform:scaleY(0);transform-origin:bottom;transition:transform .4s var(--ease-io);z-index:-1}
+  .open-bar:hover,.open-bar.on{color:#fff}
+  .open-bar:hover b,.open-bar.on b{color:rgba(255,255,255,.8)}
+  .open-bar:hover::before,.open-bar.on::before{transform:none}
+  .open-bar .chev{transition:transform .35s var(--ease)}
+  .open-bar.on .chev{transform:rotate(180deg)}
+  #archWrap .filters{margin-top:20px}
+
+  /* ===== หัวข้อที่ซ่อน (เห็นเฉพาะผู้ดูแล) ===== */
+  .sec-h .act{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  .sec-off .sec-h ~ *{opacity:.45}
+  .sec-off .sec-h h2::after{content:"ซ่อนอยู่";display:inline-block;vertical-align:middle;margin-left:12px;font:600 12px var(--label);letter-spacing:.06em;background:#1f2328;color:#fff;padding:3px 10px}
+  .sec-eye{gap:6px}
+  .sec-off .sec-eye{background:#1f2328;color:#fff}
+
+  /* ===== การ์ดโครงการกดเข้าไปดูรายละเอียดได้ ===== */
+  .pj{cursor:pointer}
+  .pj:focus-visible{outline:2px solid #22d3ee;outline-offset:6px}
+  .pj p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .pj-acts{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:6px}
+  .pj-acts .btn{margin-top:0}
+  .pj-more{font:600 14px var(--label);background:var(--g-cool);-webkit-background-clip:text;background-clip:text;color:transparent;transition:letter-spacing .3s var(--ease)}
+  .pj:hover .pj-more{letter-spacing:.04em}
+  .pj:hover h3{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px;text-decoration-color:#c7d2fe}
+  .detail.wk .pic{min-height:300px}
+  .detail.wk .pic img{width:100%;height:100%;object-fit:cover;max-height:none}
+  .wk-art{display:flex;align-items:flex-end;padding:28px;color:#fff}
+  .wk-art span{font:800 clamp(28px,3.4vw,44px)/1.25 var(--serif)}
+  .detail.wk .info{gap:14px}
+
+  /* ===== ลิงก์เฉพาะบุคลากร ===== */
+  .lock{display:inline-flex;align-items:center;gap:5px;align-self:flex-start;font:600 12px var(--label);color:#4b5159;background:#f0f1f3;border:1px solid #d9dce1;padding:2px 9px;margin-top:4px}
+  a.lk:hover .lock{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.3)}
+  .staff-note{margin:4px 0 0;color:var(--muted);font-size:14px}
+  .cat svg{vertical-align:-1px}
+  .admin-link{font-size:12px;opacity:.6;text-decoration:none}
+  .admin-link:hover{opacity:1;text-decoration:underline}
+</style>
+</head>
+<body>
+
+<!-- แถบนำทางลอย (โผล่เมื่อเลื่อนลง) -->
+<div class="sticky" id="sticky">
+  <div class="wrap">
+    <b id="stickyMast">สตรีวิทยาศาสตร์</b>
+    <nav>
+      <a href="#teachers">สำหรับครู</a>
+      <a href="#board">ประชาสัมพันธ์</a>
+      <a href="#archive">รายการทั้งหมด</a>
+      <a href="#projects">โครงการ</a>
+      <a href="#journals">วารสาร</a>
+    </nav>
+  </div>
+  <div class="progress" id="progress"></div>
+</div>
+
+<div class="wrap" id="top">
+  <div class="topline">
+    <span class="iss" id="issue"></span>
+    <span id="today"></span>
+    <span class="tools" id="adminTools"></span>
+  </div>
+
+  <!-- 1. แบนเนอร์ -->
+  <div class="mast"><h1 id="mast" aria-label="สตรีวิทยาศาสตร์"></h1></div>
+  <div class="mast-row">
+    <span class="sub">กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี · โรงเรียนสตรีวิทยา</span>
+    <nav>
+      <a href="#teachers">สำหรับครู</a>
+      <a href="#board">ประชาสัมพันธ์</a>
+      <a href="#archive">รายการทั้งหมด</a>
+      <a href="#projects">โครงการ</a>
+      <a href="#journals">วารสาร</a>
+      <a class="fb hide" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2.5V2.1L14.1 2C10.6 2 10 4.6 10 6.3v2.2H7.5V12H10v10h4V12h3l.5-3.5z"/></svg>Facebook</a>
+    </nav>
+  </div>
+
+  <div class="cover">
+    <div>
+      <div class="kicker intro" style="--d:.3s">เรื่องจากปก</div>
+      <h2 class="headline intro" style="--d:.45s" id="headline"></h2>
+      <p class="deck intro" style="--d:.6s" id="deck"></p>
+      <div class="btns intro" style="--d:.75s">
+        <a class="btn solid" href="#board">ดูประชาสัมพันธ์ล่าสุด</a>
+        <a class="btn" href="#teachers">สำหรับครู</a>
+        <a class="btn fb hide" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2.5V2.1L14.1 2C10.6 2 10 4.6 10 6.3v2.2H7.5V12H10v10h4V12h3l.5-3.5z"/></svg> เพจ Facebook</a>
+      </div>
+    </div>
+    <figure class="fig">
+      <div class="frame" id="frame"></div>
+      <figcaption><b>ภาพปก</b><span id="caption"></span></figcaption>
+      <span class="vlabel">SCIENCE · SATRIWIT</span>
+    </figure>
+  </div>
+
+  <div class="ticker hide" id="ticker"><div class="lab"><i></i><span>ประกาศล่าสุด</span></div><div class="run"><div class="track" id="track"></div></div></div>
+</div>
+
+<!-- 2. สำหรับครู -->
+<section id="teachers">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="num">01</span>
+      <div><h2>สำหรับครู</h2><p>ระบบงาน โครงการ และเอกสารของกลุ่มสาระ — เปิดได้ด้วยบัญชี @satriwit.ac.th</p></div>
+      <span class="act"></span>
+    </div>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <p class="tab-hint" id="tabHint">กดเลือกหมวดด้านบนเพื่อดูรายการ</p>
+    <div class="links-wrap" id="linksWrap"><div class="links-in"><div class="links" id="links"></div></div></div>
+  </div>
+</section>
+
+<!-- 3. กรอบประชาสัมพันธ์ -->
+<section id="board">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="num">02</span>
+      <div><h2>ประชาสัมพันธ์</h2><p>เรื่องที่กำลังประกาศอยู่ตอนนี้</p></div>
+      <span class="act" id="boardAct"></span>
+    </div>
+    <div class="pr" id="pr"><div class="empty">กำลังโหลด…</div></div>
+    <div class="pr-ctrl hide" id="prCtrl">
+      <div class="dots" id="prDots"></div>
+      <button type="button" class="arrow" id="prPrev" aria-label="ประกาศก่อนหน้า"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button type="button" class="arrow" id="prNext" aria-label="ประกาศถัดไป"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- 4. รายการทั้งหมด -->
+<section id="archive">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="num">03</span>
+      <div><h2>รายการประชาสัมพันธ์ทั้งหมด</h2><p>ค้นหาและย้อนดูประกาศที่ผ่านมา</p></div>
+      <span class="act"></span>
+    </div>
+    <button type="button" class="open-bar" id="archToggle" aria-expanded="false" aria-controls="archWrap"><span>ดูรายการทั้งหมด <b id="archTotal"></b></span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+    <div class="links-wrap" id="archWrap"><div class="links-in">
+    <div class="filters">
+      <label class="q"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="fQ" type="search" placeholder="ค้นหาหัวข้อหรือรายละเอียด" aria-label="ค้นหา"></label>
+      <select id="fType" aria-label="ประเภท"></select>
+      <select id="fLevel" aria-label="ระดับชั้น"></select>
+      <select id="fMonth" aria-label="เดือน"></select>
+      <div class="seg" id="fStatus"></div>
+    </div>
+    <div class="count" id="count"></div>
+    <div id="rows"></div>
+    <button class="btn more hide" id="moreBtn">ดูเพิ่มเติม</button>
+    </div></div>
+  </div>
+</section>
+
+<!-- 4. โครงการ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="num">04</span>
+      <div><h2>โครงการ</h2><p>โครงการและกิจกรรมเด่นของกลุ่มสาระ</p></div>
+      <span class="act" id="projAct"></span>
+    </div>
+    <div class="proj" id="projList"></div>
+  </div>
+</section>
+
+<!-- 5. วารสาร -->
+<section id="journals">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="num">05</span>
+      <div><h2>วารสาร</h2><p>วารสารและผลงานตีพิมพ์ของกลุ่มสาระ</p></div>
+      <span class="act" id="jourAct"></span>
+    </div>
+    <div class="shelf" id="shelf"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><b id="footMast">สตรีวิทยาศาสตร์</b><p>กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา</p></div>
+    <div class="foot-r"><a class="fbbtn fb hide" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2.5V2.1L14.1 2C10.6 2 10 4.6 10 6.3v2.2H7.5V12H10v10h4V12h3l.5-3.5z"/></svg> ติดตามเพจกลุ่มสาระ</a><p><a href="#top">กลับด้านบน ↑</a></p><p><a class="admin-link hide" id="adminLink" target="_blank" rel="noopener">สำหรับผู้ดูแล</a></p></div>
+  </div>
+</footer>
+
+<!-- รายละเอียดประกาศ -->
+<dialog id="detailDlg">
+  <div class="dlg-head"><h3 id="detailCat"></h3><button class="x" data-close aria-label="ปิด">×</button></div>
+  <div id="detailBody"></div>
+</dialog>
+
+<!-- ฟอร์มเพิ่ม/แก้ไข (ผู้ดูแล) -->
+<dialog id="formDlg" class="formdlg">
+  <form id="form" novalidate>
+    <div class="dlg-head"><h3 id="formTitle"></h3><button type="button" class="x" data-close aria-label="ปิด">×</button></div>
+    <div class="form" id="formBody"></div>
+    <div class="err" id="formErr"></div>
+    <div class="dlg-foot">
+      <button type="button" class="btn danger hide" id="formDel">ลบ</button>
+      <div><button type="button" class="btn" data-close>ยกเลิก</button><button type="submit" class="btn solid" id="formSave">บันทึก</button></div>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast"></div>
+
+<script>window.PUBLIC_API = 'https://script.google.com/macros/s/AKfycbyrqfQLt_V9rwiTS70ka8baRuUa6HsUCjqF3TvZHimhCMuesOSXGrTKdrGnkUyJ2fWjzA/exec'; window.ADMIN_URL = 'https://script.google.com/a/macros/satriwit.ac.th/s/AKfycbzF2RA9Ptfpvwy8dVTVa-JzhcyYzA-JZnYeiG-x2Hcbge9dLEN2Kuj3sWdgB8sP-eeaFA/exec';</script>
+<script>
+// ห่อทั้งหมดไว้ในฟังก์ชัน กันชื่อตัวแปรชนกับสคริปต์ของ Apps Script
+window.__started = true;
+(function () {
+/* ===================== ค่าคงที่ ===================== */
+const TYPES = [
+  { name: 'ยินดีด้วย', cls: 't-congrats', art: 'ยินดี\nด้วย', btn: 'อ่านเพิ่มเติม' },
+  { name: 'รับสมัคร/ประกวด', cls: 't-apply', art: 'เปิดรับ\nสมัคร', btn: 'สมัคร' },
+  { name: 'ตารางสอบ/เรียนเพิ่ม', cls: 't-exam', art: 'ตาราง', btn: 'ดูตาราง' },
+  { name: 'กิจกรรม', cls: 't-event', art: 'กิจกรรม', btn: 'ดูรายละเอียด' },
+  { name: 'อื่น ๆ', cls: 't-other', art: 'ประกาศ', btn: 'ดูรายละเอียด' },
+];
+const LEVELS = ['ทุกระดับ', 'ม.ต้น', 'ม.ปลาย', 'ม.1', 'ม.2', 'ม.3', 'ม.4', 'ม.5', 'ม.6', 'ครู'];
+const GROUPS = { 'ม.ต้น': ['ม.1', 'ม.2', 'ม.3'], 'ม.ปลาย': ['ม.4', 'ม.5', 'ม.6'] };
+const TABS = ['ระบบงาน', 'โครงการ', 'เอกสาร/แบบฟอร์ม'];
+const PAGE = 15;
+
+const state = {
+  posts: [], links: [], works: [], settings: {}, canEdit: false, preview: false, email: '', today: '',
+  tab: '', f: { q: '', type: '', level: '', month: '', status: 'all' }, limit: PAGE
+};
+
+/* ===================== เครื่องมือ ===================== */
+// โหมดผู้ดูแล (ปิดชั่วคราวได้ด้วยปุ่ม "มุมมองผู้ชม")
+const admin = () => state.canEdit && !state.preview;
+const isHidden = x => x.hidden === 'TRUE';
+const visible = x => admin() || !isHidden(x);
+const hideBtn = (kind, x) => `<button type="button" data-hide="${kind}" data-id="${esc(x.id)}" title="${isHidden(x) ? 'แสดงบนเว็บ' : 'ซ่อนจากเว็บ'}">${isHidden(x) ? ICON.eyeOff : ICON.eye}</button>`;
+const hiddenTag = x => admin() && isHidden(x) ? '<span class="hid-tag">ซ่อนอยู่</span>' : '';
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const safeUrl = u => /^https?:[/][/]/i.test(u || '') ? u : '';
+const typeOf = name => TYPES.find(t => t.name === name) || TYPES[4];
+const ICON = {
+  arrow: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg>',
+  eye: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  eyeOff: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l18 18"/><path d="M10.6 5.1A10.8 10.8 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6A17 17 0 0 0 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>',
+  lock: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  edit: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+};
+
+// เรียกฟังก์ชันฝั่ง Apps Script (เปิดไฟล์ในเครื่องจะใช้ DEV_API จำลองแทน)
+const api = (fn, ...args) => new Promise((ok, fail) => {
+  // หน้าเว็บสาธารณะ (GitHub Pages): อ่านข้อมูลจาก Apps Script แบบไม่ระบุตัวตน
+  if (window.PUBLIC_API) {
+    const q = fn === 'apiInit' ? 'api=init' : fn === 'apiImage' ? 'api=image&id=' + encodeURIComponent(args[0] || '') : '';
+    if (!q) return fail(new Error('หน้าเว็บสาธารณะแก้ไขข้อมูลไม่ได้'));
+    fetch(window.PUBLIC_API + '?' + q, { credentials: 'omit' })
+      .then(r => r.json())
+      .then(j => j.error ? fail(new Error(j.error)) : ok(fn === 'apiImage' ? j.data : j))
+      .catch(fail);
+    return;
+  }
+  if (window.google && google.script && google.script.run)
+    google.script.run.withSuccessHandler(ok).withFailureHandler(fail)[fn](...args);
+  else if (window.DEV_API) DEV_API[fn](...args).then(ok, fail);
+  else fail(new Error('ต้องเปิดผ่าน Apps Script'));
+});
+
+function toast(msg, err) {
+  const t = $('toast');
+  t.textContent = msg; t.className = 'toast show' + (err ? ' err' : '');
+  clearTimeout(t._h); t._h = setTimeout(() => t.className = 'toast', 3200);
+}
+
+const parseD = s => { const [y, m, d] = String(s).split('-').map(Number); return new Date(y, m - 1, d || 1); };
+const fmtD = (s, opt) => s ? parseD(s).toLocaleDateString('th-TH', opt || { day: 'numeric', month: 'short', year: '2-digit' }) : '';
+const daysBetween = (a, b) => Math.round((parseD(b) - parseD(a)) / 86400000);
+const isoDate = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const addDays = (s, n) => { const d = parseD(s); d.setDate(d.getDate() + n); return isoDate(d); };
+function status(p) {
+  if (p.from && p.from > state.today) return 'soon';
+  if (p.until && p.until < state.today) return 'past';
+  return 'live';
+}
+const STATUS_TEXT = { live: 'กำลังประกาศ', past: 'หมดเวลา', soon: 'รอแสดง' };
+const byNewest = (a, b) => (b.from || '').localeCompare(a.from || '') || (Number(b.created) - Number(a.created));
+function levelMatch(f, p) {
+  if (!f || p === f || p === 'ทุกระดับ') return true;
+  if (GROUPS[f] && GROUPS[f].includes(p)) return true;
+  return Object.keys(GROUPS).some(g => GROUPS[g].includes(f) && p === g);
+}
+const graphemes = s => window.Intl && Intl.Segmenter
+  ? [...new Intl.Segmenter('th', { granularity: 'grapheme' }).segment(s)].map(x => x.segment) : [s];
+// ข้อความ *แบบนี้* ในหัวเรื่องจะเป็นตัวเน้นสี
+const richHeadline = s => esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+/* ===================== รูปภาพ ===================== */
+const imgCache = {};
+function loadImages(root) {
+  (root || document).querySelectorAll('img[data-img]:not(.ok)').forEach(img => {
+    const id = img.dataset.img;
+    const show = src => { if (src) { img.src = src; img.classList.add('ok'); } };
+    if (imgCache[id]) return show(imgCache[id]);
+    api('apiImage', id).then(src => { imgCache[id] = src; show(src); }).catch(() => {});
+  });
+}
+function resizeImage(file, max) {
+  return new Promise((ok, fail) => {
+    const fr = new FileReader();
+    fr.onload = () => {
+      const im = new Image();
+      im.onload = () => {
+        const s = Math.min(1, max / Math.max(im.width, im.height));
+        const c = document.createElement('canvas');
+        c.width = Math.round(im.width * s); c.height = Math.round(im.height * s);
+        const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height);
+        g.drawImage(im, 0, 0, c.width, c.height);
+        ok(c.toDataURL('image/jpeg', 0.8));
+      };
+      im.onerror = () => fail(new Error('เปิดรูปนี้ไม่ได้ — ใช้ไฟล์ JPG หรือ PNG'));
+      im.src = fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+
+/* ===================== 1. แบนเนอร์ ===================== */
+// ภาพปกเคลื่อนไหว 5 สาขา: ฟิสิกส์ → เคมี → ชีววิทยา → โลกและอวกาศ → เทคโนโลยี
+// ภาพปก 3 มิติ 5 สาขา (พื้นโปร่ง กลืนกับพื้นหลังเว็บ)
+const sphere = (id, c1, c2, c3) => `<radialGradient id="${id}" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="${c1}"/><stop offset=".55" stop-color="${c2}"/><stop offset="1" stop-color="${c3}"/></radialGradient>`;
+const shadowF = id => `<filter id="${id}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>`;
+const bob = (d = 4) => `<animateTransform attributeName="transform" type="translate" values="0 0;0 -8;0 0" dur="${d}s" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" repeatCount="indefinite"/>`;
+const SCENES = [
+  { th: 'ฟิสิกส์', en: 'PHYSICS', g: 'linear-gradient(90deg,#4f46e5,#06b6d4)', svg: (() => {
+    // ลูกตุ้มนิวตัน: ลูกซ้ายสุด-ขวาสุดแกว่งสลับกัน
+    const xs = [112, 156, 200, 244, 288], R = 22, PY = 82, BY = 252;
+    const swing = i => i === 0 ? 'values="0;28;0;0;0"' : i === 4 ? 'values="0;0;0;-28;0"' : '';
+    const ball = (x, i) => `<g>${swing(i) ? `<animateTransform attributeName="transform" type="rotate" ${swing(i).replace(/values="([^"]+)"/, (m, v) => `values="${v.split(';').map(d => `${d} ${x} ${PY}`).join(';')}"`)} keyTimes="0;.25;.5;.75;1" calcMode="spline" keySplines="0 0 .58 1;.42 0 1 1;0 0 .58 1;.42 0 1 1" dur="2.6s" repeatCount="indefinite"/>` : ''}
+      <path d="M${x - 13} ${PY - 8} L${x} ${BY - R} L${x + 13} ${PY + 4}" stroke="#94a3b8" stroke-width="1.6"/>
+      <circle cx="${x}" cy="${BY}" r="${R}" fill="url(#chrome)"/><ellipse cx="${x - 7}" cy="${BY - 9}" rx="6" ry="4" fill="#fff" opacity=".85"/></g>`;
+    return `<svg viewBox="0 0 400 400" fill="none"><defs>
+      ${sphere('chrome', '#ffffff', '#b6c2d1', '#334155')}
+      <linearGradient id="pBase" x1="0" x2="1"><stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#06b6d4"/></linearGradient>
+      <linearGradient id="pTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e0e7ff"/><stop offset="1" stop-color="#a5b4fc"/></linearGradient>
+      <linearGradient id="pPost" x1="0" x2="1"><stop offset="0" stop-color="#cbd5e1"/><stop offset=".5" stop-color="#f8fafc"/><stop offset="1" stop-color="#94a3b8"/></linearGradient>
+      ${shadowF('pS')}</defs>
+      <ellipse cx="200" cy="362" rx="170" ry="14" fill="#1f2328" opacity=".12" filter="url(#pS)"/>
+      <polygon points="60,312 340,312 368,336 32,336" fill="url(#pTop)"/>
+      <path d="M32 336 H368 V352 Q368 356 364 356 H36 Q32 356 32 352 Z" fill="url(#pBase)"/>
+      <g stroke="url(#pPost)" stroke-width="7" stroke-linecap="round">
+        <path d="M86 318 V74 H314 V318" opacity=".55"/>
+        <path d="M72 330 V90 H328 V330"/>
+      </g>
+      ${xs.slice(1, 4).map(x => `<ellipse cx="${x}" cy="322" rx="18" ry="4" fill="#312e81" opacity=".18"/>`).join('')}
+      ${xs.map(ball).join('')}
+    </svg>`;
+  })() },
+  { th: 'เคมี', en: 'CHEMISTRY', g: 'linear-gradient(90deg,#0d9488,#65a30d)', svg: `<svg viewBox="0 0 400 400" fill="none"><defs>
+      <linearGradient id="cGlass" x1="0" x2="1"><stop offset="0" stop-color="#f0fdfa" stop-opacity=".9"/><stop offset=".5" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#ccfbf1" stop-opacity=".9"/></linearGradient>
+      <linearGradient id="cLiq" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#65a30d"/></linearGradient>
+      ${sphere('cC', '#94a3b8', '#334155', '#0f172a')}${sphere('cH', '#ffffff', '#e2e8f0', '#94a3b8')}${sphere('cO', '#fecaca', '#ef4444', '#7f1d1d')}
+      <clipPath id="cClip"><path d="M148 70 H192 V165 L272 300 Q284 322 262 330 H78 Q56 322 68 300 L148 165 Z"/></clipPath>
+      ${shadowF('cS')}</defs>
+      <ellipse cx="170" cy="346" rx="120" ry="12" fill="#1f2328" opacity=".13" filter="url(#cS)"/>
+      <g clip-path="url(#cClip)">
+        <path d="M103 240 L68 300 Q56 322 78 330 H262 Q284 322 272 300 L237 240 Z" fill="url(#cLiq)"/>
+        <ellipse cx="170" cy="240" rx="67" ry="10" fill="#99f6e4"><animate attributeName="ry" values="8;12;8" dur="2.4s" repeatCount="indefinite"/></ellipse>
+        <g fill="#f0fdfa">${[[120, 7, 0], [150, 5, .7], [180, 8, 1.4], [205, 5, .4], [230, 6, 1.9], [165, 4, 2.4]].map(([x, r, d]) =>
+          `<circle cx="${x}" cy="330" r="${r}" opacity=".85"><animate attributeName="cy" values="330;236" dur="2.8s" begin="-${d}s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.9;0" dur="2.8s" begin="-${d}s" repeatCount="indefinite"/></circle>`).join('')}</g>
+      </g>
+      <path d="M148 70 H192 V165 L272 300 Q284 322 262 330 H78 Q56 322 68 300 L148 165 Z" fill="url(#cGlass)" stroke="#94a3b8" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M155 80 V168 L88 286" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+      <ellipse cx="170" cy="70" rx="26" ry="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5"/>
+      <g transform="translate(305 118)"><g>${bob(3.6)}
+        <g><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="14s" repeatCount="indefinite"/>
+          <g stroke="#94a3b8" stroke-width="7" stroke-linecap="round"><path d="M0 0 L-44 -22 M0 0 L44 -22 M0 0 L0 48"/></g>
+          <circle cx="-44" cy="-22" r="14" fill="url(#cH)"/><circle cx="44" cy="-22" r="14" fill="url(#cH)"/><circle cx="0" cy="48" r="16" fill="url(#cO)"/>
+          <circle r="22" fill="url(#cC)"/>
+        </g></g></g>
+    </svg>` },
+  { th: 'ชีววิทยา', en: 'BIOLOGY', g: 'linear-gradient(90deg,#16a34a,#ca8a04)', svg: `<svg viewBox="0 0 400 400" fill="none"><defs>
+      ${sphere('bA', '#fef9c3', '#facc15', '#a16207')}${sphere('bB', '#dcfce7', '#22c55e', '#14532d')}${sphere('bCell', '#f0fdf4', '#bbf7d0', '#4ade80')}
+      <linearGradient id="bRung" x1="0" x2="1"><stop offset="0" stop-color="#facc15"/><stop offset="1" stop-color="#22c55e"/></linearGradient>
+      ${shadowF('bS')}</defs>
+      <ellipse cx="200" cy="370" rx="110" ry="12" fill="#1f2328" opacity=".12" filter="url(#bS)"/>
+      <circle cx="80" cy="90" r="30" fill="url(#bCell)" opacity=".7"><animateTransform attributeName="transform" type="translate" values="0 0;6 -10;0 0" dur="6s" repeatCount="indefinite"/></circle>
+      <circle cx="330" cy="300" r="20" fill="url(#bCell)" opacity=".6"><animateTransform attributeName="transform" type="translate" values="0 0;-6 8;0 0" dur="5s" repeatCount="indefinite"/></circle>
+      <g transform="rotate(-22 200 200)">
+      ${Array.from({ length: 14 }, (_, i) => `<g transform="translate(200 ${40 + i * 24})"><g>
+        <animateTransform attributeName="transform" type="scale" values="1 1;-1 1;1 1" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="3.6s" begin="-${(i * 0.26).toFixed(2)}s" repeatCount="indefinite"/>
+        <line x1="-58" x2="58" stroke="url(#bRung)" stroke-width="5" stroke-linecap="round" opacity=".75"/>
+        <circle cx="-58" r="12" fill="url(#bA)"/><circle cx="58" r="12" fill="url(#bB)"/></g></g>`).join('')}
+      </g>
+    </svg>` },
+  { th: 'โลกและอวกาศ', en: 'EARTH & SPACE', g: 'linear-gradient(90deg,#7c3aed,#f97316)', svg: `<svg viewBox="0 0 400 400" fill="none"><defs>
+      ${sphere('eP', '#fef3c7', '#fb923c', '#9d174d')}${sphere('eM', '#ffffff', '#c7d2fe', '#4338ca')}
+      <linearGradient id="eRing" x1="0" x2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset=".5" stop-color="#f9a8d4"/><stop offset="1" stop-color="#fdba74"/></linearGradient>
+      <clipPath id="eClip"><circle cx="200" cy="190" r="82"/></clipPath>
+      ${shadowF('eS')}</defs>
+      <ellipse cx="200" cy="360" rx="100" ry="12" fill="#1f2328" opacity=".12" filter="url(#eS)"/>
+      <g fill="#a78bfa">${[[60, 70, 0], [340, 90, 1], [330, 300, 2], [70, 300, 1.5], [120, 40, .5]].map(([x, y, d]) =>
+        `<path d="M${x} ${y - 9} L${x + 2.5} ${y - 2.5} L${x + 9} ${y} L${x + 2.5} ${y + 2.5} L${x} ${y + 9} L${x - 2.5} ${y + 2.5} L${x - 9} ${y} L${x - 2.5} ${y - 2.5} Z"><animate attributeName="opacity" values=".2;1;.2" dur="2.4s" begin="-${d}s" repeatCount="indefinite"/></path>`).join('')}</g>
+      <g>${bob(5)}
+        <g transform="rotate(-18 200 190)"><path d="M50 190 A150 36 0 0 1 350 190" stroke="url(#eRing)" stroke-width="12" opacity=".55"/></g>
+        <circle cx="200" cy="190" r="82" fill="url(#eP)"/>
+        <g clip-path="url(#eClip)" opacity=".25" fill="#7c2d12"><ellipse cx="200" cy="160" rx="120" ry="7"/><ellipse cx="200" cy="205" rx="120" ry="10"/><ellipse cx="200" cy="240" rx="120" ry="6"/></g>
+        <g transform="rotate(-18 200 190)"><path d="M50 190 A150 36 0 0 0 350 190" stroke="url(#eRing)" stroke-width="12"/></g>
+      </g>
+      <path id="eO" d="M200 190 m-170 0 a170 70 0 1 0 340 0 a170 70 0 1 0 -340 0" transform="rotate(14 200 190)" stroke="#c4b5fd" stroke-dasharray="3 7" opacity=".7"/>
+      <circle r="15" fill="url(#eM)"><animateMotion dur="8s" repeatCount="indefinite"><mpath href="#eO"/></animateMotion></circle>
+    </svg>` },
+  { th: 'เทคโนโลยี', en: 'TECHNOLOGY', g: 'linear-gradient(90deg,#2563eb,#db2777)', svg: (() => {
+    const ISO = 'matrix(.866 .5 -.866 .5 0 0)';
+    const traces = ['M45 -20 H120 V-90 H170', 'M45 12 H160', 'M45 34 H95 V110 H150', 'M18 45 V130 H70', 'M-12 45 V175',
+      'M-34 45 V95 H-120', 'M-45 5 H-160 V60', 'M-45 -28 H-105 V-115', 'M-20 -45 V-135 H40', 'M14 -45 V-95'];
+    const ends = [[170, -90], [160, 12], [150, 110], [70, 130], [-12, 175], [-120, 95], [-160, 60], [-105, -115], [40, -135], [14, -95]];
+    const pins = [-33, -19, -5, 9, 23, 37].map(v => `<rect x="${v - 3}" y="-56" width="6" height="12" rx="1"/><rect x="${v - 3}" y="44" width="6" height="12" rx="1"/><rect x="-56" y="${v - 3}" width="12" height="6" rx="1"/><rect x="44" y="${v - 3}" width="12" height="6" rx="1"/>`).join('');
+    return `<svg viewBox="0 0 400 400" fill="none"><defs>
+      <linearGradient id="tTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#334155"/><stop offset="1" stop-color="#0f172a"/></linearGradient>
+      <linearGradient id="tDie" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#67e8f9"/><stop offset=".5" stop-color="#818cf8"/><stop offset="1" stop-color="#f472b6"/></linearGradient>
+      <linearGradient id="tL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e293b"/><stop offset="1" stop-color="#020617"/></linearGradient>
+      <linearGradient id="tR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#475569"/><stop offset="1" stop-color="#1e293b"/></linearGradient>
+      <radialGradient id="tGlow"><stop offset="0" stop-color="#818cf8" stop-opacity=".45"/><stop offset="1" stop-color="#818cf8" stop-opacity="0"/></radialGradient>
+      <linearGradient id="tPulse" x1="0" x2="1"><stop offset="0" stop-color="#06b6d4"/><stop offset="1" stop-color="#db2777"/></linearGradient>
+    </defs>
+    <g transform="translate(200 185) scale(.9)">
+      <g transform="${ISO}">
+        <g stroke="#6366f1" stroke-opacity=".08">${Array.from({ length: 15 }, (_, i) => `<path d="M${-210 + i * 30} -210 V210 M-210 ${-210 + i * 30} H210"/>`).join('')}</g>
+        ${traces.map((d, i) => `<path d="${d}" stroke="#a5b4fc" stroke-opacity=".55" stroke-width="3"/>
+          <path d="${d}" stroke="url(#tPulse)" stroke-width="5" stroke-linecap="round" stroke-dasharray="18 320"><animate attributeName="stroke-dashoffset" from="338" to="0" dur="${2 + (i % 3) * .5}s" begin="-${(i * .41).toFixed(2)}s" repeatCount="indefinite"/></path>`).join('')}
+        <g fill="#f472b6">${ends.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="7"/>`).join('')}</g>
+        <circle r="100" fill="url(#tGlow)"><animate attributeName="r" values="85;110;85" dur="3s" repeatCount="indefinite"/></circle>
+      </g>
+      <g>${bob(4)}
+        <g transform="translate(0 6) ${ISO}" fill="#94a3b8">${pins}</g>
+        <polygon points="-78,0 0,45 0,63 -78,18" fill="url(#tL)"/>
+        <polygon points="78,0 0,45 0,63 78,18" fill="url(#tR)"/>
+        <g transform="${ISO}">
+          <rect x="-45" y="-45" width="90" height="90" rx="6" fill="url(#tTop)" stroke="#64748b"/>
+          <rect x="-26" y="-26" width="52" height="52" rx="4" fill="url(#tDie)"/>
+          <rect x="-26" y="-26" width="52" height="52" rx="4" fill="#fff" opacity="0"><animate attributeName="opacity" values="0;.35;0" dur="2.4s" repeatCount="indefinite"/></rect>
+          <text y="7" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="20" font-weight="700" fill="#0f172a">&lt;/&gt;</text>
+        </g>
+        <path d="M-78 0 L0 -45 L78 0" stroke="#fff" stroke-opacity=".5" stroke-width="1.2"/>
+      </g>
+    </g>
+  </svg>`;
+  })() },
+];
+const SLIDE_MS = 4800;
+let slideIdx = 0;
+function renderCover(img) {
+  const list = (img ? [{ th: 'ภาพปก', en: 'COVER', img }] : []).concat(SCENES);
+  $('frame').innerHTML = `<div class="slides">${list.map((sc, i) => `<div class="slide${i ? '' : ' on'}">
+      ${sc.img ? `<img data-img="${esc(sc.img)}" alt="">` : sc.svg}
+      <div class="cap" style="--sg:${sc.g || 'var(--g-cool)'}"><small>${String(i + 1).padStart(2, '0')} / ${esc(sc.en)}</small><b>${esc(sc.th)}</b></div></div>`).join('')}</div>
+    <div class="bars">${list.map((sc, i) => `<button type="button" data-slide="${i}" aria-label="${esc(sc.th)}" class="${i ? '' : 'on'}"><i></i></button>`).join('')}</div>`;
+  $('frame').style.setProperty('--slide', SLIDE_MS + 'ms');
+  slideIdx = 0;
+  loadImages($('frame'));
+}
+function goSlide(n) {
+  const slides = $('frame').querySelectorAll('.slide'), bars = $('frame').querySelectorAll('.bars button');
+  if (!slides.length) return;
+  n = (n + slides.length) % slides.length;
+  slides.forEach((el, i) => { el.classList.toggle('on', i === n); el.classList.toggle('out', i === slideIdx && i !== n); });
+  bars.forEach((b, i) => { b.classList.remove('on'); b.classList.toggle('done', i < n); });
+  void bars[n].offsetWidth; bars[n].classList.add('on');
+  slideIdx = n;
+}
+$('frame').addEventListener('animationend', e => { if (e.target.closest('.bars button.on')) goSlide(slideIdx + 1); });
+$('frame').addEventListener('click', e => { const b = e.target.closest('[data-slide]'); if (b) goSlide(+b.dataset.slide); });
+
+function renderBanner() {
+  const s = state.settings;
+  const mast = s.masthead || 'สตรีวิทยาศาสตร์';
+  $('mast').setAttribute('aria-label', mast);
+  $('mast').innerHTML = graphemes(mast).map((g, i) => `<span class="g" style="--i:${i}">${esc(g)}</span>`).join('');
+  $('stickyMast').textContent = $('footMast').textContent = mast;
+  $('issue').textContent = s.issue || '';
+  $('headline').innerHTML = richHeadline(s.headline || '');
+  $('deck').textContent = s.deck || '';
+  $('caption').textContent = s.caption || '';
+  document.querySelector('.fig figcaption').classList.toggle('hide', !(s.bannerImage && s.caption));
+  renderCover(s.bannerImage);
+  const fb = safeUrl(s.facebook);
+  document.querySelectorAll('a.fb').forEach(a => { a.classList.toggle('hide', !fb); if (fb) a.href = fb; });
+}
+
+function renderTicker() {
+  const live = state.posts.filter(p => status(p) === 'live' && !isHidden(p)).sort(byNewest);
+  const on = state.settings.ticker !== 'off' && live.length;
+  $('ticker').classList.toggle('hide', !on);
+  if (!on) return;
+  const items = live.map(p => `<a data-open="${esc(p.id)}">${esc(p.title)}</a>`).join('');
+  $('track').innerHTML = items + items;
+  $('track').style.setProperty('--dur', Math.max(25, live.length * 9) + 's');
+}
+
+/* ===================== 2. สำหรับครู ===================== */
+function renderTeachers() {
+  $('tabs').innerHTML = TABS.map(t => {
+    const n = state.links.filter(l => l.tab === t && visible(l)).length;
+    return `<button class="tab${t === state.tab ? ' on' : ''}" aria-expanded="${t === state.tab}" aria-controls="linksWrap" data-tab="${esc(t)}">${esc(t)}${n ? `<sup>${n}</sup>` : ''}<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>`;
+  }).join('');
+  // แผงรายการกางออกเมื่อกดแท็บ (เปิดหน้าเว็บมาจะพับไว้)
+  $('linksWrap').classList.toggle('open', !!state.tab);
+  $('tabHint').classList.toggle('hide', !!state.tab);
+  if (!state.tab) return;
+  const list = state.links.filter(l => l.tab === state.tab && visible(l)).sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
+  const tools = l => admin() ? `<div class="edit">${hideBtn('links', l)}<button type="button" data-edit-link="${esc(l.id)}" title="แก้ไข">${ICON.edit}</button></div>` : '';
+  let html = list.map((l, i) => {
+    const url = safeUrl(l.url);
+    const staff = url && isStaffLink(l);
+    const inner = `${tools(l)}${hiddenTag(l)}<span class="i">${String(i + 1).padStart(2, '0')} — ${esc(l.tab)}</span><h3>${esc(l.title)}</h3>${l.desc ? `<p>${esc(l.desc)}</p>` : ''}
+      ${staff ? `<span class="lock">${ICON.lock} เฉพาะบุคลากร</span>` : ''}
+      <span class="arr">${url ? 'เปิด ' + ICON.arrow : 'ยังไม่มีลิงก์'}</span>`;
+    const hc = isHidden(l) ? ' is-hidden' : '';
+    return url ? `<a class="lk rv${hc}${staff ? ' staff' : ''}" style="--d:${i * .06}s" href="${esc(url)}" target="_blank" rel="noopener"${staff ? ` data-staff="${esc(l.id)}"` : ''}>${inner}</a>`
+               : `<div class="lk nolink rv${hc}" style="--d:${i * .06}s">${inner}</div>`;
+  }).join('');
+  if (admin()) html += `<button type="button" class="lk add" id="addLink">+ เพิ่มลิงก์ใน "${esc(state.tab)}"</button>`;
+  $('links').innerHTML = html || `<div class="empty">ยังไม่มีรายการในแท็บนี้</div>`;
+  reveal();
+}
+$('tabs').addEventListener('click', e => {
+  const b = e.target.closest('[data-tab]');
+  if (b) { state.tab = state.tab === b.dataset.tab ? '' : b.dataset.tab; renderTeachers(); }
+});
+
+// ลิงก์ที่เปิดได้เฉพาะบุคลากร: ติ๊กไว้ในฟอร์ม หรือเป็นลิงก์โดเมนโรงเรียน (เช่น /a/macros/satriwit.ac.th/)
+const isStaffLink = l => l.staff === 'TRUE' || /satriwit\.ac\.th/i.test(l.url || '');
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-staff]');
+  if (!a || e.target.closest('.edit')) return;
+  e.preventDefault();
+  const l = state.links.find(x => x.id === a.dataset.staff); if (!l) return;
+  const url = safeUrl(l.url);
+  const login = 'https:\/\/accounts.google.com/AccountChooser?continue=' + encodeURIComponent(url);
+  $('detailCat').innerHTML = `<span class="cat t-other">${ICON.lock} เฉพาะบุคลากร</span>`;
+  $('detailBody').innerHTML = `<div class="detail noimg"><div class="info">
+    <h2>${esc(l.title)}</h2>
+    <p class="txt">ระบบนี้เปิดได้เฉพาะครูและบุคลากรของกลุ่มสาระที่มีรายชื่อในระบบ ต้องเข้าสู่ระบบด้วยบัญชี <b>@satriwit.ac.th</b> ก่อน</p>
+    <div class="acts">
+      <a class="btn solid" href="${esc(url)}" target="_blank" rel="noopener">เปิดระบบ (เข้าสู่ระบบบัญชีโรงเรียนแล้ว) ${ICON.arrow}</a>
+      <a class="btn" href="${esc(login)}" target="_blank" rel="noopener">เข้าสู่ระบบบัญชีโรงเรียนก่อน</a>
+    </div>
+    <p class="staff-note">บุคคลทั่วไปไม่สามารถเปิดระบบนี้ได้ ติดตามข่าวสารของกลุ่มสาระได้ที่หน้าประชาสัมพันธ์</p>
+  </div></div>`;
+  $('detailDlg').showModal();
+});
+
+/* ===================== 3. กรอบประชาสัมพันธ์ ===================== */
+function dueText(p) {
+  const left = daysBetween(state.today, p.until);
+  if (p.type === 'รับสมัคร/ประกวด') {
+    if (left <= 0) return '<span class="due hot">ปิดรับวันนี้</span>';
+    return `<span class="due${left <= 3 ? ' hot' : ''}">ปิดรับใน ${left} วัน</span>`;
+  }
+  return `<span>ถึง ${fmtD(p.until, { day: 'numeric', month: 'short' })}</span>`;
+}
+function postCard(p, lead, i) {
+  const t = typeOf(p.type);
+  const img = p.image ? `<img data-img="${esc(p.image)}" alt="">` : `<div class="art"><span>${esc(t.art)}</span></div>`;
+  const tools = admin() ? `<div class="edit">${hideBtn('posts', p)}<button type="button" data-edit-post="${esc(p.id)}" title="แก้ไข">${ICON.edit}</button></div>` : '';
+  return `<article class="pc ${t.cls}${lead ? ' lead' : ''}${isHidden(p) ? ' is-hidden' : ''} rv" style="--d:${Math.min(i, 6) * .07}s" data-open="${esc(p.id)}" tabindex="0">${tools}
+    <div class="img">${img}</div>
+    <div class="body">
+      <span class="cat">${esc(p.type)}</span>${hiddenTag(p)}
+      <h3>${esc(p.title)}</h3>${p.text ? `<p>${esc(p.text)}</p>` : ''}
+      <div class="foot"><span class="lvl">${esc(p.level || 'ทุกระดับ')}</span>${dueText(p)}</div>
+    </div></article>`;
+}
+function renderBoard() {
+  const live = state.posts.filter(p => status(p) === 'live' && visible(p))
+    .sort((a, b) => (b.pinned === 'TRUE') - (a.pinned === 'TRUE') || byNewest(a, b));
+  const leadIdx = live.findIndex(p => p.pinned === 'TRUE');
+  $('pr').innerHTML = live.length ? live.map((p, i) => postCard(p, i === leadIdx, i)).join('')
+    : '<div class="empty">ตอนนี้ยังไม่มีประกาศ — ดูประกาศที่ผ่านมาได้ในรายการด้านล่าง</div>';
+  loadImages($('pr'));
+  $('pr').scrollLeft = 0;
+  requestAnimationFrame(setupCarousel);
+}
+
+/* ---------- เลื่อนประกาศแนวนอน: อัตโนมัติ + ปุ่มเลื่อน ---------- */
+const CAROUSEL_MS = 4500;
+const car = { timer: null, hover: false, hold: 0, inView: true };
+const prCards = () => [...$('pr').querySelectorAll('.pc')];
+function prIndex() {
+  const x = $('pr').scrollLeft, cards = prCards();
+  let best = 0;
+  cards.forEach((c, i) => { if (Math.abs(c.offsetLeft - cards[0].offsetLeft - x) < Math.abs(cards[best].offsetLeft - cards[0].offsetLeft - x)) best = i; });
+  return best;
+}
+function prAtEnd() { const p = $('pr'); return p.scrollLeft >= p.scrollWidth - p.clientWidth - 4; }
+function prGo(i) {
+  const cards = prCards(); if (!cards.length) return;
+  i = (i + cards.length) % cards.length;
+  $('pr').scrollTo({ left: cards[i].offsetLeft - cards[0].offsetLeft, behavior: reduceMotion ? 'auto' : 'smooth' });
+}
+function prStep(dir) {
+  if (dir > 0 && prAtEnd()) return prGo(0);
+  if (dir < 0 && $('pr').scrollLeft <= 4) return prGo(prCards().length - 1);
+  prGo(prIndex() + dir);
+}
+function prDots() {
+  const i = prIndex(), end = prAtEnd(), n = prCards().length;
+  $('prDots').querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', end ? k === n - 1 : k === i));
+}
+function prNudge() { car.hold = Date.now() + 6000; }  // ผู้ใช้กดเอง: พักเลื่อนอัตโนมัติ 6 วินาที
+function setupCarousel() {
+  const p = $('pr'), n = prCards().length, overflow = p.scrollWidth > p.clientWidth + 4;
+  $('prCtrl').classList.toggle('hide', !overflow);
+  $('prDots').innerHTML = overflow ? prCards().map((c, i) => `<button type="button" data-dot="${i}" aria-label="ประกาศที่ ${i + 1}"></button>`).join('') : '';
+  prDots();
+  clearInterval(car.timer);
+  if (!overflow || reduceMotion || n < 2) return;
+  car.timer = setInterval(() => {
+    if (car.hover || !car.inView || document.hidden || Date.now() < car.hold || document.querySelector('dialog[open]')) return;
+    prStep(1);
+  }, CAROUSEL_MS);
+}
+$('prPrev').addEventListener('click', () => { prNudge(); prStep(-1); });
+$('prNext').addEventListener('click', () => { prNudge(); prStep(1); });
+$('prDots').addEventListener('click', e => { const b = e.target.closest('[data-dot]'); if (b) { prNudge(); prGo(+b.dataset.dot); } });
+$('pr').addEventListener('scroll', () => requestAnimationFrame(prDots), { passive: true });
+$('pr').addEventListener('mouseenter', () => { car.hover = true; });
+$('pr').addEventListener('mouseleave', () => { car.hover = false; });
+$('pr').addEventListener('touchstart', prNudge, { passive: true });
+$('pr').addEventListener('focusin', prNudge);
+addEventListener('resize', () => requestAnimationFrame(setupCarousel));
+if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { car.inView = e.isIntersecting; }).observe($('pr'));
+
+/* ===================== 4. รายการทั้งหมด ===================== */
+function renderFilters() {
+  $('fType').innerHTML = '<option value="">ทุกประเภท</option>' + TYPES.map(t => `<option>${esc(t.name)}</option>`).join('');
+  $('fLevel').innerHTML = '<option value="">ทุกระดับชั้น</option>' + LEVELS.filter(l => l !== 'ทุกระดับ').map(l => `<option>${esc(l)}</option>`).join('');
+  const months = [...new Set(state.posts.map(p => (p.from || '').slice(0, 7)).filter(Boolean))].sort().reverse();
+  $('fMonth').innerHTML = '<option value="">ทุกเดือน</option>' + months.map(m =>
+    `<option value="${m}">${parseD(m).toLocaleDateString('th-TH', { month: 'long', year: 'numeric' })}</option>`).join('');
+  $('fType').value = state.f.type; $('fLevel').value = state.f.level;
+  if (!months.includes(state.f.month)) state.f.month = '';
+  $('fMonth').value = state.f.month;
+  const segs = [['all', 'ทั้งหมด'], ['live', 'กำลังประกาศ'], ['past', 'หมดเวลา']];
+  if (admin()) segs.push(['soon', 'รอแสดง']);
+  $('fStatus').innerHTML = segs.map(([v, l]) => `<button type="button" data-st="${v}" aria-pressed="${state.f.status === v}">${l}</button>`).join('');
+}
+function renderRows() {
+  const f = state.f, q = f.q.trim().toLowerCase();
+  const list = state.posts.filter(p => {
+    const st = status(p);
+    if (!visible(p)) return false;
+    if (st === 'soon' && !admin()) return false;
+    if (f.status !== 'all' && st !== f.status) return false;
+    if (f.type && p.type !== f.type) return false;
+    if (f.level && !levelMatch(f.level, p.level)) return false;
+    if (f.month && !(p.from || '').startsWith(f.month)) return false;
+    if (q && !(p.title + ' ' + p.text).toLowerCase().includes(q)) return false;
+    return true;
+  }).sort(byNewest);
+  $('count').textContent = `พบ ${list.length} รายการ`;
+  $('rows').innerHTML = list.slice(0, state.limit).map(p => {
+    const t = typeOf(p.type), st = status(p);
+    return `<div class="row ${t.cls}${isHidden(p) ? ' is-hidden' : ''}" data-open="${esc(p.id)}" tabindex="0">
+      <span class="d">${fmtD(p.from)}</span><span class="c"><span class="cat">${esc(p.type)}</span></span>
+      <span class="t">${esc(p.title)}</span><span class="l">${esc(p.level)}</span>
+      <span class="st ${st}">${admin() && isHidden(p) ? 'ซ่อนอยู่ · ' : ''}${STATUS_TEXT[st]}</span></div>`;
+  }).join('') || '<div class="empty">ไม่พบรายการที่ตรงกับตัวกรอง</div>';
+  $('moreBtn').classList.toggle('hide', list.length <= state.limit);
+}
+$('fQ').addEventListener('input', e => { state.f.q = e.target.value; state.limit = PAGE; renderRows(); });
+[['fType', 'type'], ['fLevel', 'level'], ['fMonth', 'month']].forEach(([id, k]) =>
+  $(id).addEventListener('change', e => { state.f[k] = e.target.value; state.limit = PAGE; renderRows(); }));
+$('fStatus').addEventListener('click', e => {
+  const b = e.target.closest('[data-st]'); if (!b) return;
+  state.f.status = b.dataset.st; state.limit = PAGE; renderFilters(); renderRows();
+});
+$('moreBtn').addEventListener('click', () => { state.limit += PAGE; renderRows(); });
+
+/* ===================== รายละเอียดประกาศ ===================== */
+function openDetail(id) {
+  const p = state.posts.find(x => x.id === id); if (!p) return;
+  const t = typeOf(p.type), url = safeUrl(p.url), st = status(p);
+  const long = { day: 'numeric', month: 'long', year: 'numeric' };
+  $('detailCat').innerHTML = `<span class="cat ${t.cls}">${esc(p.type)}</span>`;
+  $('detailBody').innerHTML = `<div class="detail ${p.image ? '' : 'noimg'} ${t.cls}">
+    ${p.image ? `<div class="pic"><img data-img="${esc(p.image)}" alt=""></div>` : ''}
+    <div class="info">
+      <h2>${esc(p.title)}</h2>
+      <div class="meta"><span class="lvl">${esc(p.level || 'ทุกระดับ')}</span>
+        <span>ประกาศ ${fmtD(p.from, long)}</span>
+        <span>${st === 'past' ? 'สิ้นสุดแล้ว' : 'ถึง ' + fmtD(p.until, long)}</span>
+        ${st === 'live' && p.type === 'รับสมัคร/ประกวด' ? dueText(p) : ''}</div>
+      ${p.text ? `<p class="txt">${esc(p.text)}</p>` : ''}
+      <div class="acts">
+        ${url ? `<a class="btn solid" href="${esc(url)}" target="_blank" rel="noopener">${esc(p.urlLabel || t.btn)} ${ICON.arrow}</a>` : ''}
+        ${admin() ? `<button type="button" class="btn" data-edit-post="${esc(p.id)}">${ICON.edit} แก้ไข</button>
+          <button type="button" class="btn" data-hide="posts" data-id="${esc(p.id)}">${isHidden(p) ? ICON.eye + ' แสดงบนเว็บ' : ICON.eyeOff + ' ซ่อนจากเว็บ'}</button>` : ''}
+      </div>
+    </div></div>`;
+  loadImages($('detailBody'));
+  $('detailDlg').showModal();
+}
+document.addEventListener('keydown', e => {
+  const o = e.target.closest && e.target.closest('[data-open]');
+  if (o && e.key === 'Enter') openDetail(o.dataset.open);
+});
+document.querySelectorAll('dialog').forEach(d => {
+  d.addEventListener('click', e => { if (e.target === d || e.target.closest('[data-close]')) d.close(); });
+});
+
+/* ===================== ฟอร์มผู้ดูแล ===================== */
+// ฟอร์มทั่วไป: fields = [{ name, label, type, options, required, full, hint, placeholder, def }]
+let formCfg = null, formImg = null;
+function openForm(cfg) {
+  formCfg = cfg; formImg = { data: null, remove: false };
+  $('formTitle').textContent = cfg.title;
+  $('formErr').textContent = '';
+  const v = cfg.values || {};
+  $('formBody').innerHTML = cfg.fields.map(f => {
+    const val = v[f.name] == null || v[f.name] === '' ? (f.def == null ? '' : f.def) : v[f.name];
+    const cls = f.full ? ' class="full"' : '';
+    const lab = `${esc(f.label)}${f.required ? ' *' : ''}${f.hint ? ` <small>${esc(f.hint)}</small>` : ''}`;
+    if (f.type === 'select') return `<label${cls}>${lab}<select name="${f.name}">${f.options.map(o => `<option${o === val ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select></label>`;
+    if (f.type === 'textarea') return `<label${cls}>${lab}<textarea name="${f.name}" placeholder="${esc(f.placeholder || '')}">${esc(val)}</textarea></label>`;
+    if (f.type === 'check') return `<label class="full check"><input type="checkbox" name="${f.name}"${val === true || val === 'TRUE' || val === 'on' ? ' checked' : ''}> ${esc(f.label)}</label>`;
+    if (f.type === 'image') return `<div class="full"><label style="margin-bottom:6px">${lab}</label><div class="imgbox">
+        <img id="imgPrev" class="hide" alt=""><input type="file" id="imgIn" accept="image/jpeg,image/png,image/webp">
+        <button type="button" class="btn sm hide" id="imgRm">ลบรูป</button></div></div>`;
+    return `<label${cls}>${lab}<input type="${f.type || 'text'}" name="${f.name}" value="${esc(val)}" placeholder="${esc(f.placeholder || '')}"></label>`;
+  }).join('');
+  const imgField = cfg.fields.find(f => f.type === 'image');
+  if (imgField) {
+    const cur = v[imgField.name];
+    const show = src => { $('imgPrev').src = src; $('imgPrev').classList.remove('hide'); $('imgRm').classList.remove('hide'); };
+    if (cur) imgCache[cur] ? show(imgCache[cur]) : api('apiImage', cur).then(src => src && show(src));
+    $('imgIn').addEventListener('change', async e => {
+      const file = e.target.files[0]; if (!file) return;
+      try { formImg.data = await resizeImage(file, imgField.max || 1400); formImg.remove = false; show(formImg.data); }
+      catch (err) { toast(err.message, true); e.target.value = ''; }
+    });
+    $('imgRm').addEventListener('click', () => {
+      formImg.data = null; formImg.remove = true; $('imgIn').value = '';
+      $('imgPrev').classList.add('hide'); $('imgRm').classList.add('hide');
+    });
+  }
+  $('formDel').classList.toggle('hide', !cfg.onDelete);
+  if (cfg.onOpen) cfg.onOpen($('form'));
+  $('formDlg').showModal();
+}
+$('form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const vals = {};
+  formCfg.fields.forEach(f => {
+    if (f.type === 'image') return;
+    const el = $('form').elements[f.name];
+    vals[f.name] = f.type === 'check' ? el.checked : el.value.trim();
+  });
+  const miss = formCfg.fields.find(f => f.required && !vals[f.name]);
+  if (miss) { $('formErr').textContent = `กรุณากรอก "${miss.label}"`; return; }
+  const msg = formCfg.validate && formCfg.validate(vals);
+  if (msg) { $('formErr').textContent = msg; return; }
+  $('formSave').disabled = true; $('formSave').textContent = 'กำลังบันทึก…';
+  try { await formCfg.onSubmit(vals, formImg); $('formDlg').close(); toast('บันทึกแล้ว'); }
+  catch (err) { $('formErr').textContent = err.message || 'บันทึกไม่สำเร็จ'; }
+  $('formSave').disabled = false; $('formSave').textContent = 'บันทึก';
+});
+$('form').addEventListener('input', () => { $('formErr').textContent = ''; });
+$('formDel').addEventListener('click', async () => {
+  if (!confirm('ลบรายการนี้? กู้คืนไม่ได้')) return;
+  try { await formCfg.onDelete(); $('formDlg').close(); toast('ลบแล้ว'); }
+  catch (err) { $('formErr').textContent = err.message || 'ลบไม่สำเร็จ'; }
+});
+
+function editPost(p) {
+  openForm({
+    title: p ? 'แก้ไขประชาสัมพันธ์' : 'เพิ่มประชาสัมพันธ์',
+    values: p || {},
+    fields: [
+      { name: 'type', label: 'ประเภท', type: 'select', options: TYPES.map(t => t.name) },
+      { name: 'level', label: 'ระดับชั้น', type: 'select', options: LEVELS },
+      { name: 'title', label: 'หัวข้อ', required: true, full: true, placeholder: 'ยินดีกับนักเรียน ม.5 ที่ได้รับเหรียญทอง…' },
+      { name: 'text', label: 'รายละเอียด', type: 'textarea', full: true, placeholder: 'รายละเอียด ชื่อนักเรียน ครูที่ปรึกษา วัน เวลา สถานที่' },
+      { name: 'from', label: 'แสดงตั้งแต่', type: 'date', def: state.today, required: true },
+      { name: 'until', label: 'แสดงถึง', type: 'date', def: addDays(state.today, 14), required: true, hint: 'หลังจากนี้กรอบจะหายไปเอง' },
+      { name: 'url', label: 'ลิงก์', type: 'url', placeholder: 'https:\/\/forms.gle/…', hint: 'ไม่บังคับ' },
+      { name: 'urlLabel', label: 'ข้อความบนปุ่มลิงก์', placeholder: 'สมัคร' },
+      { name: 'image', label: 'รูป / โปสเตอร์', type: 'image', max: 1400, hint: 'JPG หรือ PNG — ระบบย่อขนาดให้เอง' },
+      { name: 'pinned', label: 'ปักหมุดเป็นเรื่องเด่น (กรอบใหญ่)', type: 'check' },
+      { name: 'hidden', label: 'ซ่อนจากหน้าเว็บ (เห็นเฉพาะผู้ดูแล)', type: 'check' },
+    ],
+    validate: v => v.until < v.from ? 'วันที่ "แสดงถึง" ต้องไม่ก่อนวันเริ่มแสดง'
+      : (v.url && !safeUrl(v.url)) ? 'ลิงก์ต้องขึ้นต้นด้วย https:\/\/' : '',
+    onSubmit: async (v, img) => {
+      state.posts = await api('apiSavePost', Object.assign({ id: p ? p.id : '', removeImage: img.remove }, v), img.data);
+      renderPosts();
+    },
+    onDelete: p ? async () => { state.posts = await api('apiDeletePost', p.id); renderPosts(); } : null,
+  });
+}
+function editLink(l) {
+  openForm({
+    title: l ? 'แก้ไขลิงก์' : 'เพิ่มลิงก์สำหรับครู',
+    values: l || { tab: state.tab || TABS[0], order: state.links.filter(x => x.tab === (state.tab || TABS[0])).length + 1 },
+    fields: [
+      { name: 'tab', label: 'แท็บ', type: 'select', options: TABS },
+      { name: 'order', label: 'ลำดับ', type: 'number' },
+      { name: 'title', label: 'ชื่อ', required: true, full: true, placeholder: 'โครงการวิทยาศาสตร์นิทรรศน์' },
+      { name: 'desc', label: 'คำอธิบายสั้น ๆ', full: true },
+      { name: 'url', label: 'ลิงก์', type: 'url', full: true, placeholder: 'https:\/\/…', hint: 'เว้นว่างได้ถ้ายังไม่มี' },
+      { name: 'staff', label: 'เฉพาะบุคลากร (ต้องล็อกอินบัญชี @satriwit.ac.th จึงจะเปิดได้)', type: 'check' },
+      { name: 'hidden', label: 'ซ่อนจากหน้าเว็บ (เห็นเฉพาะผู้ดูแล)', type: 'check' },
+    ],
+    validate: v => (v.url && !safeUrl(v.url)) ? 'ลิงก์ต้องขึ้นต้นด้วย https:\/\/' : '',
+    onSubmit: async v => { state.links = await api('apiSaveLink', Object.assign({ id: l ? l.id : '' }, v)); state.tab = v.tab; renderTeachers(); },
+    onDelete: l ? async () => { state.links = await api('apiDeleteLink', l.id); renderTeachers(); } : null,
+  });
+}
+function editBanner() {
+  openForm({
+    title: 'แก้ไขแบนเนอร์',
+    values: Object.assign({}, state.settings, { ticker: state.settings.ticker !== 'off' }),
+    fields: [
+      { name: 'masthead', label: 'ชื่อหัวนิตยสาร', required: true },
+      { name: 'issue', label: 'ข้อความมุมซ้ายบน', placeholder: 'ปีการศึกษา 2569 · ภาคเรียนที่ 2' },
+      { name: 'headline', label: 'หัวเรื่องจากปก', type: 'textarea', full: true, hint: 'ขึ้นบรรทัดใหม่ได้ · ใส่ *ดอกจัน* ครอบคำที่ต้องการเน้นสี' },
+      { name: 'deck', label: 'ข้อความใต้หัวเรื่อง', type: 'textarea', full: true },
+      { name: 'bannerImage', label: 'ภาพปก (ไม่บังคับ)', type: 'image', max: 1600, hint: 'ถ้าใส่ จะเป็นสไลด์แรกก่อนแอนิเมชัน 5 สาขา' },
+      { name: 'caption', label: 'คำบรรยายภาพ', full: true },
+      { name: 'facebook', label: 'ลิงก์เพจ Facebook', type: 'url', full: true, placeholder: 'https:\/\/www.facebook.com/…' },
+      { name: 'ticker', label: 'แสดงแถบประกาศวิ่ง', type: 'check' },
+    ],
+    validate: v => (v.facebook && !safeUrl(v.facebook)) ? 'ลิงก์ Facebook ต้องขึ้นต้นด้วย https:\/\/' : '',
+    onOpen: form => { form.elements.headline.style.minHeight = '80px'; },
+    onSubmit: async (v, img) => {
+      v.ticker = v.ticker ? 'on' : 'off';
+      v.removeBanner = img.remove;
+      state.settings = await api('apiSaveSettings', v, img.data);
+      renderBanner(); renderTicker(); reveal();
+    },
+  });
+}
+
+document.addEventListener('click', e => {
+  const ep = e.target.closest('[data-edit-post]'), el = e.target.closest('[data-edit-link]');
+  if (ep) { e.preventDefault(); $('detailDlg').close(); return editPost(state.posts.find(p => p.id === ep.dataset.editPost)); }
+  if (el) { e.preventDefault(); return editLink(state.links.find(l => l.id === el.dataset.editLink)); }
+  if (e.target.closest('#addLink')) return editLink(null);
+  if (e.target.closest('.addPost')) return editPost(null);
+  if (e.target.closest('#editBanner')) return editBanner();
+  const ew = e.target.closest('[data-edit-work]');
+  if (ew) { e.preventDefault(); $('detailDlg').close(); return editWork(state.works.find(w => w.id === ew.dataset.editWork)); }
+  const aw = e.target.closest('[data-add-work]');
+  if (aw) return editWork(null, aw.dataset.addWork);
+  if (e.target.closest('#previewBtn')) { state.preview = !state.preview; renderAll(); toast(state.preview ? 'มุมมองผู้ชม — เห็นเหมือนคนทั่วไป' : 'กลับสู่โหมดผู้ดูแล'); return; }
+  const hb = e.target.closest('[data-hide]');
+  if (hb) { e.preventDefault(); return toggleHidden(hb.dataset.hide, hb.dataset.id); }
+  const o = e.target.closest('[data-open]');
+  if (o) openDetail(o.dataset.open);
+});
+
+async function toggleHidden(kind, id) {
+  const x = state[kind].find(r => r.id === id); if (!x) return;
+  const hide = !isHidden(x);
+  try {
+    state[kind] = await api('apiSetHidden', kind, id, hide);
+    if (kind === 'posts') { renderPosts(); if ($('detailDlg').open) openDetail(id); } else if (kind === 'works') renderWorks(); else renderTeachers();
+    toast(hide ? 'ซ่อนแล้ว — คนทั่วไปจะไม่เห็นรายการนี้' : 'แสดงบนเว็บแล้ว');
+  } catch (err) { toast(err.message || 'ทำรายการไม่สำเร็จ', true); }
+}
+
+/* ===================== 4–5. โครงการ และ วารสาร ===================== */
+const ART_G = ['linear-gradient(135deg,#4f46e5,#06b6d4)', 'linear-gradient(135deg,#0d9488,#84cc16)', 'linear-gradient(135deg,#7c3aed,#f97316)', 'linear-gradient(135deg,#16a34a,#eab308)', 'linear-gradient(135deg,#2563eb,#db2777)'];
+const byOrder = (a, b) => (Number(a.order) || 0) - (Number(b.order) || 0);
+function workTools(w) {
+  return admin() ? `<div class="edit">${hideBtn('works', w)}<button type="button" data-edit-work="${esc(w.id)}" title="แก้ไข">${ICON.edit}</button></div>` : '';
+}
+function renderWorks() {
+  const list = cat => state.works.filter(w => w.cat === cat && visible(w)).sort(byOrder);
+  const projects = list('โครงการ'), journals = list('วารสาร');
+  $('projList').innerHTML = projects.map((w, i) => {
+    const url = safeUrl(w.url);
+    const pic = w.image ? `<img data-img="${esc(w.image)}" alt="">`
+      : `<div class="pj-art" style="background:${ART_G[i % ART_G.length]}"><span>${esc(w.title)}</span></div>`;
+    return `<article class="pj rv${i === 0 ? ' feat' : ''}${isHidden(w) ? ' is-hidden' : ''}" style="--d:${Math.min(i, 4) * .08}s" data-open-work="${esc(w.id)}" tabindex="0">${workTools(w)}
+      <div class="ph">${pic}</div>
+      <div class="pj-body">
+        <span class="pj-no">${String(i + 1).padStart(2, '0')}</span>${hiddenTag(w)}
+        <h3>${esc(w.title)}</h3>
+        ${w.tag ? `<span class="pj-tag">${esc(w.tag)}</span>` : ''}
+        ${w.text ? `<p>${esc(w.text)}</p>` : ''}
+        <div class="pj-acts"><span class="pj-more">อ่านรายละเอียด →</span>
+        ${url ? `<a class="btn sm" href="${esc(url)}" target="_blank" rel="noopener">${esc(w.urlLabel || 'เปิดลิงก์')} ${ICON.arrow}</a>` : ''}</div>
+      </div></article>`;
+  }).join('') || '<div class="empty">ยังไม่มีโครงการ</div>';
+  $('shelf').innerHTML = journals.map((w, i) => {
+    const url = safeUrl(w.url);
+    const cover = w.image ? `<img data-img="${esc(w.image)}" alt="ปก ${esc(w.title)}">`
+      : `<div class="bk-art" style="background:${ART_G[(i + 2) % ART_G.length]}"><small>วารสาร</small><b>${esc(w.title)}</b><i>${esc(w.tag)}</i></div>`;
+    const book = `<div class="bk"><div class="bk-cover">${cover}</div></div>`;
+    return `<article class="jr rv${isHidden(w) ? ' is-hidden' : ''}" style="--d:${Math.min(i, 5) * .08}s">${workTools(w)}
+      ${url ? `<a href="${esc(url)}" target="_blank" rel="noopener" aria-label="อ่าน ${esc(w.title)}">${book}</a>` : book}
+      <div class="jr-body">${hiddenTag(w)}
+        ${w.tag ? `<span class="pj-tag">${esc(w.tag)}</span>` : ''}
+        <h3>${esc(w.title)}</h3>
+        ${w.text ? `<p>${esc(w.text)}</p>` : ''}
+        ${url ? `<a class="jr-link" href="${esc(url)}" target="_blank" rel="noopener">${esc(w.urlLabel || 'อ่านวารสาร')} ${ICON.arrow}</a>` : '<span class="jr-soon">เร็ว ๆ นี้</span>'}
+      </div></article>`;
+  }).join('') || '<div class="empty">ยังไม่มีวารสาร</div>';
+  loadImages($('projList')); loadImages($('shelf'));
+  reveal();
+}
+// หน้ารายละเอียดโครงการ (กดที่การ์ด)
+function openWork(id) {
+  const w = state.works.find(x => x.id === id); if (!w) return;
+  const url = safeUrl(w.url);
+  $('detailCat').innerHTML = `<span class="cat t-apply">${esc(w.cat)}</span>`;
+  $('detailBody').innerHTML = `<div class="detail wk">
+    ${w.image ? `<div class="pic"><img data-img="${esc(w.image)}" alt=""></div>` : `<div class="pic wk-art" style="background:${ART_G[state.works.filter(x => x.cat === w.cat).sort(byOrder).indexOf(w) % ART_G.length]}"><span>${esc(w.title)}</span></div>`}
+    <div class="info">
+      ${w.tag ? `<span class="pj-tag">${esc(w.tag)}</span>` : ''}
+      <h2>${esc(w.title)}</h2>
+      ${w.text ? `<p class="txt">${esc(w.text)}</p>` : ''}
+      <div class="acts">
+        ${url ? `<a class="btn solid" href="${esc(url)}" target="_blank" rel="noopener">${esc(w.urlLabel || 'เปิดลิงก์')} ${ICON.arrow}</a>` : ''}
+        ${admin() ? `<button type="button" class="btn" data-edit-work="${esc(w.id)}">${ICON.edit} แก้ไข</button>` : ''}
+      </div>
+    </div></div>`;
+  loadImages($('detailBody'));
+  $('detailDlg').showModal();
+}
+document.addEventListener('click', e => {
+  const c = e.target.closest('[data-open-work]');
+  if (!c || e.target.closest('a, button')) return;
+  openWork(c.dataset.openWork);
+});
+document.addEventListener('keydown', e => {
+  const c = e.target.closest && e.target.closest('[data-open-work]');
+  if (c && e.key === 'Enter' && e.target === c) openWork(c.dataset.openWork);
+});
+
+function editWork(w, cat) {
+  const c = w ? w.cat : cat;
+  openForm({
+    title: w ? `แก้ไข${c}` : `เพิ่ม${c}`,
+    values: w || { cat: c, order: state.works.filter(x => x.cat === c).length + 1, urlLabel: c === 'วารสาร' ? 'อ่านวารสาร' : '' },
+    fields: [
+      { name: 'cat', label: 'หมวด', type: 'select', options: ['โครงการ', 'วารสาร'] },
+      { name: 'order', label: 'ลำดับ', type: 'number' },
+      { name: 'title', label: 'ชื่อ', required: true, full: true, placeholder: c === 'วารสาร' ? 'ต้นกล้าวิทย์' : 'ห้องเรียนพิเศษ SMTE' },
+      { name: 'tag', label: c === 'วารสาร' ? 'ฉบับ / ปี' : 'ป้ายสั้น ๆ', full: true, placeholder: c === 'วารสาร' ? 'ปีที่ 1 ฉบับที่ 1 · ปีการศึกษา 2569' : 'ม.1 – ม.6' },
+      { name: 'text', label: 'คำอธิบาย', type: 'textarea', full: true },
+      { name: 'image', label: c === 'วารสาร' ? 'ภาพปกวารสาร' : 'ภาพประกอบ', type: 'image', max: 1400, hint: c === 'วารสาร' ? 'ภาพปกแนวตั้ง' : 'ภาพแนวนอน' },
+      { name: 'url', label: 'ลิงก์ไฟล์ / หน้าเว็บ', type: 'url', full: true, placeholder: 'https:\/\/drive.google.com/…', hint: 'เช่น ลิงก์ PDF บน Google Drive ที่แชร์แล้ว' },
+      { name: 'urlLabel', label: 'ข้อความบนปุ่มลิงก์', placeholder: c === 'วารสาร' ? 'อ่านวารสาร' : 'ดูรายละเอียด' },
+      { name: 'hidden', label: 'ซ่อนจากหน้าเว็บ (เห็นเฉพาะผู้ดูแล)', type: 'check' },
+    ],
+    validate: v => (v.url && !safeUrl(v.url)) ? 'ลิงก์ต้องขึ้นต้นด้วย https:\/\/' : '',
+    onSubmit: async (v, img) => {
+      state.works = await api('apiSaveWork', Object.assign({ id: w ? w.id : '', removeImage: img.remove }, v), img.data);
+      renderWorks();
+    },
+    onDelete: w ? async () => { state.works = await api('apiDeleteWork', w.id); renderWorks(); } : null,
+  });
+}
+
+/* ===================== ซ่อน/แสดงทั้งหัวข้อ ===================== */
+const SECTION_IDS = ['teachers', 'board', 'archive', 'projects', 'journals'];
+// ถ้ายังไม่เคยตั้งค่า หัวข้อ 03 (archive) จะซ่อนไว้เป็นค่าเริ่มต้น
+const hiddenSections = () => String(state.settings.hideSections != null ? state.settings.hideSections : 'archive').split(',').map(x => x.trim()).filter(Boolean);
+function renderSections() {
+  const hid = hiddenSections();
+  SECTION_IDS.forEach(id => {
+    const sec = $(id), off = hid.includes(id);
+    sec.classList.toggle('hide', off && !admin());
+    sec.classList.toggle('sec-off', off && admin());
+    document.querySelectorAll(`a[href="#${id}"]`).forEach(a => a.classList.toggle('hide', off && !admin()));
+    const act = sec.querySelector('.sec-h .act');
+    act.querySelectorAll('.sec-eye').forEach(b => b.remove());
+    if (admin()) act.insertAdjacentHTML('afterbegin', `<button type="button" class="btn sm sec-eye" data-sec="${id}" title="${off ? 'แสดงหัวข้อนี้บนเว็บ' : 'ซ่อนหัวข้อนี้จากเว็บ'}">${off ? ICON.eyeOff + ' หัวข้อนี้ซ่อนอยู่' : ICON.eye + ' แสดงอยู่'}</button>`);
+  });
+}
+document.addEventListener('click', async e => {
+  const b = e.target.closest('.sec-eye'); if (!b) return;
+  const id = b.dataset.sec, hide = !hiddenSections().includes(id);
+  try {
+    state.settings = await api('apiSetSection', id, hide);
+    renderSections();
+    toast(hide ? 'ซ่อนหัวข้อแล้ว — คนทั่วไปจะไม่เห็นหัวข้อนี้' : 'แสดงหัวข้อบนเว็บแล้ว');
+  } catch (err) { toast(err.message || 'ทำรายการไม่สำเร็จ', true); }
+});
+
+/* ===================== แสดงผลรวม ===================== */
+function renderPosts() {
+  renderTicker(); renderBoard(); renderFilters(); renderRows(); reveal();
+  $('archTotal').textContent = `(${state.posts.filter(p => visible(p) && (admin() || status(p) !== 'soon')).length} รายการ)`;
+}
+// หัวข้อ 03: กดแล้วจึงกางรายการ
+$('archToggle').addEventListener('click', () => {
+  const open = !$('archWrap').classList.contains('open');
+  $('archWrap').classList.toggle('open', open);
+  $('archToggle').classList.toggle('on', open);
+  $('archToggle').setAttribute('aria-expanded', open);
+  $('archToggle').querySelector('span').firstChild.textContent = open ? 'ซ่อนรายการ ' : 'ดูรายการทั้งหมด ';
+});
+function renderAll() {
+  $('today').textContent = parseD(state.today).toLocaleDateString('th-TH', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  $('adminTools').innerHTML = !state.canEdit ? ''
+    : state.preview ? `<button class="btn sm solid" id="previewBtn">${ICON.eyeOff} ออกจากมุมมองผู้ชม</button>`
+    : `<span class="admin-pill">ผู้ดูแล</span><button class="btn sm" id="previewBtn" title="ดูหน้าเว็บแบบคนทั่วไป">${ICON.eye} มุมมองผู้ชม</button><button class="btn sm" id="editBanner">แก้ไขแบนเนอร์</button><button class="btn sm solid addPost">+ ประชาสัมพันธ์</button>`;
+  $('boardAct').innerHTML = admin() ? '<button class="btn sm solid addPost">+ เพิ่มประกาศ</button>' : '';
+  if (state.f.status === 'soon' && !admin()) state.f.status = 'all';
+  $('projAct').innerHTML = admin() ? '<button class="btn sm solid" data-add-work="โครงการ">+ เพิ่มโครงการ</button>' : '';
+  $('jourAct').innerHTML = admin() ? '<button class="btn sm solid" data-add-work="วารสาร">+ เพิ่มวารสาร</button>' : '';
+  renderBanner(); renderTeachers(); renderPosts(); renderWorks(); renderSections();
+  if (window.ADMIN_URL && !state.canEdit) { $('adminLink').href = window.ADMIN_URL; $('adminLink').classList.remove('hide'); }
+}
+
+/* ===================== แอนิเมชัน ===================== */
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function countUp(el) {
+  const raw = el.dataset.count, target = parseFloat(String(raw).replace(/,/g, ''));
+  if (isNaN(target) || reduceMotion || !/^[\d,.]+$/.test(raw)) return;
+  const comma = /,/.test(raw), t0 = performance.now(), dur = 1500;
+  const step = now => {
+    const p = Math.min(1, (now - t0) / dur), v = Math.round(target * (1 - Math.pow(1 - p, 3)));
+    el.textContent = comma ? v.toLocaleString('en-US') : v;
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => entries.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add('in');
+  e.target.querySelectorAll('[data-count]').forEach(countUp);
+  io.unobserve(e.target);
+}), { threshold: .12, rootMargin: '0px 0px -30px 0px' }) : null;
+function reveal() {
+  document.querySelectorAll('.rv:not(.in)').forEach(el => {
+    if (!io || reduceMotion) return el.classList.add('in');
+    io.observe(el);
+  });
+}
+
+addEventListener('scroll', () => {
+  const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+  $('sticky').classList.toggle('show', y > 420);
+  $('progress').style.transform = `scaleX(${h > 0 ? y / h : 0})`;
+}, { passive: true });
+
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault();
+  const t = document.querySelector(a.getAttribute('href'));
+  if (t) t.scrollIntoView({ behavior: 'smooth' });
+}));
+
+/* ===================== เริ่มต้น ===================== */
+api('apiInit').then(r => {
+  window.__loaded = true;
+  Object.assign(state, { posts: r.posts, links: r.links, works: r.works || [], settings: r.settings, canEdit: r.canEdit, email: r.email, today: r.today });
+  renderAll();
+}).catch(err => {
+  window.__loaded = true;
+  if (window.__showErr) window.__showErr('โหลดข้อมูลไม่ได้: ' + (err && (err.stack || err.message) || err));
+  $('pr').innerHTML = `<div class="empty">โหลดข้อมูลไม่ได้: ${esc(err.message || err)}</div>`;
+});
+})();
+</script>
+</body>
+</html>
