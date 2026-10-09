@@ -10,8 +10,9 @@
 <meta property="og:image" content="https://kp-science.github.io/satriwit-science/og.jpg">
 <meta property="og:url" content="https://kp-science.github.io/satriwit-science/">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='700'%3ES%3C/text%3E%3C/svg%3E">
 
+<link rel="icon" type="image/png" sizes="64x64" href="https://kp-science.github.io/satriwit-science/img/favicon-64.png">
+<link rel="apple-touch-icon" href="https://kp-science.github.io/satriwit-science/img/apple-touch-icon.png">
 <title>สตรีวิทยาศาสตร์ SW SciTech · กลุ่มสาระวิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700;800&family=Prompt:wght@400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
@@ -590,6 +591,20 @@
   .sticky b .en{font:600 12px var(--label);letter-spacing:.2em;color:var(--muted);margin-left:6px}
   .foot-en{display:block;font:600 14px var(--label);letter-spacing:.45em;color:#9aa0a8;margin:-4px 0 10px}
   @media (max-width:680px){.sticky b .en{display:none}.mast-en{letter-spacing:.4em}}
+
+  /* ===== โลโก้ ===== */
+  .mast-en{display:flex;align-items:center;justify-content:center;gap:.5em;letter-spacing:.3em;padding-left:0}
+  .mast-en .sw-mark{height:2.6em;width:auto;display:block}
+  .mast-en span{background:linear-gradient(90deg,#4338ca,#0891b2 55%,#db2777);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+  .brandrow{display:inline-flex;align-items:center;gap:10px}
+  .school-logo{height:38px;width:auto}
+  .row-mark{height:24px;width:auto}
+  .st-brand{display:inline-flex;align-items:center;gap:8px}
+  .st-mark{height:24px;width:auto}
+  .foot-logos{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+  .foot-logos img:first-child{height:64px;width:auto}
+  .foot-logos img:last-child{height:44px;width:auto}
+  @media (max-width:680px){ .mast-row .brandrow{width:100%;justify-content:center} .school-logo{height:34px} }
 </style>
 </head>
 <body>
@@ -597,7 +612,7 @@
 <!-- แถบนำทางลอย (โผล่เมื่อเลื่อนลง) -->
 <div class="sticky" id="sticky">
   <div class="wrap">
-    <b><span id="stickyMast">สตรีวิทยาศาสตร์</span> <small class="en" id="stickyEn">SW SciTech</small></b>
+    <b class="st-brand"><img src="https://kp-science.github.io/satriwit-science/img/sw-mark-64.png" alt="SW" class="st-mark"><span id="stickyMast">สตรีวิทยาศาสตร์</span> <small class="en" id="stickyEn">SW SciTech</small></b>
     <nav>
       <a href="#teachers">สำหรับครู</a>
       <a href="#board">ประชาสัมพันธ์</a>
@@ -617,9 +632,9 @@
   </div>
 
   <!-- 1. แบนเนอร์ -->
-  <div class="mast"><h1 id="mast" aria-label="สตรีวิทยาศาสตร์"></h1><div class="mast-en" id="mastEn">SW SciTech</div></div>
+  <div class="mast"><h1 id="mast" aria-label="สตรีวิทยาศาสตร์"></h1><div class="mast-en" id="mastEnWrap"><img src="https://kp-science.github.io/satriwit-science/img/sw-mark.png" alt="SW" class="sw-mark" id="mastMark"><span id="mastEn">SciTech</span></div></div>
   <div class="mast-row">
-    <span class="sub">กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี · โรงเรียนสตรีวิทยา</span>
+    <span class="brandrow"><img src="https://kp-science.github.io/satriwit-science/img/school-logo.png" alt="ตราโรงเรียนสตรีวิทยา" class="school-logo"><img src="https://kp-science.github.io/satriwit-science/img/sw-mark-64.png" alt="SW SciTech" class="row-mark"><span class="sub">กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี · โรงเรียนสตรีวิทยา</span></span>
     <nav>
       <a href="#teachers">สำหรับครู</a>
       <a href="#board">ประชาสัมพันธ์</a>
@@ -732,7 +747,7 @@
 
 <footer>
   <div class="wrap">
-    <div><b id="footMast">สตรีวิทยาศาสตร์</b><span class="foot-en" id="footEn">SW SciTech</span><p>กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา</p></div>
+    <div><div class="foot-logos"><img src="https://kp-science.github.io/satriwit-science/img/school-logo-white.png" alt="ตราโรงเรียนสตรีวิทยา"><img src="https://kp-science.github.io/satriwit-science/img/sw-mark.png" alt="SW SciTech"></div><b id="footMast">สตรีวิทยาศาสตร์</b><span class="foot-en" id="footEn">SW SciTech</span><p>กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา</p></div>
     <div class="foot-r"><a class="fbbtn fb hide" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2.5V2.1L14.1 2C10.6 2 10 4.6 10 6.3v2.2H7.5V12H10v10h4V12h3l.5-3.5z"/></svg> ติดตามเพจกลุ่มสาระ</a><p><a href="#top">กลับด้านบน ↑</a></p><p><a class="admin-link hide" id="adminLink" target="_blank" rel="noopener">สำหรับผู้ดูแล</a></p></div>
   </div>
 </footer>
@@ -1047,8 +1062,13 @@ function renderBanner() {
   $('mast').innerHTML = graphemes(mast).map((g, i) => `<span class="g" style="--i:${i}">${esc(g)}</span>`).join('');
   $('stickyMast').textContent = $('footMast').textContent = mast;
   const en = s.mastheadEn != null && s.mastheadEn !== '' ? s.mastheadEn : 'SW SciTech';
-  $('mastEn').textContent = $('stickyEn').textContent = $('footEn').textContent = en;
-  ['mastEn', 'stickyEn', 'footEn'].forEach(id => $(id).classList.toggle('hide', !en));
+  $('stickyEn').textContent = $('footEn').textContent = en;
+  // ชื่อที่ขึ้นต้นด้วย SW ใช้โลโก้ SW แทนตัวอักษร
+  const useMark = /^SW\s/i.test(en);
+  $('mastMark').classList.toggle('hide', !useMark);
+  $('mastEn').textContent = useMark ? en.replace(/^SW\s+/i, '') : en;
+  $('mastEnWrap').classList.toggle('hide', !en);
+  ['stickyEn', 'footEn'].forEach(id => $(id).classList.toggle('hide', !en));
   document.title = `${mast}${en ? ' ' + en : ''} · กลุ่มสาระวิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา`;
   $('issue').textContent = s.issue || '';
   $('headline').innerHTML = richHeadline(s.headline || '');
