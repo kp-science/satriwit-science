@@ -615,6 +615,13 @@
     animation:rise .9s var(--ease) .05s forwards,emblemShift 6s ease-in-out 1s infinite alternate}
   @keyframes emblemShift{from{background-position:0% 0}to{background-position:100% 0}}
   @media (max-width:420px){.mast-title{gap:6px}.mast-emblem{height:50px;width:37.5px;min-width:37.5px}.mast h1{font-size:clamp(34px,10vw,44px)}}
+
+  /* ===== ตราสูงเต็มหัวเว็บ: ฐานตราแตะเส้นด้านล่าง (ขนาดคำนวณด้วย fitMast) ===== */
+  .mast-title{align-items:flex-end}
+  .mast-text{display:flex;flex-direction:column;align-items:center;padding-bottom:10px;min-width:0}
+  .mast-text h1{white-space:nowrap}
+  .mast-text .mast-en{margin-bottom:0}
+  .mast{padding-bottom:0}
 </style>
 </head>
 <body>
@@ -642,7 +649,7 @@
   </div>
 
   <!-- 1. แบนเนอร์ -->
-  <div class="mast"><div class="mast-title"><span class="mast-emblem" role="img" aria-label="ตราโรงเรียนสตรีวิทยา"></span><h1 id="mast" aria-label="สตรีวิทยาศาสตร์"></h1></div><div class="mast-en" id="mastEnWrap"><img src="https://kp-science.github.io/satriwit-science/img/sw-mark.png" alt="SW" class="sw-mark" id="mastMark"><span id="mastEn">SciTech</span></div></div>
+  <div class="mast"><div class="mast-title"><span class="mast-emblem" role="img" aria-label="ตราโรงเรียนสตรีวิทยา"></span><div class="mast-text"><h1 id="mast" aria-label="สตรีวิทยาศาสตร์"></h1><div class="mast-en" id="mastEnWrap"><img src="https://kp-science.github.io/satriwit-science/img/sw-mark.png" alt="SW" class="sw-mark" id="mastMark"><span id="mastEn">SciTech</span></div></div></div></div>
   <div class="mast-row">
     <span class="sub">กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี · โรงเรียนสตรีวิทยา</span>
     <nav>
@@ -1086,6 +1093,7 @@ function renderBanner() {
   $('caption').textContent = s.caption || '';
   document.querySelector('.fig figcaption').classList.toggle('hide', !(s.bannerImage && s.caption));
   renderCover(s.bannerImage);
+  requestAnimationFrame(fitMast);
   const fb = safeUrl(s.facebook);
   document.querySelectorAll('a.fb').forEach(a => { a.classList.toggle('hide', !fb); if (fb) a.href = fb; });
 }
@@ -1099,6 +1107,23 @@ function renderTicker() {
   $('track').innerHTML = items + items;
   $('track').style.setProperty('--dur', Math.max(25, live.length * 9) + 's');
 }
+
+// ปรับขนาดตราให้สูงเท่าชื่อเว็บ + บรรทัด SW SciTech และย่อตัวอักษรถ้าจอแคบเกิน
+function fitMast() {
+  const em = document.querySelector('.mast-emblem'), tx = document.querySelector('.mast-text'), h1 = $('mast'), box = document.querySelector('.mast');
+  if (!em || !tx) return;
+  h1.style.fontSize = '';
+  for (let i = 0; i < 40; i++) {
+    const h = tx.offsetHeight;
+    em.style.height = h + 'px';
+    em.style.width = Math.round(h * 0.75) + 'px';
+    const b = box.getBoundingClientRect(), r = h1.getBoundingClientRect(), e = em.getBoundingClientRect();
+    if (r.right <= b.right + 1 && h1.scrollWidth <= tx.clientWidth + 1 && e.left >= b.left - 1) break;
+    h1.style.fontSize = (parseFloat(getComputedStyle(h1).fontSize) - 2) + 'px';
+  }
+}
+addEventListener('resize', () => requestAnimationFrame(fitMast));
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => requestAnimationFrame(fitMast));
 
 /* ===================== 2. สำหรับครู ===================== */
 function renderTeachers() {
