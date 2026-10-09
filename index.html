@@ -846,14 +846,32 @@ const graphemes = s => window.Intl && Intl.Segmenter
 const richHeadline = s => esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>');
 
 /* ===================== รูปภาพ ===================== */
+// รูปจำไว้ในเครื่องผู้ชม (localStorage) — รหัสรูปไม่ซ้ำกัน อัปโหลดใหม่จะได้รหัสใหม่ จึงไม่ต้องกลัวรูปเก่าค้าง
 const imgCache = {};
-function loadImages(root) {
-  (root || document).querySelectorAll('img[data-img]:not(.ok)').forEach(img => {
-    const id = img.dataset.img;
-    const show = src => { if (src) { img.src = src; img.classList.add('ok'); } };
-    if (imgCache[id]) return show(imgCache[id]);
-    api('apiImage', id).then(src => { imgCache[id] = src; show(src); }).catch(() => {});
-  });
+const IMG_PREFIX = 'swimg_';
+function storeGet(id) { try { return localStorage.getItem(IMG_PREFIX + id); } catch (e) { return null; } }
+function storePut(id, data) {
+  try { localStorage.setItem(IMG_PREFIX + id, data); } catch (e) {
+    // เต็ม → ล้างรูปที่จำไว้ทั้งหมดแล้วลองอีกครั้ง
+    try { Object.keys(localStorage).filter(k => k.startsWith(IMG_PREFIX)).forEach(k => localStorage.removeItem(k)); localStorage.setItem(IMG_PREFIX + id, data); } catch (e2) { /* ข้าม */ }
+  }
+}
+function fetchImage(img) {
+  const id = img.dataset.img;
+  const show = src => { if (src) { img.src = src; img.classList.add('ok'); } };
+  if (imgCache[id]) return show(imgCache[id]);
+  const saved = storeGet(id);
+  if (saved) { imgCache[id] = saved; return show(saved); }
+  api('apiImage', id).then(src => { if (!src) return; imgCache[id] = src; storePut(id, src); show(src); }).catch(() => {});
+}
+// lazy = ดึงรูปเมื่อใกล้จะเห็น · scroller = กล่องที่เลื่อนแนวนอน (แถวประกาศ)
+function loadImages(root, lazy, scroller) {
+  const imgs = [...(root || document).querySelectorAll('img[data-img]:not(.ok)')];
+  if (!lazy || !('IntersectionObserver' in window)) return imgs.forEach(fetchImage);
+  const ob = new IntersectionObserver((entries, o) => entries.forEach(e => {
+    if (e.isIntersecting) { o.unobserve(e.target); fetchImage(e.target); }
+  }), { root: scroller || null, rootMargin: scroller ? '0px 120% 0px 0px' : '500px 0px' });
+  imgs.forEach(i => ob.observe(i));
 }
 function resizeImage(file, max) {
   return new Promise((ok, fail) => {
@@ -866,7 +884,7 @@ function resizeImage(file, max) {
         c.width = Math.round(im.width * s); c.height = Math.round(im.height * s);
         const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height);
         g.drawImage(im, 0, 0, c.width, c.height);
-        ok(c.toDataURL('image/jpeg', 0.8));
+        ok(c.toDataURL('image/jpeg', 0.75));
       };
       im.onerror = () => fail(new Error('เปิดรูปนี้ไม่ได้ — ใช้ไฟล์ JPG หรือ PNG'));
       im.src = fr.result;
@@ -1132,7 +1150,7 @@ function renderBoard() {
   const leadIdx = live.findIndex(p => p.pinned === 'TRUE');
   $('pr').innerHTML = live.length ? live.map((p, i) => postCard(p, i === leadIdx, i)).join('')
     : '<div class="empty">ตอนนี้ยังไม่มีประกาศ — ดูประกาศที่ผ่านมาได้ในรายการด้านล่าง</div>';
-  loadImages($('pr'));
+  loadImages($('pr'), true, $('pr'));
   $('pr').scrollLeft = 0;
   requestAnimationFrame(setupCarousel);
 }
@@ -1291,7 +1309,7 @@ function openForm(cfg) {
     if (cur) imgCache[cur] ? show(imgCache[cur]) : api('apiImage', cur).then(src => src && show(src));
     $('imgIn').addEventListener('change', async e => {
       const file = e.target.files[0]; if (!file) return;
-      try { formImg.data = await resizeImage(file, imgField.max || 1400); formImg.remove = false; show(formImg.data); }
+      try { formImg.data = await resizeImage(file, imgField.max || 1000); formImg.remove = false; show(formImg.data); }
       catch (err) { toast(err.message, true); e.target.value = ''; }
     });
     $('imgRm').addEventListener('click', () => {
@@ -1340,7 +1358,7 @@ function editPost(p) {
       { name: 'until', label: 'แสดงถึง', type: 'date', def: addDays(state.today, 14), required: true, hint: 'หลังจากนี้กรอบจะหายไปเอง' },
       { name: 'url', label: 'ลิงก์', type: 'url', placeholder: 'https:\/\/forms.gle/…', hint: 'ไม่บังคับ' },
       { name: 'urlLabel', label: 'ข้อความบนปุ่มลิงก์', placeholder: 'สมัคร' },
-      { name: 'image', label: 'รูป / โปสเตอร์', type: 'image', max: 1400, hint: 'JPG หรือ PNG — ระบบย่อขนาดให้เอง' },
+      { name: 'image', label: 'รูป / โปสเตอร์', type: 'image', max: 1000, hint: 'JPG หรือ PNG — ระบบย่อขนาดให้เอง' },
       { name: 'pinned', label: 'ปักหมุดเป็นเรื่องเด่น (กรอบใหญ่)', type: 'check' },
       { name: 'hidden', label: 'ซ่อนจากหน้าเว็บ (เห็นเฉพาะผู้ดูแล)', type: 'check' },
     ],
@@ -1381,7 +1399,7 @@ function editBanner() {
       { name: 'issue', label: 'ข้อความมุมซ้ายบน', placeholder: 'ปีการศึกษา 2569 · ภาคเรียนที่ 2' },
       { name: 'headline', label: 'หัวเรื่องจากปก', type: 'textarea', full: true, hint: 'ขึ้นบรรทัดใหม่ได้ · ใส่ *ดอกจัน* ครอบคำที่ต้องการเน้นสี' },
       { name: 'deck', label: 'ข้อความใต้หัวเรื่อง', type: 'textarea', full: true },
-      { name: 'bannerImage', label: 'ภาพปก (ไม่บังคับ)', type: 'image', max: 1600, hint: 'ถ้าใส่ จะเป็นสไลด์แรกก่อนแอนิเมชัน 5 สาขา' },
+      { name: 'bannerImage', label: 'ภาพปก (ไม่บังคับ)', type: 'image', max: 1200, hint: 'ถ้าใส่ จะเป็นสไลด์แรกก่อนแอนิเมชัน 5 สาขา' },
       { name: 'caption', label: 'คำบรรยายภาพ', full: true },
       { name: 'facebook', label: 'ลิงก์เพจ Facebook', type: 'url', full: true, placeholder: 'https:\/\/www.facebook.com/…' },
       { name: 'ticker', label: 'แสดงแถบประกาศวิ่ง', type: 'check' },
@@ -1463,7 +1481,7 @@ function renderWorks() {
         ${url ? `<a class="jr-link" href="${esc(url)}" target="_blank" rel="noopener">${esc(w.urlLabel || 'อ่านวารสาร')} ${ICON.arrow}</a>` : '<span class="jr-soon">เร็ว ๆ นี้</span>'}
       </div></article>`;
   }).join('') || '<div class="empty">ยังไม่มีวารสาร</div>';
-  loadImages($('projList')); loadImages($('shelf'));
+  loadImages($('projList'), true); loadImages($('shelf'), true);
   reveal();
 }
 // หน้ารายละเอียดโครงการ (กดที่การ์ด)
@@ -1506,7 +1524,7 @@ function editWork(w, cat) {
       { name: 'title', label: 'ชื่อ', required: true, full: true, placeholder: c === 'วารสาร' ? 'ต้นกล้าวิทย์' : 'ห้องเรียนพิเศษ SMTE' },
       { name: 'tag', label: c === 'วารสาร' ? 'ฉบับ / ปี' : 'ป้ายสั้น ๆ', full: true, placeholder: c === 'วารสาร' ? 'ปีที่ 1 ฉบับที่ 1 · ปีการศึกษา 2569' : 'ม.1 – ม.6' },
       { name: 'text', label: 'คำอธิบาย', type: 'textarea', full: true },
-      { name: 'image', label: c === 'วารสาร' ? 'ภาพปกวารสาร' : 'ภาพประกอบ', type: 'image', max: 1400, hint: c === 'วารสาร' ? 'ภาพปกแนวตั้ง' : 'ภาพแนวนอน' },
+      { name: 'image', label: c === 'วารสาร' ? 'ภาพปกวารสาร' : 'ภาพประกอบ', type: 'image', max: 1000, hint: c === 'วารสาร' ? 'ภาพปกแนวตั้ง' : 'ภาพแนวนอน' },
       { name: 'url', label: 'ลิงก์ไฟล์ / หน้าเว็บ', type: 'url', full: true, placeholder: 'https:\/\/drive.google.com/…', hint: 'เช่น ลิงก์ PDF บน Google Drive ที่แชร์แล้ว' },
       { name: 'urlLabel', label: 'ข้อความบนปุ่มลิงก์', placeholder: c === 'วารสาร' ? 'อ่านวารสาร' : 'ดูรายละเอียด' },
       { name: 'hidden', label: 'ซ่อนจากหน้าเว็บ (เห็นเฉพาะผู้ดูแล)', type: 'check' },
@@ -1611,11 +1629,25 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
 }));
 
 /* ===================== เริ่มต้น ===================== */
-api('apiInit').then(r => {
+// หน้าเว็บสาธารณะ: แสดงข้อมูลที่จำไว้จากครั้งก่อนทันที แล้วดึงข้อมูลล่าสุดมาแทนเบื้องหลัง
+const DATA_KEY = 'swst_data_v1';
+let shown = '';
+function apply(r) {
   Object.assign(state, { posts: r.posts, links: r.links, works: r.works || [], settings: r.settings, canEdit: r.canEdit, email: r.email, today: r.today });
   renderAll();
+}
+if (window.PUBLIC_API) {
+  try {
+    const saved = JSON.parse(localStorage.getItem(DATA_KEY) || 'null');
+    if (saved && saved.posts) { shown = JSON.stringify(saved); saved.today = isoDate(new Date()); apply(saved); }
+  } catch (e) { /* ข้าม */ }
+}
+api('apiInit').then(r => {
+  const fresh = JSON.stringify(r);
+  if (window.PUBLIC_API && !r.canEdit) { try { localStorage.setItem(DATA_KEY, fresh); } catch (e) { /* ข้าม */ } }
+  if (fresh !== shown) apply(r);
 }).catch(err => {
-  $('pr').innerHTML = `<div class="empty">โหลดข้อมูลไม่ได้: ${esc(err.message || err)}</div>`;
+  if (!shown) $('pr').innerHTML = `<div class="empty">โหลดข้อมูลไม่ได้: ${esc(err.message || err)}</div>`;
 });
 })();
 </script>
