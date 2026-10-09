@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>หลักสูตรห้องเรียนพิเศษ SMTE ม.1–ม.6 · สตรีวิทยาศาสตร์ SW SciTech</title>
+<meta name="description" content="หลักสูตรห้องเรียนพิเศษวิทยาศาสตร์ คณิตศาสตร์ เทคโนโลยีและสิ่งแวดล้อม (SMTE) โรงเรียนสตรีวิทยา ม.1–ม.6">
+<meta property="og:title" content="หลักสูตรห้องเรียนพิเศษ SMTE ม.1–ม.6 · โรงเรียนสตรีวิทยา">
+<meta property="og:image" content="https://kp-science.github.io/satriwit-science/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;500;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+@page { size: A4; margin: 2.2cm 2.4cm 2.2cm 2.4cm;
+  @bottom-center { content: "vi"; font-family: "TH Sarabun New"; font-size: 13pt; } }
+:root { --navy: #b0101c; --navy2: #d7262e; --gold: #e0313a; --ink: #222; --mute: #6b6b6b; --line: #e6cfd0; --soft: #fbeeee; --deep: #7a0a12; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #fff; }
+body { font-family: "TH Sarabun New", "Sarabun", sans-serif; font-size: 15pt; line-height: 1.3; color: #1d2433; }
+.page { width: 162mm; }
+@media screen { body { background: #eee; } .page { background: #fff; width: 210mm; min-height: 297mm; padding: 22mm 24mm; margin: 10mm auto; box-shadow: 0 2px 12px rgba(0,0,0,.15); } }
+
+h2.pt { font-family: "Sukhumvit Set", sans-serif; font-weight: 700; font-size: 24pt; color: var(--navy); margin: 0 0 1mm; line-height: 1.15; }
+.pt-en { font-family: "Sukhumvit Set", sans-serif; font-weight: 300; font-size: 12pt; color: var(--mute); margin-bottom: 3mm; }
+.bar { width: 22mm; height: 2.5pt; background: var(--gold); margin: 0 0 3mm; }
+.lead { font-size: 14.5pt; margin: 0 0 3mm; }
+h3.sh { font-family: "Sukhumvit Set", sans-serif; font-weight: 600; font-size: 13pt; color: var(--navy); margin: 4mm 0 1.6mm; }
+.disp { font-family: "Sukhumvit Set", sans-serif; }
+
+/* ---------- องค์ประกอบ 3 ส่วน ---------- */
+.comp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2mm; margin-bottom: 3mm; }
+.comp > div { border-top: 2.5pt solid var(--navy); background: var(--soft); padding: 1.2mm 2.5mm 1.2mm; }
+.comp b { font-family: "Sukhumvit Set"; font-weight: 600; font-size: 11pt; color: var(--navy); display: block; line-height: 1.25; }
+.comp span { font-size: 13pt; line-height: 1.2; display: block; }
+
+/* ---------- ตาราง 6 ปี ---------- */
+.map { display: grid; grid-template-columns: repeat(6, 1fr); column-gap: 1.2mm; row-gap: 1.2mm; }
+.lvl { font-family: "Sukhumvit Set"; font-weight: 600; font-size: 10.5pt; text-align: center; padding: .8mm 0; border-bottom: 1pt solid var(--navy); color: var(--navy); }
+.lvl.u { color: var(--deep); border-color: var(--deep); }
+.yr { font-family: "Sukhumvit Set"; font-weight: 700; font-size: 15pt; color: #fff; background: var(--navy2); text-align: center; padding: .6mm 0 .2mm; }
+.yr.u { background: var(--deep); }
+.rh { grid-column: 1 / -1; font-family: "Sukhumvit Set"; font-weight: 600; font-size: 10pt; color: var(--navy); line-height: 1.2; padding: 1.6mm 0 .4mm; border-bottom: 1pt solid var(--line); margin-top: .6mm; }
+.cell { font-size: 12.5pt; line-height: 1.1; padding: .6mm 1mm .8mm; }
+.cell div { padding-left: 2mm; text-indent: -2mm; margin-bottom: .5mm; }
+.cell div::before { content: "·"; color: var(--navy); font-weight: 700; margin-right: .8mm; }
+.cell .cr { color: var(--mute); font-size: 11.5pt; white-space: nowrap; }
+.cell.span3 { grid-column: span 3; }
+.cell.span3 div { display: inline-block; text-indent: 0; padding-left: 0; margin-right: 3mm; }
+
+/* แถบเส้นทางโครงงาน (ร้อยต่อเนื่อง ม.1 → ม.6) */
+.rh.thr { color: #fff; background: var(--navy); border: 0; padding: 1mm 2mm .6mm; margin-top: 1.4mm; }
+.cell.thr { background: var(--soft); border-top: 2.5pt solid var(--navy); position: relative; padding-top: 1mm; }
+.cell.thr.u { border-top-color: var(--deep); }
+.cell.thr b { font-family: "Sukhumvit Set"; font-weight: 600; font-size: 9pt; color: var(--navy); display: block; margin-bottom: .6mm; letter-spacing: .2pt; }
+.cell.thr.u b { color: var(--deep); }
+.cell.thr::after { content: ""; position: absolute; right: -1.9mm; top: -1.6mm; border: 1.4mm solid transparent; border-left: 1.6mm solid var(--navy); z-index: 2; }
+.cell.thr.last::after { display: none; }
+.cell.thr div::before { color: var(--deep); }
+
+/* ---------- หน่วยกิต ม.ปลาย + กิจกรรม ---------- */
+.low { display: grid; grid-template-columns: 1.55fr 1fr; gap: 6mm; margin-top: 1mm; }
+.crd .row { display: grid; grid-template-columns: 9mm 1fr 10mm; align-items: center; gap: 1.5mm; margin-bottom: 1.4mm; }
+.crd .row .g { font-family: "Sukhumvit Set"; font-weight: 600; font-size: 10.5pt; color: var(--deep); }
+.crd .row .t { font-family: "Sukhumvit Set"; font-weight: 700; font-size: 10.5pt; text-align: right; }
+.stk { display: flex; height: 5.2mm; }
+.stk i { display: block; height: 100%; border-right: 1.2pt solid #fff; }
+.leg { display: flex; flex-wrap: wrap; gap: .6mm 3mm; font-size: 11.5pt; margin-top: 1.4mm; line-height: 1.1; }
+.leg span::before { content: ""; display: inline-block; width: 2.6mm; height: 2.6mm; margin-right: 1mm; vertical-align: -.2mm; background: var(--c); }
+.leg .sm { font-weight: 700; color: var(--navy); }
+.chips { display: flex; flex-wrap: wrap; gap: 1.2mm; }
+.chips span { font-size: 12.5pt; line-height: 1.1; padding: .8mm 2.4mm; border: 1pt solid var(--line); background: var(--soft); border-radius: 3mm; }
+.chips span.hi { background: var(--navy); color: #fff; border-color: var(--navy); }
+.note { font-size: 12pt; color: var(--mute); margin-top: 3mm; line-height: 1.2; }
+
+/* ===== ปรับสำหรับอ่านบนเว็บ (หน้าจอ) — ตอนพิมพ์ยังใช้รูปแบบ A4 เดิม ===== */
+.topnav{display:none}
+@media screen {
+  body { background:#f6f7f9; font-family:"Sarabun",sans-serif; font-size:17px; line-height:1.6; }
+  .topnav { display:flex; justify-content:space-between; align-items:center; gap:12px; max-width:980px; margin:0 auto; padding:14px 20px; font-family:"Prompt",sans-serif; }
+  .topnav a { text-decoration:none; color:#1f2328; font-weight:600; }
+  .topnav a span { font-weight:500; color:#8a9099; letter-spacing:.15em; font-size:13px; }
+  .topnav button { font:500 14px "Prompt",sans-serif; padding:7px 14px; border:1px solid #1f2328; background:#fff; cursor:pointer; }
+  .topnav button:hover { background:#1f2328; color:#fff; }
+  .page { width:auto; max-width:980px; min-height:0; margin:0 auto 40px; padding:34px 36px 40px; box-shadow:0 2px 14px rgba(0,0,0,.06); border-top:5px solid var(--navy); }
+  h2.pt, .pt-en, h3.sh, .disp, .comp b, .lvl, .yr, .rh, .cell.thr b, .crd .row .g, .crd .row .t { font-family:"Prompt",sans-serif; }
+  h2.pt { font-size:clamp(26px,4vw,38px); }
+  .pt-en { font-size:15px; }
+  .lead { font-size:18px; }
+  h3.sh { font-size:18px; }
+  .comp b { font-size:15px; } .comp span { font-size:16px; }
+  .comp > div { padding:10px 14px; }
+  .map-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 -4px; padding:0 4px 6px; }
+  .map { min-width:760px; }
+  .lvl { font-size:14px; } .yr { font-size:18px; padding:4px 0 2px; } .rh { font-size:14px; }
+  .cell { font-size:15px; line-height:1.35; padding:6px 6px 8px; }
+  .cell .cr { font-size:13px; }
+  .cell.thr b { font-size:12px; }
+  .crd .row { grid-template-columns:36px 1fr 44px; } .crd .row .g, .crd .row .t { font-size:14px; } .stk { height:20px; }
+  .leg { font-size:14px; } .chips span { font-size:15px; padding:4px 12px; border-radius:20px; }
+  .note { font-size:14px; }
+  .hint { display:none; font:400 13px "Prompt",sans-serif; color:#8a9099; margin:6px 0 0; text-align:right; }
+}
+@media screen and (max-width:820px) {
+  .hint { display:block; }
+  .topnav a span { display:none; }
+  .topnav button { padding:6px 10px; font-size:13px; }
+  .page { padding:24px 18px 30px; }
+  .comp { grid-template-columns:1fr; }
+  .low { grid-template-columns:1fr; gap:22px; }
+}
+@media print { .topnav, .hint { display:none !important; } .map-scroll { overflow:visible; } }
+</style>
+</head>
+<body>
+<nav class="topnav"><a href="../">← สตรีวิทยาศาสตร์ <span>SW SciTech</span></a><button type="button" onclick="window.print()">พิมพ์ / บันทึก PDF</button></nav>
+<section class="page">
+  <h2 class="pt">หลักสูตรห้องเรียนพิเศษ SMTE ม.1–ม.6</h2>
+  <div class="pt-en">SMTE curriculum at a glance · lower and upper secondary</div>
+  <div class="bar"></div>
+
+  <p class="lead">จัดตามแนวทางของ สสวท. และ สอวน. ต่อยอดจากการออกแบบโครงงานใน ม.ต้น สู่งานวิจัยของตนเองใน ม.ปลาย</p>
+
+  <div class="comp">
+    <div><b>รายวิชาพื้นฐาน</b><span>ครบ 8 กลุ่มสาระ ทุกระดับชั้น</span></div>
+    <div><b>รายวิชาเพิ่มเติม</b><span>วิทย์ คณิต เทคโนโลยี อังกฤษเข้มข้น</span></div>
+    <div><b>กิจกรรมพัฒนาผู้เรียน</b><span>ค่ายทุกปี · โอลิมปิกวิชาการ</span></div>
+  </div>
+
+  <div class="map-scroll"><div class="map">
+    <div class="lvl" style="grid-column: span 3">มัธยมศึกษาตอนต้น</div>
+    <div class="lvl u" style="grid-column: span 3">มัธยมศึกษาตอนปลาย</div>
+
+    <div class="yr">ม.1</div><div class="yr">ม.2</div><div class="yr">ม.3</div>
+    <div class="yr u">ม.4</div><div class="yr u">ม.5</div><div class="yr u">ม.6</div>
+
+    <!-- รายวิชาเพิ่มเติม -->
+    <div class="rh">รายวิชาเพิ่มเติม</div>
+    <div class="cell"><div>วิทยาศาสตร์สุขภาพ</div><div>ดาราศาสตร์เบื้องต้น</div><div>วิทยาศาสตร์กับความงาม</div><div>โปรแกรมสำเร็จรูป</div></div>
+    <div class="cell"><div>ของเล่นวิทยาศาสตร์เชิง STEM</div><div>โปรแกรมคอมพิวเตอร์เบื้องต้น</div><div>โปรแกรมคอมพิวเตอร์</div></div>
+    <div class="cell"><div>คณิตศาสตร์ในชีวิตประจำวัน</div><div>เรขาคณิต</div></div>
+    <div class="cell"><div>ฟิสิกส์ <span class="cr">4.0</span></div><div>เคมี <span class="cr">2.5</span></div><div>ชีววิทยา <span class="cr">2.5</span></div><div>คณิตศาสตร์ <span class="cr">3.0</span></div><div>อังกฤษ <span class="cr">3.0</span></div></div>
+    <div class="cell"><div>ฟิสิกส์ <span class="cr">4.0</span></div><div>เคมี <span class="cr">3.0</span></div><div>ชีววิทยา <span class="cr">3.0</span></div><div>คณิตศาสตร์ <span class="cr">3.0</span></div><div>อังกฤษ <span class="cr">3.0</span></div></div>
+    <div class="cell"><div>ฟิสิกส์ <span class="cr">4.0</span></div><div>เคมี <span class="cr">3.0</span></div><div>ชีววิทยา <span class="cr">3.0</span></div><div>คณิตศาสตร์ <span class="cr">3.0</span></div><div>อังกฤษ <span class="cr">3.0</span></div></div>
+
+    <!-- เส้นทางโครงงาน -->
+    <div class="rh thr">เส้นทางสู่โครงงานวิจัย · ร้อยต่อเนื่องหกปี</div>
+    <div class="cell thr"><b>ลงมือทำ</b><div>กิจกรรม STEM</div><div>ปฏิบัติการทางวิทยาศาสตร์และสิ่งแวดล้อม</div></div>
+    <div class="cell thr"><b>ออกแบบ</b><div>นวัตกรน้อยสู่การออกแบบโครงงาน 1</div></div>
+    <div class="cell thr"><b>ทำโครงงาน</b><div>นวัตกรน้อยสู่การออกแบบโครงงาน 2</div></div>
+    <div class="cell thr u"><b>สืบเสาะ</b><div>การสืบเสาะค้นหาความรู้ทางวิทยาศาสตร์ 1–2</div><div>ทฤษฎีจำนวน</div></div>
+    <div class="cell thr u"><b>วิธีวิจัย</b><div>ระเบียบวิธีวิจัยทางวิทยาศาสตร์</div><div>ทักษะพื้นฐานการพิสูจน์</div><div>โครงงานวิจัยฯ 1</div></div>
+    <div class="cell thr u last"><b>วิจัยของตนเอง</b><div>โครงงานวิจัยทางวิทยาศาสตร์ 2</div></div>
+
+    <!-- ค่ายและกิจกรรม -->
+    <div class="rh">ค่ายและกิจกรรมเสริมหลักสูตร</div>
+    <div class="cell"><div>ค่ายวิทยาศาสตร์</div><div>ค่ายทักษะทางวิทยาศาสตร์</div></div>
+    <div class="cell"><div>ค่ายวิทยาศาสตร์</div><div>ค่ายปฏิบัติการ (ต่างประเทศ)</div></div>
+    <div class="cell"><div>ค่ายวิทยาศาสตร์</div><div>ค่าย STEM</div></div>
+    <div class="cell span3"><div>ค่ายประจำปีกับมหาวิทยาลัยและสถานีวิจัย</div><div>ฝึกทักษะวิจัยกับ สวทช.</div><div>ศึกษาดูงาน CERN สมาพันธรัฐสวิส</div><div>โครงการ Sakura Science ประเทศญี่ปุ่น</div></div>
+  </div></div>
+  <p class="hint">เลื่อนตารางไปทางขวาเพื่อดู ม.4–ม.6 →</p>
+
+  <div class="low">
+    <div class="crd">
+      <h3 class="sh">หน่วยกิตรายวิชาเพิ่มเติม ม.4–ม.6 (ต่อปี)</h3>
+      <!-- 1 หน่วยกิต = 100/20.5 % ของความกว้างแถบ (ปีที่มากที่สุด ม.5 = 20 หน่วยกิต) -->
+      <div class="row"><span class="g">ม.4</span><div class="stk">
+        <i style="width:19.51%;background:#7a0a12"></i><i style="width:12.20%;background:#b0101c"></i><i style="width:12.20%;background:#c8303a"></i><i style="width:14.63%;background:#d9585f"></i><i style="width:14.63%;background:#e58a8f"></i><i style="width:2.44%;background:#c9b6b7"></i><i style="width:12.20%;background:#1d2433"></i>
+      </div><span class="t">18.0</span></div>
+      <div class="row"><span class="g">ม.5</span><div class="stk">
+        <i style="width:19.51%;background:#7a0a12"></i><i style="width:14.63%;background:#b0101c"></i><i style="width:14.63%;background:#c8303a"></i><i style="width:14.63%;background:#d9585f"></i><i style="width:14.63%;background:#e58a8f"></i><i style="width:2.44%;background:#c9b6b7"></i><i style="width:17.07%;background:#1d2433"></i>
+      </div><span class="t">20.0</span></div>
+      <div class="row"><span class="g">ม.6</span><div class="stk">
+        <i style="width:19.51%;background:#7a0a12"></i><i style="width:14.63%;background:#b0101c"></i><i style="width:14.63%;background:#c8303a"></i><i style="width:14.63%;background:#d9585f"></i><i style="width:14.63%;background:#e58a8f"></i><i style="width:4.88%;background:#c9b6b7"></i><i style="width:7.32%;background:#1d2433"></i>
+      </div><span class="t">18.5</span></div>
+      <div class="leg">
+        <span style="--c:#7a0a12">ฟิสิกส์</span><span style="--c:#b0101c">เคมี</span><span style="--c:#c8303a">ชีววิทยา</span>
+        <span style="--c:#d9585f">คณิตศาสตร์</span><span style="--c:#e58a8f">ภาษาอังกฤษ</span><span style="--c:#c9b6b7">หน้าที่พลเมือง</span>
+        <span class="sm" style="--c:#1d2433">รายวิชาเฉพาะ SMTE</span>
+      </div>
+    </div>
+    <div>
+      <h3 class="sh">กิจกรรมทุกระดับชั้น</h3>
+      <div class="chips">
+        <span>กิจกรรมยุวะเนตร</span><span>แนะแนว</span><span>ชุมนุม</span><span>เพื่อสังคมและสาธารณประโยชน์</span>
+        <span class="hi">โครงการโอลิมปิกวิชาการสตรีวิทยา</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="note">ข้อมูลจากเอกสารโครงการห้องเรียนพิเศษ SMTE ม.ต้น และ ม.ปลาย และโครงสร้างรายวิชาเพิ่มเติมปัจจุบัน · ตัวเลขหลังรายวิชา ม.ปลาย คือหน่วยกิตต่อปี</p>
+</section>
+</body>
+</html>
