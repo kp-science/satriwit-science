@@ -605,6 +605,11 @@
   .foot-logos img:first-child{height:64px;width:auto}
   .foot-logos img:last-child{height:44px;width:auto}
   @media (max-width:680px){ .mast-row .brandrow{width:100%;justify-content:center} .school-logo{height:34px} }
+
+  /* ===== ตราโรงเรียนหน้าชื่อเว็บ ===== */
+  .mast-title{display:flex;align-items:center;justify-content:center;gap:clamp(8px,1.6vw,22px)}
+  .mast-emblem{height:clamp(46px,10.8vw,158px);width:auto;flex:none;opacity:0;transform:translateY(20%);animation:rise .9s var(--ease) .05s forwards;filter:drop-shadow(0 2px 2px rgba(31,35,40,.15))}
+  @media (max-width:420px){.mast-title{gap:6px}.mast-emblem{height:42px}.mast h1{font-size:clamp(34px,10vw,44px)}}
 </style>
 </head>
 <body>
@@ -632,7 +637,7 @@
   </div>
 
   <!-- 1. แบนเนอร์ -->
-  <div class="mast"><h1 id="mast" aria-label="สตรีวิทยาศาสตร์"></h1><div class="mast-en" id="mastEnWrap"><img src="https://kp-science.github.io/satriwit-science/img/sw-mark.png" alt="SW" class="sw-mark" id="mastMark"><span id="mastEn">SciTech</span></div></div>
+  <div class="mast"><div class="mast-title"><img src="https://kp-science.github.io/satriwit-science/img/school-logo-redgrey.png" alt="ตราโรงเรียนสตรีวิทยา" class="mast-emblem"><h1 id="mast" aria-label="สตรีวิทยาศาสตร์"></h1></div><div class="mast-en" id="mastEnWrap"><img src="https://kp-science.github.io/satriwit-science/img/sw-mark.png" alt="SW" class="sw-mark" id="mastMark"><span id="mastEn">SciTech</span></div></div>
   <div class="mast-row">
     <span class="sub">กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี · โรงเรียนสตรีวิทยา</span>
     <nav>
