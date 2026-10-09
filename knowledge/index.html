@@ -183,24 +183,61 @@
   .doc-view .embed.doc{margin:0;aspect-ratio:auto;height:min(1040px,82vh);max-height:none}
   .nofile{border:1px dashed var(--rule);padding:60px 20px;text-align:center;color:var(--muted)}
 
-  /* คอร์ส */
-  .course{display:grid;grid-template-columns:320px minmax(0,1fr);gap:34px;margin-top:26px}
-  .toc{position:sticky;top:90px;align-self:start;border:1px solid var(--ink);background:#fff;max-height:calc(100vh - 110px);overflow:auto}
-  .toc h4{margin:0;padding:14px 16px;font:600 14px var(--label);border-bottom:1px solid var(--ink);display:flex;justify-content:space-between}
-  .prog{height:6px;background:var(--paper-2)}
-  .prog i{display:block;height:100%;background:var(--g-cool);transition:width .5s var(--ease)}
-  .toc button{display:flex;gap:12px;width:100%;text-align:left;border:0;border-bottom:1px solid var(--rule);background:none;padding:12px 16px;cursor:pointer;font:400 15px/1.45 'Sarabun';align-items:flex-start}
-  .toc button:hover{background:var(--paper-2)}
-  .toc button.on{background:#eef2ff;box-shadow:inset 3px 0 0 #4f46e5}
-  .toc .n{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font:600 12px var(--label)}
-  .toc .done .n{background:#10b981;border-color:#10b981;color:#fff}
-  .ls-h{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
-  .ls-h small{font:600 13px var(--label);letter-spacing:.1em;color:var(--muted)}
-  .ls-h h2{font:700 30px/1.35 var(--serif);margin:0}
-  .ls-acts{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 24px}
-  .ls-nav{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--ink);padding-top:18px;margin-top:30px}
+  /* คอร์ส (โครงแบบหน้าคอร์ส KP Science: จอใหญ่ซ้าย · แท็บใต้จอ · รายการบทแบ่งหน่วยด้านขวา) */
+  .ctabs{display:flex;gap:26px;border-bottom:1px solid var(--rule);margin:22px 0 0;overflow-x:auto}
+  .ctabs a{flex:none;display:inline-flex;align-items:center;gap:8px;padding:10px 0;font:600 15px var(--label);color:var(--muted);text-decoration:none;position:relative;white-space:nowrap}
+  .ctabs a:hover{color:var(--ink)}
+  .ctabs a.on{color:var(--ink)}
+  .ctabs a.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--g-cool)}
+  .course{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;margin-top:22px}
+  .player{position:relative;aspect-ratio:16/9;border:1px solid var(--ink);background:#0f1115;overflow:hidden}
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+  .player.empty-p{aspect-ratio:21/7;display:flex;align-items:flex-end;padding:22px;background:linear-gradient(135deg,var(--a),var(--b));color:#fff}
+  .player.empty-p b{font:700 26px/1.4 var(--serif)}
+  .player.empty-p small{display:block;font:600 12px var(--label);letter-spacing:.12em;opacity:.8}
+  .ls-h{margin:18px 0 4px}
+  .ls-h small{font:600 13px var(--label);letter-spacing:.06em;color:var(--muted)}
+  .ls-h h2{font:700 28px/1.4 var(--serif);margin:2px 0 0}
+  .ls-meta{display:flex;flex-wrap:wrap;gap:8px;font:500 13px var(--label);color:var(--ink-2)}
+  .ls-meta span{padding:2px 9px;background:var(--paper-2)}
+  .ltabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 0;border-bottom:1px solid var(--rule);padding-bottom:12px}
+  .ltabs button{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule);background:#fff;padding:7px 14px;font:500 14px var(--label);cursor:pointer}
+  .ltabs button:hover{border-color:var(--ink)}
+  .ltabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .ltabs svg{width:15px;height:15px}
+  .lpanel{padding-top:20px}
+  .lpanel[hidden]{display:none}
+  .res{display:flex;align-items:center;gap:14px;border:1px solid var(--ink);background:#fff;padding:14px 16px;margin-bottom:12px}
+  .res .ri{width:42px;height:42px;flex:none;display:grid;place-items:center;background:var(--g-cool);color:#fff}
+  .res b{display:block;font:600 15px var(--label)}
+  .res small{color:var(--muted);font-size:13px}
+  .res .sp{flex:1}
+  .res .btn{padding:7px 12px;font-size:13px}
+  .ls-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;border-top:1px solid var(--ink);padding-top:16px;margin-top:26px}
   .check{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font:500 15px var(--label);user-select:none}
   .check input{width:18px;height:18px;accent-color:#10b981}
+  .toc{position:sticky;top:76px;align-self:start;border:1px solid var(--ink);background:#fff;max-height:calc(100vh - 96px);overflow:auto}
+  .toc h4{margin:0;padding:13px 16px;font:600 15px var(--label);display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--rule)}
+  .toc h4 small{font:400 13px var(--label);color:var(--muted);white-space:nowrap}
+  .prog{height:5px;background:var(--paper-2)}
+  .prog i{display:block;height:100%;background:var(--g-cool);transition:width .5s var(--ease)}
+  .unit{border-bottom:1px solid var(--rule)}
+  .unit summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;font:600 14px var(--label);background:#fafbfc}
+  .unit summary::-webkit-details-marker{display:none}
+  .unit summary .un{font:600 11px var(--label);background:var(--ink);color:#fff;padding:2px 7px}
+  .unit summary .ut{flex:1}
+  .unit summary small{font:400 12px var(--label);color:var(--muted)}
+  .unit summary::after{content:"▾";color:var(--muted);transition:transform .25s}
+  .unit:not([open]) summary::after{transform:rotate(-90deg)}
+  .toc button{display:flex;gap:10px;width:100%;text-align:left;border:0;border-top:1px solid #f0f1f3;background:none;padding:10px 16px 10px 18px;cursor:pointer;font:400 14.5px/1.45 'Sarabun';align-items:center}
+  .toc button:hover{background:var(--paper-2)}
+  .toc button.on{background:#eef2ff;box-shadow:inset 3px 0 0 #4f46e5}
+  .toc .n{flex:none;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--ink-2);display:grid;place-items:center;font:600 11px var(--label);color:var(--ink-2)}
+  .toc .on .n{border-color:#4f46e5;color:#4f46e5}
+  .toc .done .n{background:#10b981;border-color:#10b981;color:#fff}
+  .toc .t{flex:1}
+  .toc .d{font:400 12px var(--label);color:var(--muted)}
+  .cintro{margin-top:18px;max-width:860px}
 
   .related{margin-top:60px;border-top:4px double var(--ink);padding-top:18px}
   .related h3{font:800 28px var(--serif);margin:0 0 18px}
@@ -222,6 +259,7 @@
     .hero{grid-template-columns:1fr;gap:22px}
     .types{grid-template-columns:repeat(3,1fr)}
     .rd-body,.doc-view,.course{grid-template-columns:1fr}
+    .course .toc{order:2}
     .rd-side,.toc{position:static}
     .toc{max-height:none}
     .kgrid.wide .kc.t-inno{grid-column:auto;display:flex}
@@ -544,31 +582,89 @@ function viewInno(k) {
 const doneKey = id => 'swk_done_' + id;
 const getDone = id => { try { return JSON.parse(localStorage.getItem(doneKey(id)) || '[]'); } catch (e) { return []; } };
 const setDone = (id, list) => { try { localStorage.setItem(doneKey(id), JSON.stringify(list)); } catch (e) { /* ข้าม */ } };
+const L_ICON = {
+  text: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
+  sim: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>',
+  doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>',
+  quiz: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
+};
+// แยกซิมูเลชัน ([ฝัง: …]) ออกจากเนื้อหาของบท → ไปอยู่ในจอใหญ่/แท็บ Simulation
+function splitSims(body) {
+  const sims = [], rest = [];
+  String(body || '').split('\n').forEach(line => {
+    const m = /^\s*\[\s*ฝัง\s*:\s*(.+)\]\s*$/.exec(line);
+    if (m) { const [u, lab] = m[1].split('|').map(x => x.trim()); if (safeUrl(u)) { sims.push({ url: u, label: lab || '' }); return; } }
+    rest.push(line);
+  });
+  return { sims, text: rest.join('\n').replace(/\n{3,}/g, '\n\n').trim() };
+}
+let CUR = null;  // คอร์สที่เปิดอยู่ (ใช้วาดรายการบทใหม่ตอนติ๊ก "เรียนแล้ว")
+function tocHtml() {
+  const { k, lessons, i } = CUR, done = getDone(k.id), base = '#/k/' + encodeURIComponent(k.id) + '/';
+  const pct = lessons.length ? Math.round(done.filter(x => lessons.some(l => l.id === x)).length / lessons.length * 100) : 0;
+  const units = [];
+  lessons.forEach((l, j) => { const u = l.unit || ''; if (!units.length || units[units.length - 1].name !== u) units.push({ name: u, items: [] }); units[units.length - 1].items.push([l, j]); });
+  const row = ([l, j]) => `<button type="button" class="${j === i ? 'on' : ''}${done.includes(l.id) ? ' done' : ''}" data-lesson="${base}${j + 1}"><span class="n">${done.includes(l.id) ? '✓' : j + 1}</span><span class="t">${esc(l.title)}</span>${l.dur ? `<span class="d">${esc(l.dur)}</span>` : ''}</button>`;
+  return `<h4><span>${esc(k.title)}</span><small>เรียนแล้ว ${pct}%</small></h4><div class="prog"><i style="width:${pct}%"></i></div>
+    ${units.map((u, ui) => u.name ? `<details class="unit"${u.items.some(([, j]) => j === i) || units.length < 4 ? ' open' : ''}><summary><span class="un">${String(ui + 1).padStart(2, '0')}</span><span class="ut">${esc(u.name.replace(/^\d+\s*[.·:-]?\s*/, ''))}</span><small>${u.items.length} บท</small></summary>${u.items.map(row).join('')}</details>` : u.items.map(row).join('')).join('')}`;
+}
 function viewCourse(k, lessons, n) {
   lessons = lessons || [];
-  const done = getDone(k.id);
   const i = Math.min(Math.max(0, (Number(n) || 1) - 1), Math.max(0, lessons.length - 1));
+  CUR = { k, lessons, i };
+  const [a, b] = subjOf(k.subject);
+  const courses = state.list.filter(x => x.type === 'คอร์สออนไลน์');
+  const ctabs = courses.length > 1 ? `<nav class="ctabs">${courses.map(c => `<a href="#/k/${encodeURIComponent(c.id)}" class="${c.id === k.id ? 'on' : ''}">${ICON.course.replace('width="20" height="20"', 'width="16" height="16"')}${esc(c.title)}</a>`).join('')}</nav>` : '';
   const L = lessons[i];
-  const pct = lessons.length ? Math.round(done.filter(x => lessons.some(l => l.id === x)).length / lessons.length * 100) : 0;
-  const base = '#/k/' + encodeURIComponent(k.id) + '/';
-  const toc = `<nav class="toc"><h4><span>บทเรียน ${lessons.length} บท</span><span>เรียนแล้ว ${pct}%</span></h4><div class="prog"><i style="width:${pct}%"></i></div>
-    ${lessons.map((l, j) => `<button type="button" class="${j === i ? 'on' : ''}${done.includes(l.id) ? ' done' : ''}" data-lesson="${base}${j + 1}"><span class="n">${done.includes(l.id) ? '✓' : j + 1}</span><span>${esc(l.title)}</span></button>`).join('')}</nav>`;
-  if (!L) return `${head(k)}${cover(k)}<div class="prose" style="margin-top:24px">${renderBody(k.body)}</div><div class="empty" style="margin-top:20px">คอร์สนี้ยังไม่มีบทเรียน</div>`;
-  const quiz = safeUrl(L.quiz), file = safeUrl(L.file);
-  return `${head(k, `<span>${lessons.length} บทเรียน</span>`)}
-    ${i === 0 && k.body ? `<div class="prose" style="margin-top:22px;max-width:820px">${renderBody(k.body)}</div>` : ''}
-    <div class="course">${toc}
+  if (!L) return `${head(k)}${ctabs}${cover(k)}<div class="prose cintro">${renderBody(k.body)}</div><div class="empty" style="margin-top:20px">คอร์สนี้ยังไม่มีบทเรียน</div>`;
+  const { sims, text } = splitSims(L.body);
+  const file = safeUrl(L.file), quiz = safeUrl(L.quiz), base = '#/k/' + encodeURIComponent(k.id) + '/';
+  const done = getDone(k.id).includes(L.id);
+  const player = L.video && ytId(L.video) ? `<div class="player"><iframe src="${esc(embedSrc(L.video))}" allow="fullscreen; encrypted-media; picture-in-picture" allowfullscreen title="${esc(L.title)}"></iframe></div>`
+    : sims.length ? `<div class="player"><iframe src="${esc(embedSrc(sims[0].url))}" loading="lazy" allowfullscreen title="${esc(L.title)}"></iframe></div>`
+    : `<div class="player empty-p" style="--a:${a};--b:${b}"><div><small>บทที่ ${i + 1}</small><b>${esc(L.title)}</b></div></div>`;
+  const tabs = [['text', 'เนื้อหา', true], ['sim', `Simulation${sims.length > 1 ? ' (' + sims.length + ')' : ''}`, sims.length], ['doc', 'เอกสาร', file], ['quiz', 'แบบทดสอบ', quiz]].filter(t => t[2]);
+  const first = text ? 'text' : (tabs.find(t => t[0] !== 'text') || ['text'])[0];
+  const panel = {
+    text: `<div class="prose">${renderBody(text) || '<p style="color:var(--muted)">บทนี้เรียนจากคลิป/ซิมูเลชันด้านบน</p>'}</div>`,
+    sim: sims.map((x, j) => `<div class="res"><span class="ri">${L_ICON.sim}</span><span><b>${esc(x.label && !/เต็มจอ/.test(x.label) ? x.label : 'Simulation ' + (j + 1))}</b><small>ซิมูเลชันโต้ตอบ ปรับค่าได้เอง</small></span><span class="sp"></span>
+      <button type="button" class="btn" data-play="${esc(embedSrc(x.url))}">แสดงบนจอ</button><a class="btn" href="${esc(x.url)}" target="_blank" rel="noopener">เต็มจอ ${ICON.out}</a></div>`).join(''),
+    doc: file ? `<div class="embed doc" style="margin-top:0"><iframe src="${esc(embedSrc(file))}" loading="lazy" title="เอกสารประกอบ"></iframe></div><div class="embed-cap"><a href="${esc(file)}" target="_blank" rel="noopener">เปิดเอกสารในแท็บใหม่ ${ICON.out}</a></div>` : '',
+    quiz: quiz ? `<div class="res"><span class="ri">${L_ICON.quiz}</span><span><b>แบบทดสอบท้ายบท</b><small>ทำแล้วส่งได้ทันที</small></span><span class="sp"></span><a class="btn solid" href="${esc(quiz)}" target="_blank" rel="noopener">ทำแบบทดสอบ ${ICON.out}</a></div>` : '',
+  };
+  return `${head(k, `<span>${lessons.length} บทเรียน</span>`)}${ctabs}
+    ${i === 0 && k.body ? `<div class="prose cintro">${renderBody(k.body)}</div>` : ''}
+    <div class="course">
       <div>
-        <div class="ls-h"><small>บทที่ ${i + 1}</small><h2>${esc(L.title)}</h2></div>
-        ${L.video ? block('คลิป', L.video) : ''}
-        <div class="prose">${renderBody(L.body)}</div>
-        ${file || quiz ? `<div class="ls-acts">${file ? `<a class="btn" href="${esc(file)}" target="_blank" rel="noopener">${ICON.sheet.replace('width="20" height="20"', 'width="16" height="16"')} เอกสารประกอบ</a>` : ''}${quiz ? `<a class="btn solid" href="${esc(quiz)}" target="_blank" rel="noopener">ทำแบบทดสอบท้ายบท ${ICON.out}</a>` : ''}</div>` : ''}
+        ${player}
+        <div class="ls-h"><small>บทที่ ${i + 1} / ${lessons.length}${L.unit ? ' · ' + esc(L.unit) : ''}</small><h2>${esc(L.title)}</h2></div>
+        <div class="ls-meta"><span>${esc(k.subject)}</span><span>${esc(k.level || 'ทุกระดับ')}</span>${L.dur ? `<span>${esc(L.dur)}</span>` : ''}${k.author ? `<span>${esc(k.author)}</span>` : ''}</div>
+        ${tabs.length > 1 ? `<div class="ltabs">${tabs.map(t => `<button type="button" data-ltab="${t[0]}" class="${t[0] === first ? 'on' : ''}">${L_ICON[t[0]]}${esc(t[1])}</button>`).join('')}</div>` : ''}
+        ${tabs.map(t => `<div class="lpanel" data-lpanel="${t[0]}"${t[0] === first ? '' : ' hidden'}>${panel[t[0]]}</div>`).join('')}
         <div class="ls-nav">
-          <label class="check"><input type="checkbox" data-done="${esc(k.id)}|${esc(L.id)}"${done.includes(L.id) ? ' checked' : ''}> เรียนบทนี้แล้ว</label>
+          <label class="check"><input type="checkbox" data-done="${esc(k.id)}|${esc(L.id)}"${done ? ' checked' : ''}> เรียนบทนี้แล้ว</label>
           <span style="display:flex;gap:10px">${i > 0 ? `<a class="btn sm" href="${base}${i}">← บทก่อนหน้า</a>` : ''}${i < lessons.length - 1 ? `<a class="btn sm solid" href="${base}${i + 2}">บทถัดไป →</a>` : ''}</span>
         </div>
-      </div></div>`;
+      </div>
+      <nav class="toc" id="toc">${tocHtml()}</nav>
+    </div>`;
 }
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-ltab]');
+  if (t) {
+    document.querySelectorAll('[data-ltab]').forEach(x => x.classList.toggle('on', x === t));
+    document.querySelectorAll('[data-lpanel]').forEach(p => { p.hidden = p.dataset.lpanel !== t.dataset.ltab; });
+    typeset(document.querySelector(`[data-lpanel="${t.dataset.ltab}"]`));
+    return;
+  }
+  const pl = e.target.closest('[data-play]');
+  if (pl) {
+    const box = document.querySelector('.player');
+    box.className = 'player'; box.removeAttribute('style');
+    box.innerHTML = `<iframe src="${esc(pl.dataset.play)}" allowfullscreen title="Simulation"></iframe>`;
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+});
 document.addEventListener('change', e => {
   const c = e.target.closest('[data-done]'); if (!c) return;
   const [cid, lid] = c.dataset.done.split('|');
@@ -576,7 +672,7 @@ document.addEventListener('change', e => {
   if (c.checked) list.push(lid);
   setDone(cid, list);
   if (c.checked) toast('บันทึกแล้ว — เก่งมาก!');
-  route(true);
+  if (CUR && $('toc')) $('toc').innerHTML = tocHtml();  // อัปเดตเฉพาะรายการบท ไม่โหลดคลิปใหม่
 });
 
 function related(k) {

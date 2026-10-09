@@ -11,31 +11,39 @@
   "lessons": [
    {
     "title": "ความเร็วและความเร่ง",
-    "body": "ความแตกต่างระหว่างความเร็วเฉลี่ยและความเร็วขณะใดขณะหนึ่ง\n\n## ลองทำ\nรถเคลื่อนที่ด้วยความเร็วคงที่ สังเกตกราฟ x-t และ v-t\n\n[ฝัง: https://kp-science.github.io/physics-simulations/Demo/mechanics/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%84%E0%B8%A5%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%81%E0%B8%99%E0%B8%A7%E0%B8%95%E0%B8%A3%E0%B8%87/Demo_01-08_Constant_Velocity.html | เปิดซิมูเลชันเต็มจอ]",
+    "body": "ความแตกต่างระหว่างความเร็วเฉลี่ยและความเร็วขณะใดขณะหนึ่ง\n\n## ลองทำ\nรถเคลื่อนที่ด้วยความเร็วคงที่ สังเกตกราฟ x-t และ v-t\n\n[ฝัง: https://kp-science.github.io/physics-simulations/Demo/mechanics/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%84%E0%B8%A5%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%81%E0%B8%99%E0%B8%A7%E0%B8%95%E0%B8%A3%E0%B8%87/Demo_01-08_Constant_Velocity.html | Constant Velocity · ความเร็วคงที่]",
     "video": "",
     "file": "",
-    "quiz": ""
+    "quiz": "",
+    "unit": "01 การเคลื่อนที่",
+    "dur": ""
    },
    {
     "title": "สมการการเคลื่อนที่ (Kinematics)",
-    "body": "สมการการเคลื่อนที่แนวตรงด้วยความเร่งคงตัวทั้ง 4 สมการ\n\n## ลองทำ\nปรับ u, v, a, s, t แล้วดูกราฟเปลี่ยนแบบเรียลไทม์\n\n[ฝัง: https://kp-science.github.io/physics-simulations/Demo/mechanics/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%84%E0%B8%A5%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%81%E0%B8%99%E0%B8%A7%E0%B8%95%E0%B8%A3%E0%B8%87/kinematics_simulation_protected.html | เปิดซิมูเลชันเต็มจอ]",
+    "body": "สมการการเคลื่อนที่แนวตรงด้วยความเร่งคงตัวทั้ง 4 สมการ\n\n## ลองทำ\nปรับ u, v, a, s, t แล้วดูกราฟเปลี่ยนแบบเรียลไทม์\n\n[ฝัง: https://kp-science.github.io/physics-simulations/Demo/mechanics/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%84%E0%B8%A5%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%81%E0%B8%99%E0%B8%A7%E0%B8%95%E0%B8%A3%E0%B8%87/kinematics_simulation_protected.html | Kinematics: u · v · a · s · t]",
     "video": "",
     "file": "",
-    "quiz": ""
+    "quiz": "",
+    "unit": "01 การเคลื่อนที่",
+    "dur": ""
    },
    {
     "title": "การตกอย่างเสรี (Free Fall)",
-    "body": "## ลองทำ\nหิน 2 ก้อนปล่อยจากตึกสูงด้วยสภาพเริ่มต้นต่างกัน เปรียบเทียบการเคลื่อนที่แนวดิ่ง\n\n[ฝัง: https://kp-science.github.io/physics-simulations/Demo/mechanics/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%84%E0%B8%A5%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%81%E0%B8%99%E0%B8%A7%E0%B8%95%E0%B8%A3%E0%B8%87/stone_ab_simulation.html | เปิดซิมูเลชันเต็มจอ]\n\nตุ้มน้ำหนักผูกเชือกตกอิสระ ระยะห่างเพิ่มแบบ 1 : 3 : 5\n\n[ฝัง: https://kp-science.github.io/physics-simulations/Demo/mechanics/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%84%E0%B8%A5%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%81%E0%B8%99%E0%B8%A7%E0%B8%95%E0%B8%A3%E0%B8%87/string_weights_drop.html | เปิดซิมูเลชันเต็มจอ]",
+    "body": "## ลองทำ\nหิน 2 ก้อนปล่อยจากตึกสูงด้วยสภาพเริ่มต้นต่างกัน เปรียบเทียบการเคลื่อนที่แนวดิ่ง\n\n[ฝัง: https://kp-science.github.io/physics-simulations/Demo/mechanics/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%84%E0%B8%A5%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%81%E0%B8%99%E0%B8%A7%E0%B8%95%E0%B8%A3%E0%B8%87/stone_ab_simulation.html | ก้อนหิน A & B บนตึกสูง]\n\nตุ้มน้ำหนักผูกเชือกตกอิสระ ระยะห่างเพิ่มแบบ 1 : 3 : 5\n\n[ฝัง: https://kp-science.github.io/physics-simulations/Demo/mechanics/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%84%E0%B8%A5%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%81%E0%B8%99%E0%B8%A7%E0%B8%95%E0%B8%A3%E0%B8%87/string_weights_drop.html | เชือกและตุ้มน้ำหนักตกอิสระ]",
     "video": "",
     "file": "",
-    "quiz": ""
+    "quiz": "",
+    "unit": "01 การเคลื่อนที่",
+    "dur": ""
    },
    {
     "title": "การเคลื่อนที่แบบโพรเจกไทล์",
-    "body": "## ลองทำ\nยิงแนวราบเทียบกับปล่อยตกอิสระ ถึงพื้นพร้อมกันหรือไม่\n\n[ฝัง: https://kp-science.github.io/physics-simulations/Demo/mechanics/%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%84%E0%B9%84%E0%B8%97%E0%B8%A5%E0%B9%8C/demo02_01_shooter_dropper.html | เปิดซิมูเลชันเต็มจอ]\n\nยิงปืนไปที่ลิงขณะลิงปล่อยตัว จะโดนกันไหม\n\n[ฝัง: https://kp-science.github.io/physics-simulations/Demo/mechanics/%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%84%E0%B9%84%E0%B8%97%E0%B8%A5%E0%B9%8C/monkey_gun-3.html | เปิดซิมูเลชันเต็มจอ]",
+    "body": "## ลองทำ\nยิงแนวราบเทียบกับปล่อยตกอิสระ ถึงพื้นพร้อมกันหรือไม่\n\n[ฝัง: https://kp-science.github.io/physics-simulations/Demo/mechanics/%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%84%E0%B9%84%E0%B8%97%E0%B8%A5%E0%B9%8C/demo02_01_shooter_dropper.html | Shooter & Dropper · ยิงเทียบกับปล่อย]\n\nยิงปืนไปที่ลิงขณะลิงปล่อยตัว จะโดนกันไหม\n\n[ฝัง: https://kp-science.github.io/physics-simulations/Demo/mechanics/%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%84%E0%B9%84%E0%B8%97%E0%B8%A5%E0%B9%8C/monkey_gun-3.html | Monkey & Gun · ลิงกับปืน]",
     "video": "",
     "file": "",
-    "quiz": ""
+    "quiz": "",
+    "unit": "01 การเคลื่อนที่",
+    "dur": ""
    }
   ]
  }
