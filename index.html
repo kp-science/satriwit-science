@@ -698,7 +698,7 @@
     .nt h3{font-size:18px}
   }
   /* หัวข้อคลังความรู้บนหน้าแรก */
-  .kn-types{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+  .kn-types{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
   .kn-ty{display:flex;gap:14px;align-items:center;padding:16px 18px;border:1px solid var(--ink);background:var(--card);text-decoration:none;position:relative;overflow:hidden;isolation:isolate;transition:color .4s}
   .kn-ty::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .5s cubic-bezier(.7,0,.2,1);z-index:-1}
   .kn-ty:hover{color:#fff}.kn-ty:hover::before{transform:none}
@@ -711,9 +711,9 @@
   .kn-ty .n{margin-left:auto;font:800 34px/1 var(--serif)}
   .kn-foot{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;justify-content:space-between;margin-top:28px;border-top:1px solid var(--rule);padding-top:20px}
   .kn-foot p{margin:0;color:var(--ink-2);font-size:15px}
-  #knowledge.kn-empty{display:none}
   #knowledge .kc-art svg{width:84px;height:84px}
-  @media (max-width:760px){.kn-types{grid-template-columns:1fr}}
+  @media (max-width:980px){.kn-types{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:520px){.kn-types{grid-template-columns:1fr}}
   @media (max-width:520px){.kn-ty{padding:12px}.kn-ty .ic{width:38px;height:38px}.kn-ty .n{font-size:26px}}
 
   /* =====================================================================
@@ -925,6 +925,15 @@
   .kn-ty:hover{color:var(--ink);transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.08)}
   .kn-ty .ic{border-radius:14px}
   .kn-ty .n{font:700 34px/1 var(--ap-font)}
+  .kn-course{background:linear-gradient(135deg,#1d1d1f,#3a2a55);color:#fff}
+  .kn-course:hover{color:#fff}
+  .kn-course .ic{background:var(--ap-grad)!important;color:#fff}
+  .kn-course small{opacity:.75}
+  .kn-course .n{font-size:26px;background:var(--ap-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .kn-soon{display:flex;flex-direction:column;gap:6px;padding:44px 24px}
+  .kn-soon b{font:600 20px var(--ap-font);color:var(--ink)}
+  .kn-soon span{color:var(--ink-2)}
+  .sticky nav a.nav-out{color:inherit;opacity:.82}
   .kc{border:0;border-radius:24px;overflow:hidden}
   .kc:hover{transform:scale(1.02);box-shadow:0 18px 40px rgba(0,0,0,.1)}
   .kc-cv{border:0}
@@ -1030,6 +1039,7 @@
       <a href="#archive">รายการทั้งหมด</a>
       <a href="#projects">โครงการ</a>
       <a href="#journals">วารสาร</a>
+      <a class="nav-out" href="https://kp-science.github.io/kp-course/index.html" target="_blank" rel="noopener">คอร์สออนไลน์ ↗</a>
     </nav>
     <button type="button" class="menu-btn" id="menuBtn" aria-label="เปิดเมนู" aria-expanded="false"><i></i><i></i></button>
   </div>
@@ -2125,12 +2135,14 @@ function card(k, i) {
       <span class="kc-go">${esc(goText(k))} ${K_ICON.arrow}</span>
     </div>${k.pinned === 'TRUE' ? '<span class="kc-pin">แนะนำ</span>' : ''}</a>`;
 }
+/* คอร์สออนไลน์อยู่เว็บแยก (kp-course) — ลิงก์ออกไปจากหน้านี้ */
+const COURSE_URL = 'https:\/\/kp-science.github.io/kp-course/index.html';
 function renderKnowledge() {
   const L = state.knowledge || [];
-  $('knowledge').classList.toggle('kn-empty', !L.length && !admin());
-  $('knTypes').innerHTML = K_TYPES.map(t => `<a class="kn-ty" target="_top" href="${knBase()}#/t/${encodeURIComponent(t.name)}"><span class="ic">${K_ICON[t.key]}</span><span><b>${esc(t.name)}</b><small>${esc(t.desc)}</small></span><span class="n">${L.filter(k => k.type === t.name).length}</span></a>`).join('');
+  $('knTypes').innerHTML = K_TYPES.map(t => `<a class="kn-ty" target="_top" href="${knBase()}#/t/${encodeURIComponent(t.name)}"><span class="ic">${K_ICON[t.key]}</span><span><b>${esc(t.name)}</b><small>${esc(t.desc)}</small></span><span class="n">${L.filter(k => k.type === t.name).length}</span></a>`).join('')
+    + `<a class="kn-ty kn-course" target="_blank" rel="noopener" href="${COURSE_URL}"><span class="ic">${K_ICON.course}</span><span><b>คอร์สออนไลน์</b><small>เรียนเป็นบท พร้อมแบบฝึก</small></span><span class="n">↗</span></a>`;
   const latest = L.slice().sort((a, b) => (b.pinned === 'TRUE') - (a.pinned === 'TRUE') || (b.date || '').localeCompare(a.date || '') || Number(b.updated) - Number(a.updated)).slice(0, 6);
-  $('knGrid').innerHTML = latest.map(card).join('').replace(/<a class="kc /g, '<a target="_top" class="kc ') || '<div class="empty">กำลังเตรียมเนื้อหา — ครูส่งผลงานได้จากลิงก์ด้านล่าง</div>';
+  $('knGrid').innerHTML = latest.map(card).join('').replace(/<a class="kc /g, '<a target="_top" class="kc ') || '<div class="empty kn-soon"><b>กำลังเตรียมเนื้อหา — เร็ว ๆ นี้</b><span>บทความ ใบความรู้ และนวัตกรรมจากครูของเรากำลังจะมา ระหว่างนี้ลองเรียนคอร์สออนไลน์ได้เลย</span></div>';
   $('knAll').href = knBase();
   $('knSubmit').innerHTML = window.ADMIN_URL ? `ครูกลุ่มสาระส่งผลงานเข้าคลังได้ที่ <a href="${esc(window.ADMIN_URL)}" target="_blank" rel="noopener">หน้าส่งผลงาน</a> (บัญชี @satriwit.ac.th)` : 'ครูกลุ่มสาระส่งผลงานผ่านลิงก์หลังบ้าน (บัญชี @satriwit.ac.th) · ผู้ดูแลอนุมัติก่อนขึ้นเว็บ';
   loadImages($('knGrid'), true); reveal();
@@ -2152,7 +2164,6 @@ function renderSections() {
     if (admin()) act.insertAdjacentHTML('afterbegin', `<button type="button" class="btn sm sec-eye" data-sec="${id}" title="${off ? 'แสดงหัวข้อนี้บนเว็บ' : 'ซ่อนหัวข้อนี้จากเว็บ'}">${off ? ICON.eyeOff + ' หัวข้อนี้ซ่อนอยู่' : ICON.eye + ' แสดงอยู่'}</button>`);
   });
   // คลังความรู้ยังว่าง → ซ่อนลิงก์ในเมนูด้วย
-  if (!(state.knowledge || []).length && !admin()) document.querySelectorAll('a[href="#knowledge"]').forEach(a => a.classList.add('hide'));
   if ($('notices').classList.contains('nt-empty')) document.querySelectorAll('a[href="#notices"]').forEach(a => a.classList.add('hide'));
 }
 document.addEventListener('click', async e => {
