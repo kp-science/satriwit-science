@@ -810,8 +810,8 @@
   .ap-hero .ticker .track a::after{color:var(--on-dark-2)}
 
   /* ---------- ข้อความสว่างทีละคำ ---------- */
-  .ap-statement{background:var(--ap-dark);color:var(--on-dark);position:relative;height:200vh;padding:0}
-  .ap-statement .pin{position:sticky;top:0;height:100svh;display:flex;align-items:center;overflow:hidden}
+  .ap-statement{background:var(--ap-dark);color:var(--on-dark);position:relative;padding:0}
+  .ap-statement .pin{position:relative;height:100svh;min-height:520px;display:flex;align-items:center;overflow:hidden}
   .ap-statement p{opacity:0}
   .ap-statement p{font:700 clamp(30px,5vw,64px)/1.35 var(--ap-font);margin:0;max-width:980px}
   .ap-statement p{will-change:transform,opacity,filter}
@@ -2360,10 +2360,47 @@ function subjSample() {
 }
 /* ---------- ตัวควบคุม: เลื่อนมาถึงส่วนนี้ → หยุดหน้าจอตรงนี้ ล็อกการเลื่อน แล้วเล่นจนจบเอง (~1.8 วินาที) ----------
    เลื่อนกลับขึ้นไปแล้วลงมาใหม่จะเล่นอีกครั้ง · กระโดดผ่าน (เช่นกดเมนู) จะเห็นการ์ดที่จัดเสร็จแล้ว */
+/* ---------- ประโยคใหญ่: เลื่อนมาถึง → หยุดหน้าจอ ล็อก → ตัวอักษรลอยจากล่างมากลางจอ จางสู่เข้ม → ค้างให้อ่านครู่หนึ่ง → ปลดล็อก ---------- */
+const STMT_RISE_MS = 1100, STMT_HOLD_MS = 600;
+const stmtPlay = { mode: 'idle' };
+function stmtRender(k) {
+  const sp = $('stmt'), e = 1 - Math.pow(1 - k, 3);
+  sp.style.opacity = String(e);
+  sp.style.transform = e < 1 ? `translateY(${(1 - e) * innerHeight * .42}px)` : '';
+  sp.style.filter = e < .99 ? `blur(${(1 - e) * 8}px)` : '';
+}
+function stmtScroll() {
+  const sec = $('statement'); if (!sec || sec.classList.contains('none')) return;
+  if (reduceMotion) return stmtRender(1);
+  const vh = innerHeight, r = sec.getBoundingClientRect();
+  if (stmtPlay.mode === 'play') return;
+  if (stmtPlay.mode === 'done') { if (r.top > vh * .6) { stmtPlay.mode = 'idle'; stmtRender(0); } return; }
+  if (r.bottom < vh * .25) { stmtPlay.mode = 'done'; return stmtRender(1); }
+  if (r.top <= 4) {
+    stmtPlay.mode = 'play';
+    lockAt(r.top + scrollY);
+    const t0 = performance.now();
+    const finish = () => { if (stmtPlay.mode !== 'play') return; stmtRender(1); stmtPlay.mode = 'done'; unlock(); };
+    const tick = now => {
+      if (stmtPlay.mode !== 'play') return;
+      const t = now - t0;
+      stmtRender(Math.min(1, t / STMT_RISE_MS));
+      if (t < STMT_RISE_MS + STMT_HOLD_MS) return requestAnimationFrame(tick);
+      finish();
+    };
+    setTimeout(finish, STMT_RISE_MS + STMT_HOLD_MS + 400); /* กันค้าง: ถ้าเฟรมหยุด (เช่นสลับแท็บ) ก็ปลดล็อกแน่นอน */
+    return requestAnimationFrame(tick);
+  }
+  stmtRender(0);
+}
 const SUBJ_PLAY_MS = 1800;
 const subjPlay = { mode: 'idle', lockY: 0 };
-const subjBlock = e => { if (subjPlay.mode === 'play') e.preventDefault(); };
-const subjKeys = e => { if (subjPlay.mode === 'play' && [' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) e.preventDefault(); };
+/* ล็อกการเลื่อนร่วมกันของทุกบล็อกที่ต้องเล่นโมชันให้จบก่อน */
+const apLock = { on: false, y: 0 };
+function lockAt(y) { apLock.on = true; apLock.y = Math.round(y); scrollTo({ top: apLock.y, behavior: 'instant' }); }
+function unlock() { apLock.on = false; }
+const subjBlock = e => { if (apLock.on) e.preventDefault(); };
+const subjKeys = e => { if (apLock.on && [' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) e.preventDefault(); };
 addEventListener('wheel', subjBlock, { passive: false });
 addEventListener('touchmove', subjBlock, { passive: false });
 addEventListener('keydown', subjKeys);
@@ -2371,26 +2408,27 @@ function subjScroll() {
   const sec = $('apSubj'); if (!sec || !$('subjGrid').children.length) return;
   if (reduceMotion) return subjFrame(1);
   const vh = innerHeight, r = sec.getBoundingClientRect();
-  if (subjPlay.mode === 'play') { if (Math.abs(scrollY - subjPlay.lockY) > 1) scrollTo(0, subjPlay.lockY); return; }
+  if (subjPlay.mode === 'play') return;
   if (subjPlay.mode === 'done') { if (r.top > vh * .6) { subjPlay.mode = 'idle'; subjFrame(0); } return; }
   /* idle */
-  if (r.top < -vh * .6 || r.bottom < 0) { subjPlay.mode = 'done'; return subjFrame(1); }
+  if (r.bottom < vh * .25) { subjPlay.mode = 'done'; return subjFrame(1); }
   if (r.top <= 4) return subjStart();
   subjFrame(0);
 }
 function subjStart() {
   const sec = $('apSubj');
   subjPlay.mode = 'play';
-  subjPlay.lockY = Math.round(sec.getBoundingClientRect().top + scrollY);
-  scrollTo(0, subjPlay.lockY);
+  lockAt(sec.getBoundingClientRect().top + scrollY);
   const t0 = performance.now();
+  const finish = () => { if (subjPlay.mode !== 'play') return; subjFrame(1); subjPlay.mode = 'done'; unlock(); };
   const tick = now => {
+    if (subjPlay.mode !== 'play') return;
     const t = apClamp((now - t0) / SUBJ_PLAY_MS);
     subjFrame(.06 + t * .8);
     if (t < 1) return requestAnimationFrame(tick);
-    subjFrame(1);
-    subjPlay.mode = 'done';
+    finish();
   };
+  setTimeout(finish, SUBJ_PLAY_MS + 400); /* กันค้าง */
   requestAnimationFrame(tick);
 }
 function subjFrame(p) {
@@ -2446,24 +2484,10 @@ function apMotion() {
     const r = el.getBoundingClientRect(); return r.top <= 26 && r.bottom >= 26;
   }) || document.querySelector('footer').getBoundingClientRect().top <= 26;
   $('sticky').classList.toggle('dark', overDark);
+  if (apLock.on && Math.abs(scrollY - apLock.y) > 1) scrollTo({ top: apLock.y, behavior: 'instant' });
+  stmtScroll();
   subjScroll();
   if (reduceMotion) return;
-  /* ประโยคใหญ่ลอยขึ้นจากจางสู่เข้มตามการเลื่อน */
-  const sp = $('stmt'), stR = $('statement').getBoundingClientRect();
-  if (!$('statement').classList.contains('none')) {
-    /* หน้าจอค้าง: เริ่มว่าง → ตัวอักษรลอยจากล่างมากลางจอพร้อมจางสู่เข้ม (60% แรกของการเลื่อน) → ค้างให้อ่าน → ไปบล็อกถัดไป */
-    const k = apClamp(-stR.top / (($('statement').offsetHeight - vh) * .6)), e = 1 - Math.pow(1 - k, 3);
-    sp.style.opacity = String(e);
-    sp.style.transform = `translateY(${(1 - e) * vh * .42}px)`;
-    sp.style.filter = e < .99 ? `blur(${(1 - e) * 8}px)` : '';
-  }
-  /* ฮีโร่ย่อและจางลง */
-  const hp = apClamp(y / vh);
-  $('heroIn').style.transform = `translateY(${hp * 80}px) scale(${1 - hp * .12})`;
-  $('heroIn').style.opacity = String(Math.max(0, 1 - hp * 1.2));
-  /* ภาพปก (ถ้ามี) ขยายเต็มเมื่อเลื่อนเข้ามา */
-  const bn = $('apBanner');
-  if (!bn.classList.contains('hide')) { const r = bn.getBoundingClientRect(); bn.style.transform = `scale(${.88 + apClamp((vh - r.top) / vh) * .12})`; }
   /* ปกวารสารหมุนตามตำแหน่งบนจอ */
   document.querySelectorAll('#shelf .bk-cover').forEach(b => {
     const r = b.getBoundingClientRect(), p = apClamp((vh - r.top) / (vh + r.height)) * 2 - 1;
