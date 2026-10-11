@@ -834,7 +834,7 @@
   /* การ์ดกระจายแบบจัดองค์ประกอบ (ไม่เรียงแถว): --x --y --r --s = ตำแหน่ง มุม ขนาดของแต่ละใบ · --spread 0 = ซ้อนเป็นกอง, 1 = กระจายเต็ม */
   .subj-grid{position:relative;height:var(--fan-h,420px);--cw:220px}
   .sj{position:absolute;left:50%;top:var(--top0,-10px);width:var(--cw);margin-left:calc(var(--cw) / -2);border-radius:26px;padding:16px 14px 20px;text-align:center;overflow:hidden;opacity:0;z-index:var(--z);transform-origin:50% 130%;
-    transform:translateX(calc(var(--x,0px) * var(--spread,0))) translateY(calc(var(--y,0px) * var(--spread,0) + var(--rise,0px) + var(--lift,0px))) rotate(calc(var(--r,0deg) * var(--spread,0) * var(--unrot,1))) scale(calc(var(--sc,1) * (1 + (var(--s,1) - 1) * var(--spread,0))));
+    transform:translateX(calc(var(--x,0px) * var(--spread,0))) translateY(calc(var(--y,0px) * var(--spread,0) + var(--rise,0px) + var(--lift,0px))) rotate(calc(var(--r,0deg) * var(--spread,0) * var(--unrot,1))) scale(calc(var(--sc,1) * (1 + (var(--s,1) - 1) * var(--spread,0)))) perspective(900px) rotateX(var(--tiltX,0deg)) rotateY(var(--tiltY,0deg));
     transition:transform .35s var(--ease),box-shadow .5s var(--ease);
     background:linear-gradient(180deg,rgba(40,40,44,.92),rgba(18,18,20,.94));
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 30px 60px rgba(0,0,0,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
@@ -959,12 +959,30 @@
 
   /* ---------- โครงการ (แบบ B: สลับซ้าย-ขวา ภาพขยายเมื่อเลื่อนมาถึง) ---------- */
   .proj{display:flex;flex-direction:column;gap:110px}
+  /* ภาพปกโครงการ: เริ่มเป็นกรอบเล็กมุมโค้ง → ขยายเต็มจอขอบตรงตามการเลื่อน */
+  .proj-hero{position:relative;margin:0 calc(50% - 50vw) 100px;height:min(80vh,760px);background:#111;cursor:pointer;
+    clip-path:inset(var(--iy,10%) var(--ix,17%) round var(--ir,32px));will-change:clip-path}
+  .proj-hero .ph-img,.proj-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .proj-hero img{transform:scale(var(--is,1.18));opacity:0;transition:opacity .8s}
+  .proj-hero img.ok{opacity:1}
+  .proj-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.72))}
+  .proj-hero figcaption{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:0 max(24px,calc(50vw - 540px)) 56px;color:#fff;opacity:var(--io,0);transform:translateY(calc((1 - var(--io,0)) * 30px))}
+  .proj-hero figcaption small{display:block;font:600 15px var(--ap-font);opacity:.85;margin-bottom:6px}
+  .proj-hero figcaption b{display:block;font:700 clamp(36px,6vw,80px)/1.15 var(--ap-font)}
+  .proj-hero figcaption span{display:inline-block;margin-top:14px;font:500 16px var(--ap-font);padding:10px 20px;border-radius:980px;background:rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  @media (max-width:640px){.proj-hero{height:62vh;margin-bottom:70px}.proj-hero figcaption{padding-bottom:30px}}
   .pj,.pj.feat{position:relative;display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:center;border:0;padding:0;background:none}
   .pj.rv{opacity:1;transform:none}
   .pj:nth-child(even) .ph{order:2}
   .pj .ph,.pj.feat .ph{margin:0;aspect-ratio:4/3;border-radius:28px;overflow:hidden;background:#e8e8ed;transform:scale(.88);opacity:.4;transition:transform 1.2s var(--ease),opacity 1.2s var(--ease)}
-  .pj.in .ph{transform:none;opacity:1}
+  .pj.in .ph{transform:perspective(1000px) rotateX(var(--tiltX,0deg)) rotateY(var(--tiltY,0deg));opacity:1}
+  .pj .ph.tilting{transition:transform .18s ease-out,opacity 1.2s var(--ease)}
   .pj:hover .ph img{transform:scale(1.04)}
+  /* แสงสะท้อนวิ่งตามเมาส์ (ใช้ทั้งการ์ดสาขาและภาพโครงการ) */
+  .sheen{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;opacity:0;transition:opacity .35s;
+    background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.28),rgba(255,255,255,.06) 30%,transparent 55%);mix-blend-mode:soft-light}
+  .tilt-on .sheen{opacity:1}
+  .pj .ph{position:relative}
   .pj-body{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease) .15s,transform 1s var(--ease) .15s}
   .pj.in .pj-body{opacity:1;transform:none}
   .pj-no{font:700 64px/1 var(--ap-font)}
@@ -1176,6 +1194,7 @@
       <div><h2>โครงการ</h2><p>โครงการและกิจกรรมเด่นของกลุ่มสาระ</p></div>
       <span class="act" id="projAct"></span>
     </div>
+    <figure class="proj-hero hide" id="projHero"><div class="ph-img" id="projHeroImg"></div><figcaption id="projHeroCap"></figcaption></figure>
     <div class="proj" id="projList"></div>
   </div>
 </section>
@@ -1953,7 +1972,7 @@ function renderWorks() {
     const pic = w.image ? `<img data-img="${esc(w.image)}" alt="">`
       : `<div class="pj-art" style="background:${ART_G[i % ART_G.length]}"><span>${esc(w.title)}</span></div>`;
     return `<article class="pj rv${i === 0 ? ' feat' : ''}${isHidden(w) ? ' is-hidden' : ''}" style="--d:${Math.min(i, 4) * .08}s" data-open-work="${esc(w.id)}" tabindex="0">${workTools(w)}
-      <div class="ph">${pic}</div>
+      <div class="ph">${pic}<span class="sheen"></span></div>
       <div class="pj-body">
         <span class="pj-no">${String(i + 1).padStart(2, '0')}</span>${hiddenTag(w)}
         <h3>${esc(w.title)}</h3>
@@ -1978,6 +1997,15 @@ function renderWorks() {
         ${url ? `<a class="jr-link" href="${esc(url)}"${rd}>${esc(w.urlLabel || 'อ่านวารสาร')} ${ICON.arrow}</a>` : '<span class="jr-soon">เร็ว ๆ นี้</span>'}
       </div></article>`;
   }).join('') || '<div class="empty">ยังไม่มีวารสาร</div>';
+  /* ภาพปก: โครงการแรกที่มีรูป */
+  const hero = projects.find(w => w.image);
+  $('projHero').classList.toggle('hide', !hero);
+  if (hero) {
+    $('projHero').dataset.openWork = hero.id;
+    $('projHeroImg').innerHTML = `<img data-img="${esc(hero.image)}" alt="">`;
+    $('projHeroCap').innerHTML = `<small>${esc(hero.tag || 'โครงการเด่น')}</small><b>${esc(hero.title)}</b><span>อ่านรายละเอียด ›</span>`;
+    loadImages($('projHero'));
+  }
   loadImages($('projList'), true); loadImages($('shelf'), true);
   reveal();
 }
@@ -2293,7 +2321,7 @@ const subjColors = g => (String(g).match(/#[0-9a-f]{6}/gi) || ['#4f46e5', '#06b6
 function renderSubjects() {
   if ($('subjGrid').children.length) return;
   $('subjGrid').innerHTML = SCENES.map((sc, i) => { const [c1, c2] = subjColors(sc.g); return `<article class="sj" style="--c1:${c1};--c2:${c2 || c1};--i:${i}">
-      <div class="sj-art">${sc.svg}</div><small>${esc(sc.en)}</small><b>${esc(sc.th)}</b><p>${esc(SUBJ_DESC[sc.th] || '')}</p></article>`; }).join('');
+      <span class="sheen"></span><div class="sj-art">${sc.svg}</div><small>${esc(sc.en)}</small><b>${esc(sc.th)}</b><p>${esc(SUBJ_DESC[sc.th] || '')}</p></article>`; }).join('');
   subjLayout();
   subjRender(0, 0);
   requestAnimationFrame(motionTarget);
@@ -2342,13 +2370,43 @@ function subjRender(textK, cardsK) {
     c.style.setProperty('--spread', spread.toFixed(3));
   });
 }
-const motion = { cur: { st: 0, tx: 0, cd: 0 }, goal: { st: 0, tx: 0, cd: 0 }, raf: 0, last: 0 };
+const motion = { cur: { st: 0, tx: 0, cd: 0, ph: 0 }, goal: { st: 0, tx: 0, cd: 0, ph: 0 }, raf: 0, last: 0 };
+function projHeroRender(k) {
+  const el = $('projHero'); if (!el) return;
+  const e = subjEase(k), narrow = innerWidth <= 640;
+  el.style.setProperty('--ix', ((narrow ? 6 : 17) * (1 - e)).toFixed(2) + '%');
+  el.style.setProperty('--iy', ((narrow ? 6 : 10) * (1 - e)).toFixed(2) + '%');
+  el.style.setProperty('--ir', (32 * (1 - e)).toFixed(1) + 'px');
+  el.style.setProperty('--is', (1.18 - .18 * e).toFixed(3));
+  el.style.setProperty('--io', apClamp((e - .55) / .4).toFixed(3));
+}
+/* การ์ดเอียงตามเมาส์ + แสงสะท้อน (เฉพาะเครื่องที่มีเมาส์) */
+if (!reduceMotion && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  const TILT = '.sj, .pj .ph';
+  document.addEventListener('pointermove', e => {
+    const el = e.target.closest && e.target.closest(TILT); if (!el) return;
+    const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    const max = el.classList.contains('sj') ? 14 : 8;
+    el.classList.add('tilt-on', 'tilting');
+    el.style.setProperty('--tiltY', ((x - .5) * max).toFixed(2) + 'deg');
+    el.style.setProperty('--tiltX', ((.5 - y) * max * .8).toFixed(2) + 'deg');
+    el.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+    el.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+  });
+  document.addEventListener('pointerout', e => {
+    const el = e.target.closest && e.target.closest(TILT); if (!el || el.contains(e.relatedTarget)) return;
+    el.classList.remove('tilt-on', 'tilting');
+    el.style.setProperty('--tiltX', '0deg'); el.style.setProperty('--tiltY', '0deg');
+  });
+}
 const pinProgress = el => { const r = el.getBoundingClientRect(); return apClamp(-r.top / Math.max(1, el.offsetHeight - innerHeight)); };
 function motionTarget() {
   const st = $('statement'), sj = $('apSubj');
-  if (reduceMotion) { stmtRender(1); subjRender(1, 1); return; }
+  if (reduceMotion) { stmtRender(1); subjRender(1, 1); projHeroRender(1); return; }
   if (st && !st.classList.contains('none')) motion.goal.st = apClamp(pinProgress(st) / .75);
   if (sj && $('subjGrid').children.length) { const p = pinProgress(sj); motion.goal.tx = apClamp(p / .28); motion.goal.cd = apClamp((p - .34) / .5); }
+  const ph = $('projHero');
+  if (ph && !ph.classList.contains('hide')) { const r = ph.getBoundingClientRect(); motion.goal.ph = apClamp((innerHeight - r.top) / (innerHeight * .95)); }
   if (!motion.raf) { motion.last = performance.now(); motion.raf = requestAnimationFrame(motionStep); }
 }
 /* ค่าที่แสดงไล่ตามเป้าหมายแบบหน่วงนิด ๆ (เหมือนสปริง) ภาพจึงลื่นแม้เลื่อนเป็นจังหวะ */
@@ -2356,11 +2414,12 @@ function motionStep(now) {
   const dt = Math.min(64, now - motion.last); motion.last = now;
   const a = 1 - Math.pow(1 - .14, dt / 16.7);
   let moving = false;
-  for (const k of ['st', 'tx', 'cd']) {
+  for (const k of ['st', 'tx', 'cd', 'ph']) {
     const d = motion.goal[k] - motion.cur[k];
     if (Math.abs(d) > .0008) { motion.cur[k] += d * a; moving = true; } else motion.cur[k] = motion.goal[k];
   }
   stmtRender(motion.cur.st);
+  projHeroRender(motion.cur.ph);
   if ($('subjGrid').children.length) subjRender(motion.cur.tx, motion.cur.cd);
   motion.raf = moving ? requestAnimationFrame(motionStep) : 0;
 }
