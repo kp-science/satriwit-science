@@ -810,8 +810,8 @@
   .ap-hero .ticker .track a::after{color:var(--on-dark-2)}
 
   /* ---------- ข้อความสว่างทีละคำ ---------- */
-  .ap-statement{background:var(--ap-dark);color:var(--on-dark);position:relative;padding:0}
-  .ap-statement .pin{position:relative;height:100svh;min-height:520px;display:flex;align-items:center;overflow:hidden}
+  .ap-statement{background:var(--ap-dark);color:var(--on-dark);position:relative;padding:0;height:175vh}
+  .ap-statement .pin{position:sticky;top:0;height:100svh;display:flex;align-items:center;overflow:hidden}
   .ap-statement p{opacity:0}
   .ap-statement p{font:700 clamp(30px,5vw,64px)/1.35 var(--ap-font);margin:0;max-width:980px}
   .ap-statement p{will-change:transform,opacity,filter}
@@ -821,8 +821,8 @@
 
   /* ---------- ตัวเลขผลงาน ---------- */
   /* ---------- 5 สาขาวิชา: หน้าจอค้าง · ตัวหนังสือทั้งหมดแตกเป็นเม็ดตามการเลื่อน แล้วประกอบเป็นการ์ด 5 สาขา ---------- */
-  .ap-subj{position:relative;background:var(--ap-dark);color:var(--on-dark);padding:0}
-  .subj-pin{position:relative;height:100svh;min-height:600px;overflow:hidden;display:flex;align-items:center;padding-top:52px}
+  .ap-subj{position:relative;background:var(--ap-dark);color:var(--on-dark);padding:0;height:260vh}
+  .subj-pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;padding-top:52px}
   .ap-subj .glow{position:absolute;width:80vmax;height:80vmax;border-radius:50%;left:50%;top:58%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(166,108,255,.30),rgba(255,95,109,.10) 40%,transparent 62%);filter:blur(40px);pointer-events:none}
   .subj-in{position:relative;width:100%}
   .subj-head{text-align:center;margin-bottom:clamp(24px,5vh,56px)}
@@ -2296,7 +2296,7 @@ function renderSubjects() {
       <div class="sj-art">${sc.svg}</div><small>${esc(sc.en)}</small><b>${esc(sc.th)}</b><p>${esc(SUBJ_DESC[sc.th] || '')}</p></article>`; }).join('');
   subjLayout();
   subjRender(0, 0);
-  requestAnimationFrame(subjScroll);
+  requestAnimationFrame(motionTarget);
 }
 /* ตำแหน่งการ์ดแบบจัดองค์ประกอบ: [x, y, มุม, ขนาด, ลำดับชั้น] — ใบกลาง (ชีววิทยา) ใหญ่สุดอยู่หน้า ใบอื่นกระจายสูงต่ำไม่เท่ากัน */
 const SUBJ_LAYOUT = {
@@ -2313,75 +2313,19 @@ function subjLayout() {
   });
 }
 addEventListener('resize', subjLayout);
-/* ล็อกการเลื่อนร่วมกันของทุกบล็อกที่ต้องเล่นโมชันให้จบก่อน (กันล้อเมาส์ นิ้วปัด และปุ่มลูกศร) */
-const apLock = { on: false, y: 0, skip: false };
-/* กดลิงก์ในหน้า (เมนู ปุ่ม กลับด้านบน) → ข้ามโมชันทั้งหมด แสดงแบบเสร็จแล้ว จนกว่าผู้ชมจะเลื่อนเองอีกครั้ง */
-function skipMotions() {
-  apLock.skip = true; unlock();
-  stmtPlay.mode = 'done'; stmtRender(1);
-  subjPlay.mode = 'done'; subjRender(1, 1);
-}
-document.addEventListener('click', e => { const a = e.target.closest('a[href^="#"]'); if (a) skipMotions(); }, true);
-const userScrolls = () => { apLock.skip = false; };
-function lockAt(y) { apLock.on = true; apLock.y = Math.round(y); scrollTo({ top: apLock.y, behavior: 'instant' }); }
-function unlock() { apLock.on = false; }
-const NEXT_KEYS = [' ', 'PageDown', 'ArrowDown', 'End'], PREV_KEYS = ['PageUp', 'ArrowUp', 'Home'];
-let touchY0 = null;
-addEventListener('wheel', e => { userScrolls(); if (!apLock.on) return; e.preventDefault(); subjIntent(e.deltaY); }, { passive: false });
-addEventListener('touchstart', e => { userScrolls(); touchY0 = e.touches[0].clientY; }, { passive: true });
-addEventListener('touchmove', e => {
-  if (!apLock.on) return; e.preventDefault();
-  if (touchY0 != null) { const dy = touchY0 - e.touches[0].clientY; if (Math.abs(dy) > 30) { subjIntent(dy); touchY0 = null; } }
-}, { passive: false });
-addEventListener('keydown', e => {
-  if (NEXT_KEYS.includes(e.key) || PREV_KEYS.includes(e.key)) userScrolls();
-  if (!apLock.on) return;
-  if (NEXT_KEYS.includes(e.key)) { e.preventDefault(); subjIntent(1); } else if (PREV_KEYS.includes(e.key)) { e.preventDefault(); subjIntent(-1); }
-});
-/* ---------- ประโยคใหญ่: เลื่อนมาถึง → หยุดหน้าจอ ล็อก → ตัวอักษรลอยจากล่างมากลางจอ จางสู่เข้ม → ค้างให้อ่านครู่หนึ่ง → ปลดล็อก ---------- */
-const STMT_RISE_MS = 1100, STMT_HOLD_MS = 600;
-const stmtPlay = { mode: 'idle' };
+/* ---------- โมชันผูกกับการเลื่อนแบบนุ่มนวล (ไม่ล็อกการเลื่อน จึงไม่สั่น) ----------
+   บล็อกประโยคใหญ่และ 5 สาขา "ค้างอยู่กับที่" (sticky) ระหว่างเลื่อนผ่าน แล้วโมชันค่อย ๆ ไล่ตามตำแหน่งการเลื่อน
+   ประโยคใหญ่: 0–75% ของช่วงค้าง = ลอยจากล่างมากลาง จางสู่เข้ม · ที่เหลือค้างให้อ่าน
+   5 สาขา: 0–28% = หัวข้อลอยขึ้น · 34–84% = หัวข้อจางขึ้น การ์ดโผล่จากกองแล้วกระจาย · ที่เหลือค้างให้ดูการ์ด */
 function stmtRender(k) {
   const sp = $('stmt'), e = 1 - Math.pow(1 - k, 3);
   sp.style.opacity = String(e);
   sp.style.transform = e < 1 ? `translateY(${(1 - e) * innerHeight * .42}px)` : '';
   sp.style.filter = e < .99 ? `blur(${(1 - e) * 8}px)` : '';
 }
-function stmtScroll() {
-  const sec = $('statement'); if (!sec || sec.classList.contains('none')) return;
-  if (reduceMotion) return stmtRender(1);
-  if (apLock.skip) { if (stmtPlay.mode !== 'done') { stmtPlay.mode = 'done'; stmtRender(1); } return; }
-  const vh = innerHeight, r = sec.getBoundingClientRect();
-  if (stmtPlay.mode === 'play') return;
-  if (stmtPlay.mode === 'done') { if (r.top > vh * .6) { stmtPlay.mode = 'idle'; stmtRender(0); } return; }
-  if (r.bottom < vh * .25) { stmtPlay.mode = 'done'; return stmtRender(1); }
-  if (r.top <= 4) {
-    stmtPlay.mode = 'play';
-    lockAt(r.top + scrollY);
-    const t0 = performance.now();
-    const finish = () => { if (stmtPlay.mode !== 'play') return; stmtRender(1); stmtPlay.mode = 'done'; unlock(); };
-    const tick = now => {
-      if (stmtPlay.mode !== 'play') return;
-      const t = now - t0;
-      stmtRender(Math.min(1, t / STMT_RISE_MS));
-      if (t < STMT_RISE_MS + STMT_HOLD_MS) return requestAnimationFrame(tick);
-      finish();
-    };
-    setTimeout(finish, STMT_RISE_MS + STMT_HOLD_MS + 400); /* กันค้าง: ถ้าเฟรมหยุด (เช่นสลับแท็บ) ก็ปลดล็อกแน่นอน */
-    return requestAnimationFrame(tick);
-  }
-  stmtRender(0);
-}
-/* ---------- 5 สาขาวิชา: 2 จังหวะ ----------
-   1) เลื่อนมาถึง → หยุดหน้าจอ ล็อก → หัวข้อและคำโปรยลอยจากล่างมากลางจอ จางสู่เข้ม (เหมือนประโยคใหญ่)
-   2) เลื่อนต่ออีกครั้ง → ตัวหนังสือจางขึ้นด้านบน การ์ดโผล่จากกองแล้วกระจายลอยเหมือนไพ่ → ปลดล็อก
-   ระหว่างรอจังหวะ 2 ถ้าเลื่อนขึ้น จะปลดล็อกให้ย้อนกลับได้ · เลื่อนกลับขึ้นไปพ้นส่วนนี้แล้วลงมาใหม่จะเล่นใหม่ */
-const SUBJ_TEXT_MS = 1100, SUBJ_CARDS_MS = 1400;
-const subjPlay = { mode: 'idle', text: 0, cards: 0 };
 const subjEase = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 function subjRender(textK, cardsK) {
   const head = $('subjHead'), grid = $('subjGrid'); if (!head || !grid.children.length) return;
-  subjPlay.text = textK; subjPlay.cards = cardsK;
   const vh = innerHeight, e = 1 - Math.pow(1 - textK, 3);
   const out = subjEase(apClamp(cardsK / .4));
   head.style.opacity = String(e * (1 - out));
@@ -2398,46 +2342,27 @@ function subjRender(textK, cardsK) {
     c.style.setProperty('--spread', spread.toFixed(3));
   });
 }
-function subjAnimate(key, ms, done) {
-  const t0 = performance.now(), from = subjPlay[key];
-  let fin = false;
-  const finish = () => { if (fin) return; fin = true; if (apLock.skip) return done(); key === 'text' ? subjRender(1, subjPlay.cards) : subjRender(subjPlay.text, 1); done(); };
-  const tick = now => {
-    if (fin || apLock.skip) return finish();
-    const t = apClamp((now - t0) / ms), v = from + (1 - from) * t;
-    key === 'text' ? subjRender(v, subjPlay.cards) : subjRender(subjPlay.text, v);
-    if (t < 1) requestAnimationFrame(tick); else finish();
-  };
-  setTimeout(finish, ms + 400); /* กันค้าง: ถ้าเฟรมหยุด (เช่นสลับแท็บ) ก็ไปต่อแน่นอน */
-  requestAnimationFrame(tick);
+const motion = { cur: { st: 0, tx: 0, cd: 0 }, goal: { st: 0, tx: 0, cd: 0 }, raf: 0, last: 0 };
+const pinProgress = el => { const r = el.getBoundingClientRect(); return apClamp(-r.top / Math.max(1, el.offsetHeight - innerHeight)); };
+function motionTarget() {
+  const st = $('statement'), sj = $('apSubj');
+  if (reduceMotion) { stmtRender(1); subjRender(1, 1); return; }
+  if (st && !st.classList.contains('none')) motion.goal.st = apClamp(pinProgress(st) / .75);
+  if (sj && $('subjGrid').children.length) { const p = pinProgress(sj); motion.goal.tx = apClamp(p / .28); motion.goal.cd = apClamp((p - .34) / .5); }
+  if (!motion.raf) { motion.last = performance.now(); motion.raf = requestAnimationFrame(motionStep); }
 }
-function subjIntent(dir) {
-  if (subjPlay.mode !== 'wait') return;
-  if (dir > 0) {
-    subjPlay.mode = 'cards';
-    subjAnimate('cards', SUBJ_CARDS_MS, () => { if (subjPlay.mode === 'cards') { subjPlay.mode = 'done'; unlock(); } });
-  } else { subjPlay.mode = 'leaving'; unlock(); }
-}
-function subjScroll() {
-  const sec = $('apSubj'); if (!sec || !$('subjGrid').children.length) return;
-  if (reduceMotion) return subjRender(1, 1);
-  if (apLock.skip) { if (subjPlay.mode !== 'done') { subjPlay.mode = 'done'; subjRender(1, 1); } return; }
-  const vh = innerHeight, r = sec.getBoundingClientRect(), m = subjPlay.mode;
-  if (m === 'text' || m === 'wait' || m === 'cards') return;
-  if (m === 'done') { if (r.top > vh * .6) { subjPlay.mode = 'idle'; subjRender(0, 0); } return; }
-  if (m === 'leaving') {
-    if (r.top > vh * .6) { subjPlay.mode = 'idle'; subjRender(0, 0); }
-    else if (r.top <= 4 && r.top > -vh * .5) { subjPlay.mode = 'wait'; lockAt(r.top + scrollY); }
-    return;
+/* ค่าที่แสดงไล่ตามเป้าหมายแบบหน่วงนิด ๆ (เหมือนสปริง) ภาพจึงลื่นแม้เลื่อนเป็นจังหวะ */
+function motionStep(now) {
+  const dt = Math.min(64, now - motion.last); motion.last = now;
+  const a = 1 - Math.pow(1 - .14, dt / 16.7);
+  let moving = false;
+  for (const k of ['st', 'tx', 'cd']) {
+    const d = motion.goal[k] - motion.cur[k];
+    if (Math.abs(d) > .0008) { motion.cur[k] += d * a; moving = true; } else motion.cur[k] = motion.goal[k];
   }
-  /* idle */
-  if (r.bottom < vh * .25) { subjPlay.mode = 'done'; return subjRender(1, 1); }
-  if (r.top <= 4) {
-    subjPlay.mode = 'text';
-    lockAt(r.top + scrollY);
-    return subjAnimate('text', SUBJ_TEXT_MS, () => { if (subjPlay.mode === 'text') subjPlay.mode = 'wait'; });
-  }
-  if (subjPlay.text || subjPlay.cards) subjRender(0, 0);
+  stmtRender(motion.cur.st);
+  if ($('subjGrid').children.length) subjRender(motion.cur.tx, motion.cur.cd);
+  motion.raf = moving ? requestAnimationFrame(motionStep) : 0;
 }
 const apClamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 let apTick = false;
@@ -2450,9 +2375,7 @@ function apMotion() {
     const r = el.getBoundingClientRect(); return r.top <= 26 && r.bottom >= 26;
   }) || document.querySelector('footer').getBoundingClientRect().top <= 26;
   $('sticky').classList.toggle('dark', overDark);
-  if (apLock.on && Math.abs(scrollY - apLock.y) > 1) scrollTo({ top: apLock.y, behavior: 'instant' });
-  stmtScroll();
-  subjScroll();
+  motionTarget();
   if (reduceMotion) return;
   /* ปกวารสารหมุนตามตำแหน่งบนจอ */
   document.querySelectorAll('#shelf .bk-cover').forEach(b => {
