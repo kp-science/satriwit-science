@@ -304,7 +304,11 @@ function fetchImage(img) {
   const id = img.dataset.img, show = s => { if (s) { img.src = s; img.classList.add('ok'); } };
   if (imgCache[id]) return show(imgCache[id]);
   const saved = storeGet(id); if (saved) { imgCache[id] = saved; return show(saved); }
-  api('apiImage', id).then(s => { if (!s) return; imgCache[id] = s; storePut(id, s); show(s); }).catch(() => {});
+  const tryLoad = n => api('apiImage', id).then(s => {
+    if (!s) throw new Error('empty');
+    imgCache[id] = s; storePut(id, s); show(s);
+  }).catch(() => { if (n < 3) setTimeout(() => tryLoad(n + 1), 1500 * (n + 1)); });
+  tryLoad(0);
 }
 function loadImages(root) {
   const imgs = [...(root || document).querySelectorAll('img[data-img]:not(.ok)')];

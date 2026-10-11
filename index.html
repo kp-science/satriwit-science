@@ -1012,7 +1012,12 @@ function fetchImage(img) {
   if (imgCache[id]) return show(imgCache[id]);
   const saved = storeGet(id);
   if (saved) { imgCache[id] = saved; return show(saved); }
-  api('apiImage', id).then(src => { if (!src) return; imgCache[id] = src; storePut(id, src); show(src); }).catch(() => {});
+  // โหลดไม่สำเร็จ (เน็ตสะดุด / Apps Script ตอบช้า) → ลองใหม่อีก 3 ครั้ง แทนการปล่อยให้รูปว่าง
+  const tryLoad = n => api('apiImage', id).then(src => {
+    if (!src) throw new Error('empty');
+    imgCache[id] = src; storePut(id, src); show(src);
+  }).catch(() => { if (n < 3) setTimeout(() => tryLoad(n + 1), 1500 * (n + 1)); });
+  tryLoad(0);
 }
 // lazy = ดึงรูปเมื่อใกล้จะเห็น · scroller = กล่องที่เลื่อนแนวนอน (แถวประกาศ)
 function loadImages(root, lazy, scroller) {
