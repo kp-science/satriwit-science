@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="https://kp-science.github.io/satriwit-science/img/apple-touch-icon.png">
 <title>สตรีวิทยาศาสตร์ SW SciTech · กลุ่มสาระวิทยาศาสตร์และเทคโนโลยี โรงเรียนสตรีวิทยา</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700;800&family=Prompt:wght@400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#ffffff; --paper-2:#f0f1f3; --card:#ffffff;
@@ -715,12 +715,263 @@
   #knowledge .kc-art svg{width:84px;height:84px}
   @media (max-width:760px){.kn-types{grid-template-columns:1fr}}
   @media (max-width:520px){.kn-ty{padding:12px}.kn-ty .ic{width:38px;height:38px}.kn-ty .n{font-size:26px}}
+
+  /* =====================================================================
+     ธีมสไตล์ Apple (ต.ค. 2569) — วางทับธีมนิตยสารด้านบน
+     หน้าเดิมสำรองไว้ที่ dev/index-magazine-backup.html
+     ===================================================================== */
+  :root{
+    --paper:#fbfbfd; --paper-2:#f5f5f7; --card:#fff;
+    --ink:#1d1d1f; --ink-2:#6e6e73; --muted:#86868b; --rule:#d2d2d7;
+    --ap-dark:#000; --ap-dark-2:#161617; --on-dark:#f5f5f7; --on-dark-2:#86868b; --ap-blue:#0071e3;
+    --ap-grad:linear-gradient(90deg,#ff5f6d,#ffb347 45%,#a66cff);
+    --g-cool:var(--ap-grad); --g-warm:linear-gradient(90deg,#a66cff,#ff5f6d 55%,#ffb347);
+    --g-all:linear-gradient(90deg,#ff5f6d,#ffb347,#a66cff,#ff5f6d);
+    --ap-font:-apple-system,BlinkMacSystemFont,"Sukhumvit Set","IBM Plex Sans Thai","Helvetica Neue",sans-serif;
+    --serif:var(--ap-font); --label:var(--ap-font);
+    --ease:cubic-bezier(.22,.8,.2,1);
+  }
+  body{font-family:var(--ap-font);background:var(--paper)!important;line-height:1.6}
+  .filters input,.filters select,.form input,.form select,.form textarea,.form label small{font-family:var(--ap-font)}
+  ::selection{background:#ffd8b5}
+  .wrap{max-width:1080px}
+
+  /* ---------- ปุ่มทรงแคปซูล ---------- */
+  .btn{border:0;border-radius:980px;background:#e8e8ed;color:var(--ink);font:500 15px var(--ap-font);padding:11px 22px;transition:transform .3s var(--ease),background .3s,color .3s;isolation:auto}
+  .btn::before{display:none}
+  .btn:hover{color:var(--ink);background:#dcdce1;transform:scale(1.03)}
+  .btn.solid{background:var(--ap-blue);color:#fff}
+  .btn.solid:hover{background:#0077ed;color:#fff}
+  .btn.sm{padding:6px 14px;font-size:13px}
+  .btn.danger{background:#fff0f0;color:#d70015}
+  .btn.danger:hover{background:#d70015;color:#fff}
+  .admin-pill{border-radius:980px;background:var(--ap-grad)}
+
+  /* ---------- แถบนำทางกระจกฝ้า (แสดงตลอด) ---------- */
+  .sticky{transform:none!important;height:52px;background:rgba(251,251,253,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:0;box-shadow:0 1px 0 rgba(0,0,0,.06);transition:background .4s,color .4s,box-shadow .4s}
+  .sticky .wrap{height:52px}
+  .sticky b{font:600 15px var(--ap-font)}
+  .sticky b .en{font:500 11px var(--ap-font);letter-spacing:.12em}
+  .sticky nav{gap:24px;font:400 13px var(--ap-font)}
+  .sticky nav a{opacity:.82;transition:opacity .2s}
+  .sticky nav a:hover{opacity:1}
+  .sticky nav a::after{display:none}
+  .sticky.dark{background:rgba(22,22,23,.72);color:var(--on-dark);box-shadow:none}
+  .progress{height:2px;bottom:0;background:var(--ap-grad)}
+  .st-mark{height:22px}
+  @media (max-width:860px){.sticky nav{display:none}}
+
+  /* ---------- ฮีโร่พื้นดำ ---------- */
+  .ap-hero{position:relative;min-height:100svh;background:var(--ap-dark);color:var(--on-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:110px 0 70px}
+  .ap-hero .orb{position:absolute;width:70vmax;height:70vmax;border-radius:50%;filter:blur(90px);opacity:.38;pointer-events:none}
+  .ap-hero .orb.a{background:radial-gradient(circle,#ff5f6d,transparent 60%);top:-30vmax;left:-20vmax;animation:apDrift 18s ease-in-out infinite alternate}
+  .ap-hero .orb.b{background:radial-gradient(circle,#a66cff,transparent 60%);bottom:-35vmax;right:-25vmax;animation:apDrift 22s ease-in-out infinite alternate-reverse}
+  @keyframes apDrift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+  .ap-hero-in{position:relative;will-change:transform,opacity;width:100%}
+  .ap-hero .topline{position:absolute;top:-58px;left:24px;right:24px;border:0;padding:0;color:var(--on-dark-2);justify-content:flex-end;letter-spacing:0}
+  .ap-hero .topline .iss,.ap-hero .topline #today{display:none}
+  .ap-hero .eyebrow{font:600 clamp(15px,1.6vw,21px)/1.4 var(--ap-font);color:var(--on-dark-2);margin:0 0 10px}
+  .ap-hero .headline{font:700 clamp(44px,8.4vw,104px)/1.28 var(--ap-font);letter-spacing:-.01em;margin:0;white-space:pre-line;color:var(--on-dark)}
+  .ap-hero .headline em{display:inline-block;padding:.04em 0;background:var(--ap-grad);background-size:100% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:none;font-style:normal}
+  .ap-hero .deck{max-width:640px;margin:22px auto 0;color:var(--on-dark-2);font-size:clamp(17px,1.8vw,21px)}
+  .ap-hero .btns{justify-content:center;margin-top:30px;gap:14px}
+  .ap-hero .btn{font-size:17px;padding:12px 24px}
+  .ap-hero .btn.ghost{background:none;color:#2997ff;padding-left:8px;padding-right:8px}
+  .ap-hero .btn.ghost:hover{text-decoration:underline;transform:none}
+  .ap-hero .btn.fb{background:rgba(255,255,255,.1);color:var(--on-dark)}
+  @media (max-width:680px){.ap-hero .btns{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}.ap-hero .btns .btn{padding:11px 20px;font-size:16px}.ap-hero .btns .btn.fb{grid-column:auto}.ap-hero .headline{font-size:clamp(38px,11vw,52px)}}
+  .ap-hero .intro{opacity:0;transform:translateY(28px);filter:blur(10px);animation:apIntro 1.2s var(--ease) forwards;animation-delay:var(--d,0s)}
+  @keyframes apIntro{to{opacity:1;transform:none;filter:none}}
+  .ap-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--on-dark-2);letter-spacing:.1em;animation:apBob 2s ease-in-out infinite}
+  @keyframes apBob{50%{transform:translate(-50%,6px)}}
+  .ap-banner{position:relative;margin:56px auto 0;width:min(1080px,calc(100% - 32px));border-radius:28px;overflow:hidden;aspect-ratio:16/8;background:#111;will-change:transform}
+  .ap-banner img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+  .ap-banner img.ok{opacity:1}
+  .ap-banner figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 24px 18px;font-size:14px;color:#fff;text-align:left;background:linear-gradient(transparent,rgba(0,0,0,.55))}
+  .ap-keep{display:none}
+  .ap-hero .ticker{position:relative;margin:44px auto 0;width:min(1080px,calc(100% - 32px));border-radius:980px;background:rgba(255,255,255,.08);color:var(--on-dark)}
+  .ap-hero .ticker .lab{border-radius:980px 0 0 980px;background:var(--ap-grad)}
+  .ap-hero .ticker .track a::after{color:var(--on-dark-2)}
+
+  /* ---------- ข้อความสว่างทีละคำ ---------- */
+  .ap-statement{background:var(--ap-dark);color:var(--on-dark);height:260vh;position:relative;padding:0}
+  .ap-statement .pin{position:sticky;top:0;height:100svh;display:flex;align-items:center}
+  .ap-statement p{font:700 clamp(30px,5vw,64px)/1.35 var(--ap-font);margin:0;max-width:980px}
+  .ap-statement .w{color:#3a3a3c;transition:color .25s}
+  .ap-statement .w.on{color:var(--on-dark)}
+  .ap-statement .w.hl.on{background:var(--ap-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .ap-statement.none{display:none}
+
+  /* ---------- ตัวเลขผลงาน ---------- */
+  .ap-stats{background:var(--ap-dark);color:var(--on-dark);padding:30px 0 120px}
+  .ap-stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-top:1px solid #333;padding-top:40px}
+  .ap-stats b{display:block;font:700 clamp(48px,7vw,88px)/1 var(--ap-font)}
+  .ap-stats span{color:var(--on-dark-2);font-size:15px}
+  .ap-stats.none{display:none}
+  @media (max-width:720px){.ap-stats .grid{grid-template-columns:repeat(2,1fr);row-gap:36px}}
+
+  /* ---------- หัวข้อแต่ละส่วน ---------- */
+  section{padding:110px 0 100px;scroll-margin-top:52px}
+  #notices,#knowledge,#projects{background:var(--paper-2)}
+  .sec-h{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;border:0;padding:0;margin-bottom:38px}
+  .sec-h .num{display:none}
+  .sec-h h2{font:700 clamp(34px,5vw,56px)/1.15 var(--ap-font);letter-spacing:-.005em;color:var(--ink)}
+  .sec-h p{color:var(--ink-2);font-size:19px;margin-top:8px}
+  .sec-h>div{flex:1}
+  .rv{transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0s)}
+  .empty{border:0;border-radius:20px;background:var(--paper-2)}
+  #notices .empty,#knowledge .empty,#projects .empty{background:#fff}
+
+  /* ---------- สำหรับครู ---------- */
+  .tabs{border:0;gap:10px;flex-wrap:wrap}
+  .tab{padding:8px 18px;border-radius:980px;background:#e8e8ed;color:var(--ink);font:500 15px var(--ap-font);transition:background .3s,color .3s}
+  .tab::after{display:none}
+  .tab:hover{background:#dcdce1}
+  .tab.on{background:var(--ink);color:#fff}
+  .tab sup{color:inherit;opacity:.6}
+  .links{gap:18px}
+  .lk{border:0;border-radius:24px;background:var(--paper-2);padding:24px 24px 22px;transition:transform .45s var(--ease),box-shadow .45s var(--ease),color .3s}
+  .lk::before{background:var(--ink);border-radius:inherit}
+  a.lk:hover{transform:scale(1.02);box-shadow:0 18px 40px rgba(0,0,0,.12)}
+  .lk h3{font:700 21px/1.35 var(--ap-font)}
+  .lk .i{letter-spacing:.04em}
+  .lk.nolink,.lk.add{border:1.5px dashed var(--rule)}
+  .lock{border:0;border-radius:980px;background:#fff}
+
+  /* ---------- ประกาศถึงนักเรียน ---------- */
+  .nt-bar button{border:0;background:#fff;border-radius:980px;padding:6px 16px}
+  .nt-bar button.on{background:var(--ink)}
+  .nt-list{border:0;display:flex;flex-direction:column;gap:12px}
+  .nt{background:#fff;border:0;border-radius:20px;padding:18px 22px;transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+  .nt:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.07)}
+  .nt.urgent{background:linear-gradient(90deg,#fff1f0,#fff 50%)}
+  .nt.urgent::before{left:0;top:16px;bottom:16px;border-radius:0 4px 4px 0}
+  .nt-d{border:0;border-radius:14px;background:var(--paper-2);padding:8px 0}
+  .nt-d b{font:700 28px/1.05 var(--ap-font)}
+  .nt-tags span{border-radius:980px;padding:2px 10px}
+  .nt h3{font:600 19px/1.45 var(--ap-font)}
+
+  /* ---------- ประชาสัมพันธ์ (การ์ดใหญ่เลื่อนแนวนอน) ---------- */
+  .pr{gap:20px;padding:10px 4px 30px}
+  .pc,.pc.lead{border:0!important;border-radius:28px;overflow:hidden;background:var(--paper-2);flex-basis:min(372px,82vw);transition:transform .5s var(--ease),box-shadow .5s var(--ease),opacity .9s var(--ease)}
+  .pc.lead{flex-basis:min(560px,86vw)}
+  .pc::before{display:none}
+  .pc.in:hover{transform:scale(1.015);box-shadow:0 20px 50px rgba(0,0,0,.12)}
+  .pc .img,.pc.lead .img{height:250px;border:0;order:2;margin-top:auto}
+  .pc .body{order:1;padding:26px 26px 16px;border:0}
+  .pc h3{font:700 22px/1.4 var(--ap-font)}
+  .pc.lead h3{font-size:clamp(24px,2.4vw,30px)}
+  .pc .foot{border-top:0;padding-top:4px}
+  .lvl{border:0;border-radius:980px;background:#fff;padding:2px 10px}
+  .due.hot{border-radius:980px}
+  .art{background:var(--g)!important}
+  .art::before,.art::after{border-color:rgba(255,255,255,.5)}
+  .art span{color:#fff;background:none;-webkit-background-clip:border-box;background-clip:border-box;transform:none;font:700 clamp(30px,3.4vw,46px)/1.2 var(--ap-font)}
+  .pc:nth-child(3n+2){background:var(--ap-dark-2);color:var(--on-dark)}
+  .pc:nth-child(3n+2) p,.pc:nth-child(3n+2) .foot{color:var(--on-dark-2)}
+  .pc:nth-child(3n+2) .lvl{background:rgba(255,255,255,.12);color:var(--on-dark)}
+  .arrow{border:0;border-radius:50%;background:#e8e8ed;width:40px;height:40px}
+  .arrow::before{display:none}
+  .arrow:hover{color:var(--ink);background:#dcdce1}
+  .dots button{border-radius:4px}
+  .edit button{border:0;border-radius:50%;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+  @media (max-width:680px){.pc .img,.pc.lead .img{height:190px}}
+
+  /* ---------- คลังความรู้ ---------- */
+  .kn-ty{border:0;border-radius:22px;background:#fff;transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+  .kn-ty::before{display:none}
+  .kn-ty:hover{color:var(--ink);transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.08)}
+  .kn-ty .ic{border-radius:14px}
+  .kn-ty .n{font:700 34px/1 var(--ap-font)}
+  .kc{border:0;border-radius:24px;overflow:hidden}
+  .kc:hover{transform:scale(1.02);box-shadow:0 18px 40px rgba(0,0,0,.1)}
+  .kc-cv{border:0}
+  .kc-type,.kc-lv{border:0;border-radius:980px}
+  .kc h3{font:700 19px/1.45 var(--ap-font)}
+  .kc-go{border:0;color:var(--ap-blue)}
+  .kn-foot{border-top:0}
+
+  /* ---------- รายการทั้งหมด ---------- */
+  .open-bar{border:0;border-radius:18px;background:var(--paper-2);font:500 17px var(--ap-font)}
+  .open-bar::before{display:none}
+  .open-bar:hover,.open-bar.on{color:var(--ink);background:#e8e8ed}
+  .open-bar:hover b,.open-bar.on b{color:var(--muted)}
+  .filters{border:0;gap:10px}
+  .filters input,.filters select{border:0;border-radius:12px;background:var(--paper-2)}
+  .seg{border:0;border-radius:12px;background:var(--paper-2);padding:3px}
+  .seg button{border-radius:9px}
+  .seg button+button{border-left:0}
+  .seg button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+  .row{border-radius:14px;border-bottom:0}
+  .row:hover,.row:focus-visible{background:var(--paper-2)}
+  .row::before{display:none}
+
+  /* ---------- โครงการ (การ์ดซ้อนตอนเลื่อน) ---------- */
+  .proj{display:flex;flex-direction:column;gap:40px}
+  .pj,.pj.feat{position:sticky;top:var(--top,84px);display:grid;grid-template-columns:1.1fr 1fr;gap:0;align-items:stretch;min-height:460px;border:0;padding:0;border-radius:32px;overflow:hidden;background:#fff;box-shadow:0 30px 60px rgba(0,0,0,.08);transform-origin:center top;will-change:transform}
+  .pj .ph,.pj.feat .ph{aspect-ratio:auto;margin:0;min-height:100%;background:#e8e8ed}
+  .pj-body{padding:46px 42px;justify-content:center;gap:12px}
+  .pj-no{font:700 15px var(--ap-font)}
+  .pj h3,.pj.feat h3{font:700 clamp(28px,3.4vw,40px)/1.2 var(--ap-font)}
+  .pj:hover h3{text-decoration:none}
+  .pj-tag{background:none;padding:0;color:var(--ink-2);font:500 15px var(--ap-font);letter-spacing:0}
+  .pj p{-webkit-line-clamp:4}
+  .pj-more{color:var(--ap-blue);background:none;-webkit-background-clip:border-box;background-clip:border-box}
+  .pj-art span{font-family:var(--ap-font)}
+  .pj.is-hidden{opacity:.6}
+  @media (max-width:760px){.pj,.pj.feat{grid-template-columns:1fr;min-height:0;top:var(--top-m,60px)}.pj .ph,.pj.feat .ph{min-height:0;aspect-ratio:16/10}.pj-body{padding:26px 22px 30px}}
+
+  /* ---------- วารสาร (พื้นดำ ปกหมุนตามการเลื่อน) ---------- */
+  #journals{background:var(--ap-dark);color:var(--on-dark);overflow:hidden}
+  #journals .sec-h h2{color:var(--on-dark)}
+  #journals .sec-h p{color:var(--on-dark-2)}
+  .shelf{gap:60px 40px}
+  .jr h3{font:700 26px/1.3 var(--ap-font)}
+  .jr p{color:var(--on-dark-2)}
+  .jr .pj-tag{color:var(--on-dark-2)}
+  .jr-link{display:inline-flex;align-items:center;gap:6px;padding:11px 22px;border-radius:980px;background:var(--ap-blue);color:#fff;-webkit-background-clip:border-box;background-clip:border-box;font:500 15px var(--ap-font)}
+  .jr-link svg{color:#fff}
+  .jr-soon{color:var(--on-dark-2)}
+  .bk{perspective:1400px}
+  .bk-cover{border-radius:6px 14px 14px 6px;box-shadow:30px 40px 80px rgba(0,0,0,.6);transition:box-shadow .7s var(--ease);will-change:transform}
+  .jr:hover .bk-cover{box-shadow:30px 40px 90px rgba(0,0,0,.75)}
+  /* วารสารเล่มเดียว: ปกใหญ่ซ้าย ข้อความขวา */
+  .shelf:has(.jr:only-child){display:block}
+  .jr:only-child{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px}
+  .jr:only-child .bk{width:min(340px,70vw);justify-self:center}
+  .jr:only-child h3{font-size:clamp(40px,6vw,72px);line-height:1.1}
+  .jr:only-child p{font-size:19px;display:block}
+  @media (max-width:760px){.jr:only-child{grid-template-columns:1fr;text-align:center;gap:26px}.jr:only-child .jr-body{align-items:center}}
+
+  /* ---------- ท้ายเว็บและหน้าต่าง ---------- */
+  footer{margin-top:0;background:var(--ap-dark);border-top:1px solid #222}
+  footer::before{display:none}
+  .fbbtn{border-radius:980px}
+  footer b{font:700 clamp(30px,4.6vw,52px)/1.2 var(--ap-font)}
+  dialog{border:0;border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.3);overflow:auto}
+  dialog.reader{overflow:hidden}
+  .dlg-head{border-bottom:1px solid var(--rule)}
+  .dlg-head h3{font:700 19px var(--ap-font)}
+  .dlg-foot{border-top:1px solid var(--rule)}
+  .detail .pic{border-right:0}
+  .detail h2{font:700 clamp(24px,3vw,34px)/1.35 var(--ap-font)}
+  .form input,.form select,.form textarea{border-radius:10px}
+  .imgbox{border-radius:14px}
+  .toast{border-radius:980px}
+  @media (max-width:680px){dialog{border-radius:22px 22px 0 0}dialog.reader{border-radius:0}.detail .pic{border-bottom:0}}
+
+  @media (prefers-reduced-motion:reduce){
+    .ap-hero .intro{opacity:1;transform:none;filter:none}
+    .ap-statement{height:auto}.ap-statement .pin{position:static;height:auto;padding:100px 0}
+    .ap-statement .w{color:var(--on-dark)}
+    .pj,.pj.feat{position:relative;top:auto}
+  }
 </style>
 </head>
 <body>
 
 <!-- แถบนำทางลอย (โผล่เมื่อเลื่อนลง) -->
-<div class="sticky" id="sticky">
+<div class="sticky dark" id="sticky">
   <div class="wrap">
     <b class="st-brand"><img src="https://kp-science.github.io/satriwit-science/img/sw-mark-64.png" alt="SW" class="st-mark"><span id="stickyMast">สตรีวิทยาศาสตร์</span> <small class="en" id="stickyEn">SW SciTech</small></b>
     <nav>
@@ -736,49 +987,35 @@
   <div class="progress" id="progress"></div>
 </div>
 
-<div class="wrap" id="top">
-  <div class="topline">
-    <span class="iss" id="issue"></span>
-    <span id="today"></span>
-    <span class="tools" id="adminTools"></span>
-  </div>
-
-  <!-- 1. แบนเนอร์ -->
-  <div class="mast"><div class="mast-title"><span class="mast-emblem" role="img" aria-label="ตราโรงเรียนสตรีวิทยา"></span><div class="mast-text"><h1 id="mast" aria-label="สตรีวิทยาศาสตร์"></h1><div class="mast-en" id="mastEnWrap"><img src="https://kp-science.github.io/satriwit-science/img/sw-mark.png" alt="SW" class="sw-mark" id="mastMark"><span id="mastEn">SciTech</span></div></div></div></div>
-  <div class="mast-row">
-    <span class="sub">กลุ่มสาระการเรียนรู้วิทยาศาสตร์และเทคโนโลยี · โรงเรียนสตรีวิทยา</span>
-    <nav>
-      <a href="#teachers">สำหรับครู</a>
-      <a href="#notices">ประกาศ</a>
-      <a href="#board">ประชาสัมพันธ์</a>
-      <a href="#knowledge">คลังความรู้</a>
-      <a href="#archive">รายการทั้งหมด</a>
-      <a href="#projects">โครงการ</a>
-      <a href="#journals">วารสาร</a>
-      <a class="fb hide" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2.5V2.1L14.1 2C10.6 2 10 4.6 10 6.3v2.2H7.5V12H10v10h4V12h3l.5-3.5z"/></svg>Facebook</a>
-    </nav>
-  </div>
-
-  <div class="cover">
-    <div>
-      <div class="kicker intro" style="--d:.3s">เรื่องจากปก</div>
-      <h2 class="headline intro" style="--d:.45s" id="headline"></h2>
-      <p class="deck intro" style="--d:.6s" id="deck"></p>
-      <div class="btns intro" style="--d:.75s">
-        <a class="btn solid" href="#board">ดูประชาสัมพันธ์ล่าสุด</a>
-        <a class="btn" href="#teachers">สำหรับครู</a>
-        <a class="btn fb hide" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2.5V2.1L14.1 2C10.6 2 10 4.6 10 6.3v2.2H7.5V12H10v10h4V12h3l.5-3.5z"/></svg> เพจ Facebook</a>
-      </div>
+<!-- 1. ฮีโร่พื้นดำ (สไตล์ Apple) -->
+<header class="ap-hero" id="top">
+  <div class="orb a"></div><div class="orb b"></div>
+  <div class="wrap ap-hero-in" id="heroIn">
+    <div class="topline"><span class="iss" id="issue"></span><span id="today"></span><span class="tools" id="adminTools"></span></div>
+    <p class="eyebrow intro" style="--d:.15s" id="apIssue"></p>
+    <h2 class="headline intro" style="--d:.35s" id="headline"></h2>
+    <p class="deck intro" style="--d:.6s" id="deck"></p>
+    <div class="btns intro" style="--d:.85s">
+      <a class="btn solid" href="#board">ดูประชาสัมพันธ์ล่าสุด</a>
+      <a class="btn ghost" href="#teachers">สำหรับครู ›</a>
+      <a class="btn fb hide" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2.5V2.1L14.1 2C10.6 2 10 4.6 10 6.3v2.2H7.5V12H10v10h4V12h3l.5-3.5z"/></svg> เพจ Facebook</a>
     </div>
-    <figure class="fig">
-      <div class="frame" id="frame"></div>
-      <figcaption><b>ภาพปก</b><span id="caption"></span></figcaption>
-      <span class="vlabel">SCIENCE · SATRIWIT</span>
-    </figure>
   </div>
-
+  <figure class="ap-banner hide" id="apBanner"><div id="apBannerImg"></div><figcaption id="apBannerCap"></figcaption></figure>
   <div class="ticker hide" id="ticker"><div class="lab"><i></i><span>ประกาศล่าสุด</span></div><div class="run"><div class="track" id="track"></div></div></div>
-</div>
+  <div class="ap-hint" aria-hidden="true">เลื่อนลง</div>
+  <!-- ส่วนของธีมเดิมที่สคริปต์ยังเขียนค่าใส่ (ซ่อนไว้) -->
+  <div class="ap-keep" aria-hidden="true">
+    <h1 id="mast"></h1><div id="mastEnWrap"><img alt="" id="mastMark"><span id="mastEn"></span></div>
+    <figure class="fig"><div class="frame" id="frame"></div><figcaption><b>ภาพปก</b><span id="caption"></span></figcaption></figure>
+  </div>
+</header>
+
+<!-- ข้อความสว่างทีละคำตามการเลื่อน -->
+<section class="ap-statement none" id="statement"><div class="pin"><div class="wrap"><p id="stmt"></p></div></div></section>
+
+<!-- ตัวเลขผลงาน -->
+<section class="ap-stats none" id="apStatsSec"><div class="wrap"><div class="grid" id="apStats"></div></div></section>
 
 <!-- 2. สำหรับครู -->
 <section id="teachers">
@@ -1589,9 +1826,10 @@ function editBanner() {
       { name: 'mastheadEn', label: 'ชื่อภาษาอังกฤษ', def: 'SW SciTech', placeholder: 'SW SciTech' },
       { name: 'issue', label: 'ข้อความมุมซ้ายบน', placeholder: 'ปีการศึกษา 2569 · ภาคเรียนที่ 2' },
       { name: 'headline', label: 'หัวเรื่องจากปก', type: 'textarea', full: true, hint: 'ขึ้นบรรทัดใหม่ได้ · ใส่ *ดอกจัน* ครอบคำที่ต้องการเน้นสี' },
-      { name: 'deck', label: 'ข้อความใต้หัวเรื่อง', type: 'textarea', full: true },
-      { name: 'bannerImage', label: 'ภาพปก (ไม่บังคับ)', type: 'image', max: 1200, hint: 'ถ้าใส่ จะเป็นสไลด์แรกก่อนแอนิเมชัน 5 สาขา' },
+      { name: 'deck', label: 'ข้อความใต้หัวเรื่อง', type: 'textarea', full: true, hint: 'ข้อความหลังเครื่องหมาย — จะแสดงเป็นประโยคใหญ่ที่สว่างทีละคำตอนเลื่อน' },
+      { name: 'bannerImage', label: 'ภาพปก (ไม่บังคับ)', type: 'image', max: 1200, hint: 'ถ้าใส่ จะแสดงเป็นภาพใหญ่ใต้หัวเรื่อง' },
       { name: 'caption', label: 'คำบรรยายภาพ', full: true },
+      { name: 'stats', label: 'ตัวเลขผลงาน', type: 'textarea', full: true, hint: 'บรรทัดละ 1 รายการ ในรูปแบบ ตัวเลข|คำอธิบาย เช่น 4|เหรียญทอง' },
       { name: 'facebook', label: 'ลิงก์เพจ Facebook', type: 'url', full: true, placeholder: 'https:\/\/www.facebook.com/…' },
       { name: 'ticker', label: 'แสดงแถบประกาศวิ่ง', type: 'check' },
     ],
@@ -1894,6 +2132,7 @@ function renderAll() {
   $('jourAct').innerHTML = admin() ? '<button class="btn sm solid" data-add-work="วารสาร">+ เพิ่มวารสาร</button>' : '';
   renderBanner(); renderTeachers(); renderNotices(); renderPosts(); renderKnowledge(); renderWorks(); renderSections();
   if (window.ADMIN_URL && !state.canEdit) { $('adminLink').href = window.ADMIN_URL; $('adminLink').classList.remove('hide'); }
+  renderApple();
 }
 
 /* ===================== แอนิเมชัน ===================== */
@@ -1933,6 +2172,93 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
   const t = document.querySelector(a.getAttribute('href'));
   if (t) t.scrollIntoView({ behavior: 'smooth' });
 }));
+
+/* ===================== ธีม Apple: ข้อความสว่างทีละคำ · ตัวเลข · โมชันตามการเลื่อน ===================== */
+/* ข้อความใต้หัวเรื่อง: ส่วนก่อน " — " อยู่ในฮีโร่ · ส่วนหลังกลายเป็นข้อความที่สว่างทีละคำ */
+const AP_HL = ['ตั้งคำถาม', 'ทดลอง', 'สร้างผลงาน', 'ค้นพบ', 'ลงมือทำ', 'ด้วยตนเอง', 'เวทีระดับประเทศ', 'เวทีระดับชาติ'];
+function apWords(text) {
+  const segs = window.Intl && Intl.Segmenter ? [...new Intl.Segmenter('th', { granularity: 'word' }).segment(text)].map(x => x.segment) : text.split(/(\s+)/);
+  const ranges = [];
+  AP_HL.forEach(h => { let i = text.indexOf(h); while (i >= 0) { ranges.push([i, i + h.length]); i = text.indexOf(h, i + h.length); } });
+  const isHl = pos => ranges.some(([a, b]) => pos >= a && pos < b);
+  let out = '', pos = 0, buf = '', bufHl = false;
+  const flush = () => { if (buf) out += `<span class="w${bufHl ? ' hl' : ''}">${esc(buf)}</span>`; buf = ''; };
+  segs.forEach(seg => {
+    if (/^\s+$/.test(seg)) { flush(); out += seg; pos += seg.length; return; }
+    const hl = isHl(pos);
+    if (hl && bufHl) buf += seg; else { flush(); buf = seg; bufHl = hl; }
+    if (!hl) flush();
+    pos += seg.length;
+  });
+  flush();
+  return out;
+}
+function renderApple() {
+  const s = state.settings;
+  $('apIssue').textContent = s.issue || '';
+  $('apIssue').classList.toggle('hide', !s.issue);
+  const parts = String(s.deck || '').split(/\s+[—–]\s+/);
+  $('deck').textContent = parts[0] || '';
+  const stmt = parts.slice(1).join(' — ').trim();
+  $('statement').classList.toggle('none', !stmt);
+  $('stmt').innerHTML = stmt ? apWords(stmt) : '';
+  const stats = String(s.stats || '').split('\n').map(l => l.split('|').map(x => x.trim())).filter(x => x[0] && x[1]);
+  $('apStatsSec').classList.toggle('none', !stats.length);
+  $('apStats').innerHTML = stats.map(([n, l], i) => `<div class="rv" style="--d:${i * .08}s"><b data-count="${esc(n)}">${esc(n)}</b><span>${esc(l)}</span></div>`).join('');
+  const img = s.bannerImage;
+  $('apBanner').classList.toggle('hide', !img);
+  $('apBannerImg').innerHTML = img ? `<img data-img="${esc(img)}" alt="">` : '';
+  $('apBannerCap').textContent = s.caption || '';
+  $('apBannerCap').classList.toggle('hide', !s.caption);
+  if (img) loadImages($('apBanner'));
+  reveal();
+  requestAnimationFrame(apMotion);
+}
+const apClamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+let apTick = false;
+function apMotion() {
+  apTick = false;
+  const vh = innerHeight, y = scrollY;
+  /* แถบนำทางเป็นสีเข้มเมื่ออยู่เหนือส่วนพื้นดำ */
+  const overDark = ['top', 'statement', 'apStatsSec', 'journals'].some(id => {
+    const el = $(id); if (!el || el.offsetParent === null) return false;
+    const r = el.getBoundingClientRect(); return r.top <= 26 && r.bottom >= 26;
+  }) || document.querySelector('footer').getBoundingClientRect().top <= 26;
+  $('sticky').classList.toggle('dark', overDark);
+  const words = document.querySelectorAll('#stmt .w');
+  if (reduceMotion) { words.forEach(w => w.classList.add('on')); return; }
+  /* ฮีโร่ย่อและจางลง */
+  const hp = apClamp(y / vh);
+  $('heroIn').style.transform = `translateY(${hp * 80}px) scale(${1 - hp * .12})`;
+  $('heroIn').style.opacity = String(Math.max(0, 1 - hp * 1.2));
+  /* ภาพปก (ถ้ามี) ขยายเต็มเมื่อเลื่อนเข้ามา */
+  const bn = $('apBanner');
+  if (!bn.classList.contains('hide')) { const r = bn.getBoundingClientRect(); bn.style.transform = `scale(${.88 + apClamp((vh - r.top) / vh) * .12})`; }
+  /* คำสว่างตามความคืบหน้าในส่วน statement */
+  const st = $('statement');
+  if (!st.classList.contains('none')) {
+    const r = st.getBoundingClientRect(), p = apClamp((vh * .3 - r.top) / (st.offsetHeight - vh * .6));
+    const lit = Math.round(p * words.length);
+    words.forEach((w, i) => w.classList.toggle('on', i < lit));
+  }
+  /* การ์ดโครงการซ้อนกัน: ใบที่ถูกทับย่อและมืดลง */
+  const cards = [...document.querySelectorAll('#projList .pj')];
+  cards.forEach((c, i) => {
+    c.style.setProperty('--top', (84 + i * 16) + 'px'); c.style.setProperty('--top-m', (60 + i * 10) + 'px');
+    const next = cards[i + 1];
+    if (!next) { c.style.transform = ''; c.style.filter = ''; return; }
+    const p = apClamp(1 - (next.getBoundingClientRect().top - c.getBoundingClientRect().top) / c.offsetHeight);
+    c.style.transform = p ? `scale(${1 - p * .06})` : '';
+    c.style.filter = p ? `brightness(${1 - p * .25})` : '';
+  });
+  /* ปกวารสารหมุนตามตำแหน่งบนจอ */
+  document.querySelectorAll('#shelf .bk-cover').forEach(b => {
+    const r = b.getBoundingClientRect(), p = apClamp((vh - r.top) / (vh + r.height)) * 2 - 1;
+    b.style.transform = `rotateY(${p * -24}deg) rotateX(${p * 5}deg)`;
+  });
+}
+addEventListener('scroll', () => { if (!apTick) { apTick = true; requestAnimationFrame(apMotion); } }, { passive: true });
+addEventListener('resize', () => requestAnimationFrame(apMotion));
 
 /* ===================== เริ่มต้น ===================== */
 // หน้าเว็บสาธารณะ: แสดงข้อมูลที่จำไว้จากครั้งก่อนทันที แล้วดึงข้อมูลล่าสุดมาแทนเบื้องหลัง
