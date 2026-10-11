@@ -2303,18 +2303,27 @@ function subjLayout() {
 }
 addEventListener('resize', subjLayout);
 /* ล็อกการเลื่อนร่วมกันของทุกบล็อกที่ต้องเล่นโมชันให้จบก่อน (กันล้อเมาส์ นิ้วปัด และปุ่มลูกศร) */
-const apLock = { on: false, y: 0 };
+const apLock = { on: false, y: 0, skip: false };
+/* กดลิงก์ในหน้า (เมนู ปุ่ม กลับด้านบน) → ข้ามโมชันทั้งหมด แสดงแบบเสร็จแล้ว จนกว่าผู้ชมจะเลื่อนเองอีกครั้ง */
+function skipMotions() {
+  apLock.skip = true; unlock();
+  stmtPlay.mode = 'done'; stmtRender(1);
+  subjPlay.mode = 'done'; subjRender(1, 1);
+}
+document.addEventListener('click', e => { const a = e.target.closest('a[href^="#"]'); if (a) skipMotions(); }, true);
+const userScrolls = () => { apLock.skip = false; };
 function lockAt(y) { apLock.on = true; apLock.y = Math.round(y); scrollTo({ top: apLock.y, behavior: 'instant' }); }
 function unlock() { apLock.on = false; }
 const NEXT_KEYS = [' ', 'PageDown', 'ArrowDown', 'End'], PREV_KEYS = ['PageUp', 'ArrowUp', 'Home'];
 let touchY0 = null;
-addEventListener('wheel', e => { if (!apLock.on) return; e.preventDefault(); subjIntent(e.deltaY); }, { passive: false });
-addEventListener('touchstart', e => { touchY0 = e.touches[0].clientY; }, { passive: true });
+addEventListener('wheel', e => { userScrolls(); if (!apLock.on) return; e.preventDefault(); subjIntent(e.deltaY); }, { passive: false });
+addEventListener('touchstart', e => { userScrolls(); touchY0 = e.touches[0].clientY; }, { passive: true });
 addEventListener('touchmove', e => {
   if (!apLock.on) return; e.preventDefault();
   if (touchY0 != null) { const dy = touchY0 - e.touches[0].clientY; if (Math.abs(dy) > 30) { subjIntent(dy); touchY0 = null; } }
 }, { passive: false });
 addEventListener('keydown', e => {
+  if (NEXT_KEYS.includes(e.key) || PREV_KEYS.includes(e.key)) userScrolls();
   if (!apLock.on) return;
   if (NEXT_KEYS.includes(e.key)) { e.preventDefault(); subjIntent(1); } else if (PREV_KEYS.includes(e.key)) { e.preventDefault(); subjIntent(-1); }
 });
@@ -2330,6 +2339,7 @@ function stmtRender(k) {
 function stmtScroll() {
   const sec = $('statement'); if (!sec || sec.classList.contains('none')) return;
   if (reduceMotion) return stmtRender(1);
+  if (apLock.skip) { if (stmtPlay.mode !== 'done') { stmtPlay.mode = 'done'; stmtRender(1); } return; }
   const vh = innerHeight, r = sec.getBoundingClientRect();
   if (stmtPlay.mode === 'play') return;
   if (stmtPlay.mode === 'done') { if (r.top > vh * .6) { stmtPlay.mode = 'idle'; stmtRender(0); } return; }
@@ -2380,9 +2390,9 @@ function subjRender(textK, cardsK) {
 function subjAnimate(key, ms, done) {
   const t0 = performance.now(), from = subjPlay[key];
   let fin = false;
-  const finish = () => { if (fin) return; fin = true; key === 'text' ? subjRender(1, subjPlay.cards) : subjRender(subjPlay.text, 1); done(); };
+  const finish = () => { if (fin) return; fin = true; if (apLock.skip) return done(); key === 'text' ? subjRender(1, subjPlay.cards) : subjRender(subjPlay.text, 1); done(); };
   const tick = now => {
-    if (fin) return;
+    if (fin || apLock.skip) return finish();
     const t = apClamp((now - t0) / ms), v = from + (1 - from) * t;
     key === 'text' ? subjRender(v, subjPlay.cards) : subjRender(subjPlay.text, v);
     if (t < 1) requestAnimationFrame(tick); else finish();
@@ -2394,12 +2404,13 @@ function subjIntent(dir) {
   if (subjPlay.mode !== 'wait') return;
   if (dir > 0) {
     subjPlay.mode = 'cards';
-    subjAnimate('cards', SUBJ_CARDS_MS, () => { subjPlay.mode = 'done'; unlock(); });
+    subjAnimate('cards', SUBJ_CARDS_MS, () => { if (subjPlay.mode === 'cards') { subjPlay.mode = 'done'; unlock(); } });
   } else { subjPlay.mode = 'leaving'; unlock(); }
 }
 function subjScroll() {
   const sec = $('apSubj'); if (!sec || !$('subjGrid').children.length) return;
   if (reduceMotion) return subjRender(1, 1);
+  if (apLock.skip) { if (subjPlay.mode !== 'done') { subjPlay.mode = 'done'; subjRender(1, 1); } return; }
   const vh = innerHeight, r = sec.getBoundingClientRect(), m = subjPlay.mode;
   if (m === 'text' || m === 'wait' || m === 'cards') return;
   if (m === 'done') { if (r.top > vh * .6) { subjPlay.mode = 'idle'; subjRender(0, 0); } return; }
@@ -2413,7 +2424,7 @@ function subjScroll() {
   if (r.top <= 4) {
     subjPlay.mode = 'text';
     lockAt(r.top + scrollY);
-    return subjAnimate('text', SUBJ_TEXT_MS, () => { subjPlay.mode = 'wait'; });
+    return subjAnimate('text', SUBJ_TEXT_MS, () => { if (subjPlay.mode === 'text') subjPlay.mode = 'wait'; });
   }
   if (subjPlay.text || subjPlay.cards) subjRender(0, 0);
 }
