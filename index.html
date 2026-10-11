@@ -810,8 +810,9 @@
   .ap-hero .ticker .track a::after{color:var(--on-dark-2)}
 
   /* ---------- ข้อความสว่างทีละคำ ---------- */
-  .ap-statement{background:var(--ap-dark);color:var(--on-dark);position:relative;padding:150px 0 130px}
-  .ap-statement .pin{display:flex;align-items:center}
+  .ap-statement{background:var(--ap-dark);color:var(--on-dark);position:relative;height:200vh;padding:0}
+  .ap-statement .pin{position:sticky;top:0;height:100svh;display:flex;align-items:center;overflow:hidden}
+  .ap-statement p{opacity:0}
   .ap-statement p{font:700 clamp(30px,5vw,64px)/1.35 var(--ap-font);margin:0;max-width:980px}
   .ap-statement p{will-change:transform,opacity,filter}
   .ap-statement .w{color:var(--on-dark)}
@@ -1011,7 +1012,7 @@
 
   @media (prefers-reduced-motion:reduce){
     .ap-hero .intro{opacity:1;transform:none;filter:none}
-    .ap-statement{height:auto}.ap-statement .pin{position:static;height:auto;padding:100px 0}
+    .ap-statement{height:auto}.ap-statement .pin{position:static;height:auto;padding:100px 0}.ap-statement p{opacity:1}
     .ap-statement .w{color:var(--on-dark)}
   }
 </style>
@@ -2415,9 +2416,10 @@ function apMotion() {
   /* ประโยคใหญ่ลอยขึ้นจากจางสู่เข้มตามการเลื่อน */
   const sp = $('stmt'), stR = $('statement').getBoundingClientRect();
   if (!$('statement').classList.contains('none')) {
-    const k = apClamp((vh - stR.top) / (vh * .7)), e = 1 - Math.pow(1 - k, 3);
-    sp.style.opacity = String(.06 + .94 * e);
-    sp.style.transform = `translateY(${(1 - e) * 70}px)`;
+    /* หน้าจอค้าง: เริ่มว่าง → ตัวอักษรลอยจากล่างมากลางจอพร้อมจางสู่เข้ม (60% แรกของการเลื่อน) → ค้างให้อ่าน → ไปบล็อกถัดไป */
+    const k = apClamp(-stR.top / (($('statement').offsetHeight - vh) * .6)), e = 1 - Math.pow(1 - k, 3);
+    sp.style.opacity = String(e);
+    sp.style.transform = `translateY(${(1 - e) * vh * .42}px)`;
     sp.style.filter = e < .99 ? `blur(${(1 - e) * 8}px)` : '';
   }
   /* ฮีโร่ย่อและจางลง */
