@@ -207,6 +207,12 @@
   /* ---------- หน้าต่าง ---------- */
   dialog{border:1px solid var(--ink);border-radius:0;padding:0;background:var(--paper);color:var(--ink);width:min(980px,calc(100vw - 24px));max-height:calc(100vh - 32px);box-shadow:12px 12px 0 #c9cdd3}
   dialog::backdrop{background:rgba(31,35,40,.5)}
+  /* ตัวอ่านวารสาร (PDF จาก Drive แบบอ่านอย่างเดียว) */
+  dialog.reader{width:min(1100px,calc(100vw - 24px));height:calc(100dvh - 32px);max-height:none;display:none;flex-direction:column}
+  dialog.reader[open]{display:flex}
+  .rd-box{position:relative;flex:1;background:#525659;user-select:none}
+  .rd-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .rd-box .rd-cover{position:absolute;top:0;right:0;width:64px;height:56px;background:transparent}
   dialog[open]{animation:pop .35s var(--ease)}
   @keyframes pop{from{opacity:0;transform:translateY(16px)}}
   .dlg-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--ink);position:sticky;top:0;background:var(--paper);z-index:2}
@@ -442,6 +448,7 @@
     .seg{flex:1 1 100%}
     .seg button{flex:1;padding:9px 6px}
     dialog{width:100vw;max-width:100vw;max-height:100dvh;height:auto;margin:auto 0 0;box-shadow:none;border-left:0;border-right:0;border-bottom:0}
+    dialog.reader{width:100vw;height:100dvh;margin:0}
     .detail .info{padding:20px 18px 26px}
     .detail .pic img{max-height:50vh}
     .dlg-foot{flex-wrap:wrap}
@@ -891,6 +898,12 @@
 <dialog id="detailDlg">
   <div class="dlg-head"><h3 id="detailCat"></h3><button class="x" data-close aria-label="ปิด">×</button></div>
   <div id="detailBody"></div>
+</dialog>
+
+<!-- ตัวอ่านวารสาร -->
+<dialog id="readDlg" class="reader">
+  <div class="dlg-head"><h3 id="readTitle"></h3><button class="x" data-close aria-label="ปิด">×</button></div>
+  <div class="rd-box" id="readBox"></div>
 </dialog>
 
 <!-- ฟอร์มเพิ่ม/แก้ไข (ผู้ดูแล) -->
@@ -1647,21 +1660,37 @@ function renderWorks() {
   }).join('') || '<div class="empty">ยังไม่มีโครงการ</div>';
   $('shelf').innerHTML = journals.map((w, i) => {
     const url = safeUrl(w.url);
+    const rd = driveId(url) ? ` data-read="${esc(w.id)}"` : ' target="_blank" rel="noopener"';
     const cover = w.image ? `<img data-img="${esc(w.image)}" alt="ปก ${esc(w.title)}">`
       : `<div class="bk-art" style="background:${ART_G[(i + 2) % ART_G.length]}"><small>วารสาร</small><b>${esc(w.title)}</b><i>${esc(w.tag)}</i></div>`;
     const book = `<div class="bk"><div class="bk-cover">${cover}</div></div>`;
     return `<article class="jr rv${isHidden(w) ? ' is-hidden' : ''}" style="--d:${Math.min(i, 5) * .08}s">${workTools(w)}
-      ${url ? `<a href="${esc(url)}" target="_blank" rel="noopener" aria-label="อ่าน ${esc(w.title)}">${book}</a>` : book}
+      ${url ? `<a href="${esc(url)}"${rd} aria-label="อ่าน ${esc(w.title)}">${book}</a>` : book}
       <div class="jr-body">${hiddenTag(w)}
         ${w.tag ? `<span class="pj-tag">${esc(w.tag)}</span>` : ''}
         <h3>${esc(w.title)}</h3>
         ${w.text ? `<p>${esc(w.text)}</p>` : ''}
-        ${url ? `<a class="jr-link" href="${esc(url)}" target="_blank" rel="noopener">${esc(w.urlLabel || 'อ่านวารสาร')} ${ICON.arrow}</a>` : '<span class="jr-soon">เร็ว ๆ นี้</span>'}
+        ${url ? `<a class="jr-link" href="${esc(url)}"${rd}>${esc(w.urlLabel || 'อ่านวารสาร')} ${ICON.arrow}</a>` : '<span class="jr-soon">เร็ว ๆ นี้</span>'}
       </div></article>`;
   }).join('') || '<div class="empty">ยังไม่มีวารสาร</div>';
   loadImages($('projList'), true); loadImages($('shelf'), true);
   reveal();
 }
+// อ่านวารสารในหน้าเว็บ: ฝังตัวอ่าน PDF ของ Drive แบบไม่มีปุ่มดาวน์โหลด
+// (ไฟล์ต้องปิด "ผู้มีสิทธิ์อ่านดาวน์โหลด พิมพ์ และคัดลอกได้" ใน Drive) · กล่องใสบังปุ่ม "เปิดในหน้าต่างใหม่" มุมขวาบน
+function openReader(id) {
+  const w = state.works.find(x => x.id === id); const d = w && driveId(w.url); if (!d) return;
+  $('readTitle').textContent = w.title + (w.tag ? ' · ' + w.tag : '');
+  $('readBox').innerHTML = `<iframe src="https:\/\/drive.google.com/file/d/${d}/preview" title="${esc(w.title)}" allow="fullscreen"></iframe><div class="rd-cover"></div>`;
+  $('readDlg').showModal();
+}
+document.addEventListener('click', e => {
+  const r = e.target.closest('[data-read]'); if (!r) return;
+  e.preventDefault(); openReader(r.dataset.read);
+});
+$('readDlg').addEventListener('close', () => { $('readBox').innerHTML = ''; });
+$('readBox').addEventListener('contextmenu', e => e.preventDefault());
+
 // หน้ารายละเอียดโครงการ (กดที่การ์ด)
 function openWork(id) {
   const w = state.works.find(x => x.id === id); if (!w) return;
@@ -1691,6 +1720,7 @@ document.addEventListener('keydown', e => {
   if (c && e.key === 'Enter' && e.target === c) openWork(c.dataset.openWork);
 });
 
+const JOURNAL_HINT = 'ลิงก์ PDF บน Drive จะเปิดอ่านในหน้าเว็บ (ไม่มีปุ่มดาวน์โหลด) · ใน Drive: แชร์ → ทุกคนที่มีลิงก์ และกดรูปเฟือง → ปิด "ผู้มีสิทธิ์อ่านจะดาวน์โหลด พิมพ์ และคัดลอกได้"';
 function editWork(w, cat) {
   const c = w ? w.cat : cat;
   openForm({
@@ -1703,7 +1733,7 @@ function editWork(w, cat) {
       { name: 'tag', label: c === 'วารสาร' ? 'ฉบับ / ปี' : 'ป้ายสั้น ๆ', full: true, placeholder: c === 'วารสาร' ? 'ปีที่ 1 ฉบับที่ 1 · ปีการศึกษา 2569' : 'ม.1 – ม.6' },
       { name: 'text', label: 'คำอธิบาย', type: 'textarea', full: true },
       { name: 'image', label: c === 'วารสาร' ? 'ภาพปกวารสาร' : 'ภาพประกอบ', type: 'image', max: 1000, hint: c === 'วารสาร' ? 'ภาพปกแนวตั้ง' : 'ภาพแนวนอน' },
-      { name: 'url', label: 'ลิงก์ไฟล์ / หน้าเว็บ', type: 'url', full: true, placeholder: 'https:\/\/drive.google.com/…', hint: 'เช่น ลิงก์ PDF บน Google Drive ที่แชร์แล้ว' },
+      { name: 'url', label: 'ลิงก์ไฟล์ / หน้าเว็บ', type: 'url', full: true, placeholder: 'https:\/\/drive.google.com/…', hint: c === 'วารสาร' ? JOURNAL_HINT : 'เช่น ลิงก์ PDF บน Google Drive ที่แชร์แล้ว' },
       { name: 'urlLabel', label: 'ข้อความบนปุ่มลิงก์', placeholder: c === 'วารสาร' ? 'อ่านวารสาร' : 'ดูรายละเอียด' },
       { name: 'hidden', label: 'ซ่อนจากหน้าเว็บ (เห็นเฉพาะผู้ดูแล)', type: 'check' },
     ],
