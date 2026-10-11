@@ -821,8 +821,8 @@
 
   /* ---------- ตัวเลขผลงาน ---------- */
   /* ---------- 5 สาขาวิชา: หน้าจอค้าง · ตัวหนังสือทั้งหมดแตกเป็นเม็ดตามการเลื่อน แล้วประกอบเป็นการ์ด 5 สาขา ---------- */
-  .ap-subj{position:relative;background:var(--ap-dark);color:var(--on-dark);height:250vh;padding:0}
-  .subj-pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;padding-top:52px}
+  .ap-subj{position:relative;background:var(--ap-dark);color:var(--on-dark);padding:0}
+  .subj-pin{position:relative;height:100svh;min-height:600px;overflow:hidden;display:flex;align-items:center;padding-top:52px}
   .ap-subj .glow{position:absolute;width:80vmax;height:80vmax;border-radius:50%;left:50%;top:58%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(166,108,255,.30),rgba(255,95,109,.10) 40%,transparent 62%);filter:blur(40px);pointer-events:none}
   .subj-fx{position:absolute;left:0;top:0;pointer-events:none;z-index:3}
   .subj-in{position:relative;width:100%}
@@ -2286,7 +2286,7 @@ function renderSubjects() {
       <div class="sj-art">${sc.svg}</div><small>${esc(sc.en)}</small><b>${esc(sc.th)}</b><p>${esc(SUBJ_DESC[sc.th] || '')}</p></article>`; }).join('');
   subjLayout();
   subjFx.pts = null;
-  requestAnimationFrame(subjFrame);
+  requestAnimationFrame(subjScroll);
 }
 /* ตำแหน่งการ์ดแบบจัดองค์ประกอบ: [x, y, มุม, ขนาด, ลำดับชั้น] — ใบกลาง (ชีววิทยา) ใหญ่สุดอยู่หน้า ใบอื่นกระจายสูงต่ำไม่เท่ากัน */
 const SUBJ_LAYOUT = {
@@ -2358,13 +2358,48 @@ function subjSample() {
   });
   return { P, W, H, shift, n: cards.length };
 }
-function subjFrame() {
+/* ---------- ตัวควบคุม: เลื่อนมาถึงส่วนนี้ → หยุดหน้าจอตรงนี้ ล็อกการเลื่อน แล้วเล่นจนจบเอง (~1.8 วินาที) ----------
+   เลื่อนกลับขึ้นไปแล้วลงมาใหม่จะเล่นอีกครั้ง · กระโดดผ่าน (เช่นกดเมนู) จะเห็นการ์ดที่จัดเสร็จแล้ว */
+const SUBJ_PLAY_MS = 1800;
+const subjPlay = { mode: 'idle', lockY: 0 };
+const subjBlock = e => { if (subjPlay.mode === 'play') e.preventDefault(); };
+const subjKeys = e => { if (subjPlay.mode === 'play' && [' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) e.preventDefault(); };
+addEventListener('wheel', subjBlock, { passive: false });
+addEventListener('touchmove', subjBlock, { passive: false });
+addEventListener('keydown', subjKeys);
+function subjScroll() {
+  const sec = $('apSubj'); if (!sec || !$('subjGrid').children.length) return;
+  if (reduceMotion) return subjFrame(1);
+  const vh = innerHeight, r = sec.getBoundingClientRect();
+  if (subjPlay.mode === 'play') { if (Math.abs(scrollY - subjPlay.lockY) > 1) scrollTo(0, subjPlay.lockY); return; }
+  if (subjPlay.mode === 'done') { if (r.top > vh * .6) { subjPlay.mode = 'idle'; subjFrame(0); } return; }
+  /* idle */
+  if (r.top < -vh * .6 || r.bottom < 0) { subjPlay.mode = 'done'; return subjFrame(1); }
+  if (r.top <= 4) return subjStart();
+  subjFrame(0);
+}
+function subjStart() {
+  const sec = $('apSubj');
+  subjPlay.mode = 'play';
+  subjPlay.lockY = Math.round(sec.getBoundingClientRect().top + scrollY);
+  scrollTo(0, subjPlay.lockY);
+  const t0 = performance.now();
+  const tick = now => {
+    const t = apClamp((now - t0) / SUBJ_PLAY_MS);
+    subjFrame(.06 + t * .8);
+    if (t < 1) return requestAnimationFrame(tick);
+    subjFrame(1);
+    subjPlay.mode = 'done';
+  };
+  requestAnimationFrame(tick);
+}
+function subjFrame(p) {
   const sec = $('apSubj'), cv = $('subjFx'), head = $('subjHead'), grid = $('subjGrid');
   if (!sec || !grid.children.length) return;
   const cards = [...grid.children];
   if (reduceMotion) { head.classList.remove('gone'); cards.forEach(c => { c.style.opacity = 1; c.style.setProperty('--spread', 1); }); return; }
   const vh = innerHeight, r = sec.getBoundingClientRect();
-  const p = apClamp(-r.top / Math.max(1, sec.offsetHeight - vh));
+  p = p || 0;
   const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   if (!subjFx.pts && r.top < vh && r.bottom > 0) subjFx.pts = subjSample();
   const S = subjFx.pts;
@@ -2411,7 +2446,7 @@ function apMotion() {
     const r = el.getBoundingClientRect(); return r.top <= 26 && r.bottom >= 26;
   }) || document.querySelector('footer').getBoundingClientRect().top <= 26;
   $('sticky').classList.toggle('dark', overDark);
-  subjFrame();
+  subjScroll();
   if (reduceMotion) return;
   /* ประโยคใหญ่ลอยขึ้นจากจางสู่เข้มตามการเลื่อน */
   const sp = $('stmt'), stR = $('statement').getBoundingClientRect();
