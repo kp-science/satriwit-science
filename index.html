@@ -951,20 +951,27 @@
   .row:hover,.row:focus-visible{background:var(--paper-2)}
   .row::before{display:none}
 
-  /* ---------- โครงการ (การ์ดซ้อนตอนเลื่อน) ---------- */
-  .proj{display:flex;flex-direction:column;gap:40px}
-  .pj,.pj.feat{position:sticky;top:var(--top,84px);display:grid;grid-template-columns:1.1fr 1fr;gap:0;align-items:stretch;min-height:460px;border:0;padding:0;border-radius:32px;overflow:hidden;background:#fff;box-shadow:0 30px 60px rgba(0,0,0,.08);transform-origin:center top;will-change:transform}
-  .pj .ph,.pj.feat .ph{aspect-ratio:auto;margin:0;min-height:100%;background:#e8e8ed}
-  .pj-body{padding:46px 42px;justify-content:center;gap:12px}
-  .pj-no{font:700 15px var(--ap-font)}
-  .pj h3,.pj.feat h3{font:700 clamp(28px,3.4vw,40px)/1.2 var(--ap-font)}
+  /* ---------- โครงการ (แบบ B: สลับซ้าย-ขวา ภาพขยายเมื่อเลื่อนมาถึง) ---------- */
+  .proj{display:flex;flex-direction:column;gap:110px}
+  .pj,.pj.feat{position:relative;display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:center;border:0;padding:0;background:none}
+  .pj.rv{opacity:1;transform:none}
+  .pj:nth-child(even) .ph{order:2}
+  .pj .ph,.pj.feat .ph{margin:0;aspect-ratio:4/3;border-radius:28px;overflow:hidden;background:#e8e8ed;transform:scale(.88);opacity:.4;transition:transform 1.2s var(--ease),opacity 1.2s var(--ease)}
+  .pj.in .ph{transform:none;opacity:1}
+  .pj:hover .ph img{transform:scale(1.04)}
+  .pj-body{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease) .15s,transform 1s var(--ease) .15s}
+  .pj.in .pj-body{opacity:1;transform:none}
+  .pj-no{font:700 64px/1 var(--ap-font)}
+  .pj h3,.pj.feat h3{font:700 clamp(28px,3.6vw,44px)/1.2 var(--ap-font);margin:6px 0 0}
   .pj:hover h3{text-decoration:none}
   .pj-tag{background:none;padding:0;color:var(--ink-2);font:500 15px var(--ap-font);letter-spacing:0}
-  .pj p{-webkit-line-clamp:4}
-  .pj-more{color:var(--ap-blue);background:none;-webkit-background-clip:border-box;background-clip:border-box}
+  .pj p{color:#424245;-webkit-line-clamp:6;margin-top:6px}
+  .pj-more{color:var(--ap-blue);background:none;-webkit-background-clip:border-box;background-clip:border-box;font:500 16px var(--ap-font)}
   .pj-art span{font-family:var(--ap-font)}
-  .pj.is-hidden{opacity:.6}
-  @media (max-width:760px){.pj,.pj.feat{grid-template-columns:1fr;min-height:0;top:var(--top-m,60px)}.pj .ph,.pj.feat .ph{min-height:0;aspect-ratio:16/10}.pj-body{padding:26px 22px 30px}}
+  .pj .edit{top:12px;right:auto;left:12px}
+  .pj:nth-child(even) .edit{left:auto;right:12px}
+  @media (max-width:760px){.proj{gap:70px}.pj,.pj.feat{grid-template-columns:1fr;gap:24px}.pj:nth-child(even) .ph{order:0}.pj:nth-child(even) .edit{right:auto;left:12px}.pj-no{font-size:48px}}
+  @media (prefers-reduced-motion:reduce){.pj .ph,.pj-body{opacity:1;transform:none}}
 
   /* ---------- วารสาร (พื้นดำ ปกหมุนตามการเลื่อน) ---------- */
   #journals{background:var(--ap-dark);color:var(--on-dark);overflow:hidden}
@@ -1009,7 +1016,6 @@
     .ap-hero .intro{opacity:1;transform:none;filter:none}
     .ap-statement{height:auto}.ap-statement .pin{position:static;height:auto;padding:100px 0}
     .ap-statement .w{color:var(--on-dark)}
-    .pj,.pj.feat{position:relative;top:auto}
   }
 </style>
 </head>
@@ -2322,16 +2328,6 @@ function apMotion() {
     const lit = Math.round(p * words.length);
     words.forEach((w, i) => w.classList.toggle('on', i < lit));
   }
-  /* การ์ดโครงการซ้อนกัน: ใบที่ถูกทับย่อและมืดลง */
-  const cards = [...document.querySelectorAll('#projList .pj')];
-  cards.forEach((c, i) => {
-    c.style.setProperty('--top', (84 + i * 16) + 'px'); c.style.setProperty('--top-m', (60 + i * 10) + 'px');
-    const next = cards[i + 1];
-    if (!next) { c.style.transform = ''; c.style.filter = ''; return; }
-    const p = apClamp(1 - (next.getBoundingClientRect().top - c.getBoundingClientRect().top) / c.offsetHeight);
-    c.style.transform = p ? `scale(${1 - p * .06})` : '';
-    c.style.filter = p ? `brightness(${1 - p * .25})` : '';
-  });
   /* ปกวารสารหมุนตามตำแหน่งบนจอ */
   document.querySelectorAll('#shelf .bk-cover').forEach(b => {
     const r = b.getBoundingClientRect(), p = apClamp((vh - r.top) / (vh + r.height)) * 2 - 1;
