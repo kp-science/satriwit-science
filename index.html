@@ -824,14 +824,13 @@
   .ap-subj{position:relative;background:var(--ap-dark);color:var(--on-dark);padding:0}
   .subj-pin{position:relative;height:100svh;min-height:600px;overflow:hidden;display:flex;align-items:center;padding-top:52px}
   .ap-subj .glow{position:absolute;width:80vmax;height:80vmax;border-radius:50%;left:50%;top:58%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(166,108,255,.30),rgba(255,95,109,.10) 40%,transparent 62%);filter:blur(40px);pointer-events:none}
-  .subj-fx{position:absolute;left:0;top:0;pointer-events:none;z-index:3}
   .subj-in{position:relative;width:100%}
   .subj-head{text-align:center;margin-bottom:clamp(24px,5vh,56px)}
   .subj-head .eyebrow{color:var(--on-dark-2);font:600 clamp(15px,1.6vw,21px)/1.4 var(--ap-font);margin:0 0 6px}
   .subj-head h2{font:700 clamp(40px,min(8vw,11vh),100px)/1.25 var(--ap-font);margin:0;letter-spacing:-.01em}
   .subj-head h2 span{display:inline-block;padding:.04em 0;background:var(--ap-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
   .subj-head p{color:var(--on-dark-2);font-size:clamp(16px,1.8vw,20px);margin:10px auto 0;max-width:620px}
-  .subj-head.gone{visibility:hidden}
+  .subj-head{will-change:transform,opacity}
   /* การ์ดกระจายแบบจัดองค์ประกอบ (ไม่เรียงแถว): --x --y --r --s = ตำแหน่ง มุม ขนาดของแต่ละใบ · --spread 0 = ซ้อนเป็นกอง, 1 = กระจายเต็ม */
   .subj-grid{position:relative;height:var(--fan-h,420px);--cw:220px}
   .sj{position:absolute;left:50%;top:var(--top0,-10px);width:var(--cw);margin-left:calc(var(--cw) / -2);border-radius:26px;padding:16px 14px 20px;text-align:center;overflow:hidden;opacity:0;z-index:var(--z);transform-origin:50% 130%;
@@ -1065,7 +1064,7 @@
 <section class="ap-statement none" id="statement"><div class="pin"><div class="wrap"><p id="stmt"></p></div></div></section>
 
 <!-- 5 สาขาวิชา: หน้าจอค้าง · ตัวหนังสือแตกเป็นเม็ดตามการเลื่อน แล้วประกอบเป็นการ์ด 5 สาขา -->
-<section class="ap-subj" id="apSubj" aria-label="5 สาขาวิชา"><div class="subj-pin" id="subjPin"><div class="glow"></div><canvas class="subj-fx" id="subjFx" aria-hidden="true"></canvas>
+<section class="ap-subj" id="apSubj" aria-label="5 สาขาวิชา"><div class="subj-pin" id="subjPin"><div class="glow"></div>
   <div class="wrap subj-in">
     <div class="subj-head" id="subjHead">
       <p class="eyebrow">สาขาวิชาในกลุ่มสาระ</p>
@@ -2285,7 +2284,7 @@ function renderSubjects() {
   $('subjGrid').innerHTML = SCENES.map((sc, i) => { const [c1, c2] = subjColors(sc.g); return `<article class="sj" style="--c1:${c1};--c2:${c2 || c1};--i:${i}">
       <div class="sj-art">${sc.svg}</div><small>${esc(sc.en)}</small><b>${esc(sc.th)}</b><p>${esc(SUBJ_DESC[sc.th] || '')}</p></article>`; }).join('');
   subjLayout();
-  subjFx.pts = null;
+  subjRender(0, 0);
   requestAnimationFrame(subjScroll);
 }
 /* ตำแหน่งการ์ดแบบจัดองค์ประกอบ: [x, y, มุม, ขนาด, ลำดับชั้น] — ใบกลาง (ชีววิทยา) ใหญ่สุดอยู่หน้า ใบอื่นกระจายสูงต่ำไม่เท่ากัน */
@@ -2303,63 +2302,22 @@ function subjLayout() {
   });
 }
 addEventListener('resize', subjLayout);
-/* ---------- ตัวหนังสือทั้งส่วน → เม็ด → การ์ด (ผูกกับการเลื่อน เลื่อนกลับก็ประกอบเป็นตัวหนังสือคืน) ----------
-   ช่วงความคืบหน้า: 0–.06 ตัวหนังสือปกติ · .06–.66 เม็ดลอยไปที่การ์ด · .58–.80 การ์ดปรากฏ · .80–1 ค้างให้ดูการ์ดก่อนเลื่อนต่อ */
-const subjFx = { pts: null, W: 0, H: 0, shift: 0 };
-addEventListener('resize', () => { subjFx.pts = null; });
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { subjFx.pts = null; });
-function subjSample() {
-  const pin = $('subjPin'), head = $('subjHead'), grid = $('subjGrid');
-  const pr = pin.getBoundingClientRect(), W = Math.ceil(pr.width), H = Math.ceil(pr.height);
-  const off = document.createElement('canvas'); off.width = W; off.height = H;
-  const ox = off.getContext('2d');
-  const seg = window.Intl && Intl.Segmenter ? new Intl.Segmenter('th', { granularity: 'word' }) : null;
-  /* วาดทุกคำของตัวหนังสือในส่วนนี้ลงผ้าใบซ่อน ตรงตำแหน่งบนจอ (ใช้ Range หาตำแหน่งทีละคำ) */
-  const walk = document.createTreeWalker(head, NodeFilter.SHOW_TEXT);
-  for (let n = walk.nextNode(); n; n = walk.nextNode()) {
-    const el = n.parentElement, cs = getComputedStyle(el), txt = n.textContent;
-    if (!txt.trim()) continue;
-    ox.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
-    const grad = el.tagName === 'SPAN';
-    let fill = cs.color;
-    if (grad) { const r = el.getBoundingClientRect(), g = ox.createLinearGradient(r.left - pr.left, 0, r.right - pr.left, 0); g.addColorStop(0, '#ff5f6d'); g.addColorStop(.45, '#ffb347'); g.addColorStop(1, '#a66cff'); fill = g; }
-    ox.fillStyle = fill;
-    const parts = seg ? [...seg.segment(txt)] : txt.split(/(\s+)/).reduce((a, w) => { a.push({ segment: w, index: a.length ? a[a.length - 1].index + a[a.length - 1].segment.length : 0 }); return a; }, []);
-    parts.forEach(({ segment: w, index: i }) => {
-      if (!w.trim()) return;
-      const rg = document.createRange(); rg.setStart(n, i); rg.setEnd(n, i + w.length);
-      const r = rg.getClientRects()[0]; if (!r) return;
-      const m = ox.measureText(w), asc = m.fontBoundingBoxAscent || parseFloat(cs.fontSize) * .9, desc = m.fontBoundingBoxDescent || parseFloat(cs.fontSize) * .3;
-      ox.fillText(w, r.left - pr.left, r.top - pr.top + (r.height - asc - desc) / 2 + asc);
-    });
-  }
-  const hr = head.getBoundingClientRect(), x0 = Math.max(0, Math.floor(hr.left - pr.left)), y0 = Math.max(0, Math.floor(hr.top - pr.top));
-  const bw = Math.min(W - x0, Math.ceil(hr.width)), bh = Math.min(H - y0, Math.ceil(hr.height));
-  if (bw <= 0 || bh <= 0) return null;
-  const data = ox.getImageData(x0, y0, bw, bh).data, step = W < 700 ? 3 : 4, raw = [];
-  for (let y = 0; y < bh; y += step) for (let x = 0; x < bw; x += step) {
-    const k = (y * bw + x) * 4; if (data[k + 3] > 120) raw.push([x0 + x, y0 + y, data[k], data[k + 1], data[k + 2]]);
-  }
-  while (raw.length > 3600) raw.splice((Math.random() * raw.length) | 0, 1);
-  /* จุดหมาย: ตำแหน่งการ์ดตอนจบ (ตารางการ์ดเลื่อนขึ้นมาแทนที่หัวข้อ) */
-  const shift = Math.max(0, (hr.height + parseFloat(getComputedStyle(head).marginBottom)) / 2);
-  const cards = [...grid.children], gr = grid.getBoundingClientRect();
-  const gt = getComputedStyle(grid).transform, cur = gt && gt !== 'none' ? new DOMMatrix(gt).m42 : 0;
-  const c0 = cards[0], cw = c0.offsetWidth, ch = c0.offsetHeight;
-  const stack = { x: gr.left - pr.left + gr.width / 2 - cw / 2, y: gr.top - pr.top - cur - shift + c0.offsetTop, w: cw, h: ch };
-  const rects = cards.map(() => stack);
-  const cols = cards.map(c => { const st = getComputedStyle(c); return ['--c1', '--c2'].map(v => { const h = st.getPropertyValue(v).trim() || '#a66cff'; return [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)); }); });
-  raw.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
-  const P = raw.map((q, i) => {
-    const ci = Math.min(cards.length - 1, Math.floor(i / raw.length * cards.length)), r = rects[ci];
-    return { sx: q[0], sy: q[1], tx: r.x + 6 + Math.random() * (r.w - 12), ty: r.y + 6 + Math.random() * (r.h - 12),
-      c0: [q[2], q[3], q[4]], c1: cols[ci][Math.random() < .5 ? 0 : 1], o: Math.random() * .12 + (q[0] / W) * .06,
-      bend: (Math.random() - .5) * 220, lift: Math.random() * 120, sz: 1.3 + Math.random() * 1.7, ci };
-  });
-  return { P, W, H, shift, n: cards.length };
-}
-/* ---------- ตัวควบคุม: เลื่อนมาถึงส่วนนี้ → หยุดหน้าจอตรงนี้ ล็อกการเลื่อน แล้วเล่นจนจบเอง (~1.8 วินาที) ----------
-   เลื่อนกลับขึ้นไปแล้วลงมาใหม่จะเล่นอีกครั้ง · กระโดดผ่าน (เช่นกดเมนู) จะเห็นการ์ดที่จัดเสร็จแล้ว */
+/* ล็อกการเลื่อนร่วมกันของทุกบล็อกที่ต้องเล่นโมชันให้จบก่อน (กันล้อเมาส์ นิ้วปัด และปุ่มลูกศร) */
+const apLock = { on: false, y: 0 };
+function lockAt(y) { apLock.on = true; apLock.y = Math.round(y); scrollTo({ top: apLock.y, behavior: 'instant' }); }
+function unlock() { apLock.on = false; }
+const NEXT_KEYS = [' ', 'PageDown', 'ArrowDown', 'End'], PREV_KEYS = ['PageUp', 'ArrowUp', 'Home'];
+let touchY0 = null;
+addEventListener('wheel', e => { if (!apLock.on) return; e.preventDefault(); subjIntent(e.deltaY); }, { passive: false });
+addEventListener('touchstart', e => { touchY0 = e.touches[0].clientY; }, { passive: true });
+addEventListener('touchmove', e => {
+  if (!apLock.on) return; e.preventDefault();
+  if (touchY0 != null) { const dy = touchY0 - e.touches[0].clientY; if (Math.abs(dy) > 30) { subjIntent(dy); touchY0 = null; } }
+}, { passive: false });
+addEventListener('keydown', e => {
+  if (!apLock.on) return;
+  if (NEXT_KEYS.includes(e.key)) { e.preventDefault(); subjIntent(1); } else if (PREV_KEYS.includes(e.key)) { e.preventDefault(); subjIntent(-1); }
+});
 /* ---------- ประโยคใหญ่: เลื่อนมาถึง → หยุดหน้าจอ ล็อก → ตัวอักษรลอยจากล่างมากลางจอ จางสู่เข้ม → ค้างให้อ่านครู่หนึ่ง → ปลดล็อก ---------- */
 const STMT_RISE_MS = 1100, STMT_HOLD_MS = 600;
 const stmtPlay = { mode: 'idle' };
@@ -2393,85 +2351,71 @@ function stmtScroll() {
   }
   stmtRender(0);
 }
-const SUBJ_PLAY_MS = 1800;
-const subjPlay = { mode: 'idle', lockY: 0 };
-/* ล็อกการเลื่อนร่วมกันของทุกบล็อกที่ต้องเล่นโมชันให้จบก่อน */
-const apLock = { on: false, y: 0 };
-function lockAt(y) { apLock.on = true; apLock.y = Math.round(y); scrollTo({ top: apLock.y, behavior: 'instant' }); }
-function unlock() { apLock.on = false; }
-const subjBlock = e => { if (apLock.on) e.preventDefault(); };
-const subjKeys = e => { if (apLock.on && [' ', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) e.preventDefault(); };
-addEventListener('wheel', subjBlock, { passive: false });
-addEventListener('touchmove', subjBlock, { passive: false });
-addEventListener('keydown', subjKeys);
-function subjScroll() {
-  const sec = $('apSubj'); if (!sec || !$('subjGrid').children.length) return;
-  if (reduceMotion) return subjFrame(1);
-  const vh = innerHeight, r = sec.getBoundingClientRect();
-  if (subjPlay.mode === 'play') return;
-  if (subjPlay.mode === 'done') { if (r.top > vh * .6) { subjPlay.mode = 'idle'; subjFrame(0); } return; }
-  /* idle */
-  if (r.bottom < vh * .25) { subjPlay.mode = 'done'; return subjFrame(1); }
-  if (r.top <= 4) return subjStart();
-  subjFrame(0);
-}
-function subjStart() {
-  const sec = $('apSubj');
-  subjPlay.mode = 'play';
-  lockAt(sec.getBoundingClientRect().top + scrollY);
-  const t0 = performance.now();
-  const finish = () => { if (subjPlay.mode !== 'play') return; subjFrame(1); subjPlay.mode = 'done'; unlock(); };
-  const tick = now => {
-    if (subjPlay.mode !== 'play') return;
-    const t = apClamp((now - t0) / SUBJ_PLAY_MS);
-    subjFrame(.06 + t * .8);
-    if (t < 1) return requestAnimationFrame(tick);
-    finish();
-  };
-  setTimeout(finish, SUBJ_PLAY_MS + 400); /* กันค้าง */
-  requestAnimationFrame(tick);
-}
-function subjFrame(p) {
-  const sec = $('apSubj'), cv = $('subjFx'), head = $('subjHead'), grid = $('subjGrid');
-  if (!sec || !grid.children.length) return;
-  const cards = [...grid.children];
-  if (reduceMotion) { head.classList.remove('gone'); cards.forEach(c => { c.style.opacity = 1; c.style.setProperty('--spread', 1); }); return; }
-  const vh = innerHeight, r = sec.getBoundingClientRect();
-  p = p || 0;
-  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  if (!subjFx.pts && r.top < vh && r.bottom > 0) subjFx.pts = subjSample();
-  const S = subjFx.pts;
-  /* ตารางการ์ดเลื่อนขึ้นมาแทนที่หัวข้อ */
-  const gp = ease(apClamp((p - .3) / .45));
-  grid.style.transform = S ? `translateY(${-S.shift * gp}px)` : '';
-  /* การ์ดปรากฏทีละใบ */
-  const spread = ease(apClamp((p - .6) / .22));
-  cards.forEach((c, i) => {
-    const k = ease(apClamp((p - .48 - i * .012) / .12));
+/* ---------- 5 สาขาวิชา: 2 จังหวะ ----------
+   1) เลื่อนมาถึง → หยุดหน้าจอ ล็อก → หัวข้อและคำโปรยลอยจากล่างมากลางจอ จางสู่เข้ม (เหมือนประโยคใหญ่)
+   2) เลื่อนต่ออีกครั้ง → ตัวหนังสือจางขึ้นด้านบน การ์ดโผล่จากกองแล้วกระจายลอยเหมือนไพ่ → ปลดล็อก
+   ระหว่างรอจังหวะ 2 ถ้าเลื่อนขึ้น จะปลดล็อกให้ย้อนกลับได้ · เลื่อนกลับขึ้นไปพ้นส่วนนี้แล้วลงมาใหม่จะเล่นใหม่ */
+const SUBJ_TEXT_MS = 1100, SUBJ_CARDS_MS = 1400;
+const subjPlay = { mode: 'idle', text: 0, cards: 0 };
+const subjEase = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+function subjRender(textK, cardsK) {
+  const head = $('subjHead'), grid = $('subjGrid'); if (!head || !grid.children.length) return;
+  subjPlay.text = textK; subjPlay.cards = cardsK;
+  const vh = innerHeight, e = 1 - Math.pow(1 - textK, 3);
+  const out = subjEase(apClamp(cardsK / .4));
+  head.style.opacity = String(e * (1 - out));
+  head.style.transform = `translateY(${(1 - e) * vh * .42 - out * 70}px)`;
+  head.style.filter = e < .99 ? `blur(${(1 - e) * 8}px)` : '';
+  const shift = (head.offsetHeight + parseFloat(getComputedStyle(head).marginBottom || 0)) / 2;
+  grid.style.transform = `translateY(${-shift * subjEase(apClamp(cardsK / .6))}px)`;
+  const spread = subjEase(apClamp((cardsK - .42) / .58));
+  [...grid.children].forEach((c, i) => {
+    const k = subjEase(apClamp((cardsK - .12 - i * .03) / .32));
     c.style.opacity = k;
-    c.style.setProperty('--rise', (26 * (1 - k)).toFixed(1) + 'px');
-    c.style.setProperty('--sc', (.92 + .08 * k).toFixed(3));
+    c.style.setProperty('--rise', (40 * (1 - k)).toFixed(1) + 'px');
+    c.style.setProperty('--sc', (.86 + .14 * k).toFixed(3));
     c.style.setProperty('--spread', spread.toFixed(3));
   });
-  const active = p > .06 && p < .62 && S;
-  head.classList.toggle('gone', p > .06 && !!S);
-  if (!active) { if (cv.width) { cv.width = cv.height = 0; } return; }
-  const dpr = Math.min(2, devicePixelRatio || 1);
-  if (cv.width !== Math.round(S.W * dpr)) { cv.width = S.W * dpr; cv.height = S.H * dpr; cv.style.width = S.W + 'px'; cv.style.height = S.H + 'px'; }
-  const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, S.W, S.H);
-  const fadeAll = 1 - apClamp((p - .5) / .1);
-  for (const q of S.P) {
-    const l = apClamp((p - .06 - q.o) / .26), e = ease(l);
-    /* ช่วงแรกเม็ดฟุ้งกระจายออก แล้วจึงพุ่งเข้าหาการ์ด */
-    const burst = Math.sin(Math.min(1, l * 1.6) * Math.PI) * (1 - e);
-    const x = q.sx + (q.tx - q.sx) * e + q.bend * burst;
-    const y = q.sy + (q.ty - q.sy) * e - q.lift * burst;
-    const c = q.c0.map((v, i) => Math.round(v + (q.c1[i] - v) * e));
-    ctx.globalAlpha = fadeAll;
-    ctx.fillStyle = `rgb(${c[0]},${c[1]},${c[2]})`;
-    ctx.fillRect(x, y, q.sz, q.sz);
+}
+function subjAnimate(key, ms, done) {
+  const t0 = performance.now(), from = subjPlay[key];
+  let fin = false;
+  const finish = () => { if (fin) return; fin = true; key === 'text' ? subjRender(1, subjPlay.cards) : subjRender(subjPlay.text, 1); done(); };
+  const tick = now => {
+    if (fin) return;
+    const t = apClamp((now - t0) / ms), v = from + (1 - from) * t;
+    key === 'text' ? subjRender(v, subjPlay.cards) : subjRender(subjPlay.text, v);
+    if (t < 1) requestAnimationFrame(tick); else finish();
+  };
+  setTimeout(finish, ms + 400); /* กันค้าง: ถ้าเฟรมหยุด (เช่นสลับแท็บ) ก็ไปต่อแน่นอน */
+  requestAnimationFrame(tick);
+}
+function subjIntent(dir) {
+  if (subjPlay.mode !== 'wait') return;
+  if (dir > 0) {
+    subjPlay.mode = 'cards';
+    subjAnimate('cards', SUBJ_CARDS_MS, () => { subjPlay.mode = 'done'; unlock(); });
+  } else { subjPlay.mode = 'leaving'; unlock(); }
+}
+function subjScroll() {
+  const sec = $('apSubj'); if (!sec || !$('subjGrid').children.length) return;
+  if (reduceMotion) return subjRender(1, 1);
+  const vh = innerHeight, r = sec.getBoundingClientRect(), m = subjPlay.mode;
+  if (m === 'text' || m === 'wait' || m === 'cards') return;
+  if (m === 'done') { if (r.top > vh * .6) { subjPlay.mode = 'idle'; subjRender(0, 0); } return; }
+  if (m === 'leaving') {
+    if (r.top > vh * .6) { subjPlay.mode = 'idle'; subjRender(0, 0); }
+    else if (r.top <= 4 && r.top > -vh * .5) { subjPlay.mode = 'wait'; lockAt(r.top + scrollY); }
+    return;
   }
-  ctx.globalAlpha = 1;
+  /* idle */
+  if (r.bottom < vh * .25) { subjPlay.mode = 'done'; return subjRender(1, 1); }
+  if (r.top <= 4) {
+    subjPlay.mode = 'text';
+    lockAt(r.top + scrollY);
+    return subjAnimate('text', SUBJ_TEXT_MS, () => { subjPlay.mode = 'wait'; });
+  }
+  if (subjPlay.text || subjPlay.cards) subjRender(0, 0);
 }
 const apClamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 let apTick = false;
