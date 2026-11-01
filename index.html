@@ -1057,7 +1057,7 @@
       <a href="#archive">รายการทั้งหมด</a>
       <a href="#projects">โครงการ</a>
       <a href="#journals">วารสาร</a>
-      <a class="nav-out" href="https://kp-science.github.io/kp-course/index.html" target="_blank" rel="noopener">คอร์สออนไลน์ ↗</a>
+      <a class="nav-out" href="https://course.kpscience.com/#/" target="_blank" rel="noopener">คอร์สออนไลน์ ↗</a>
     </nav>
     <button type="button" class="menu-btn" id="menuBtn" aria-label="เปิดเมนู" aria-expanded="false"><i></i><i></i></button>
   </div>
@@ -2163,8 +2163,8 @@ function card(k, i) {
       <span class="kc-go">${esc(goText(k))} ${K_ICON.arrow}</span>
     </div>${k.pinned === 'TRUE' ? '<span class="kc-pin">แนะนำ</span>' : ''}</a>`;
 }
-/* คอร์สออนไลน์อยู่เว็บแยก (kp-course) — ลิงก์ออกไปจากหน้านี้ */
-const COURSE_URL = 'https:\/\/kp-science.github.io/kp-course/index.html';
+/* คอร์สออนไลน์อยู่เว็บแยก — ลิงก์ออกไปจากหน้านี้ */
+const COURSE_URL = 'https:\/\/course.kpscience.com/#/';
 function renderKnowledge() {
   const L = state.knowledge || [];
   $('knTypes').innerHTML = K_TYPES.map(t => `<a class="kn-ty" target="_top" href="${knBase()}#/t/${encodeURIComponent(t.name)}"><span class="ic">${K_ICON[t.key]}</span><span><b>${esc(t.name)}</b><small>${esc(t.desc)}</small></span><span class="n">${L.filter(k => k.type === t.name).length}</span></a>`).join('')
